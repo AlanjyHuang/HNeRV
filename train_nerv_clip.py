@@ -341,27 +341,11 @@ def train(local_rank, args):
                 # `norm_idx` represents the coordinates (and time)
                 pe_input = norm_idx
                 
-                # Handle both single-GPU and multi-GPU cases
-                model_instance = model.module if hasattr(model, 'module') else model
-
-                if clip_embeds is not None and clip_coords is not None:
-                    # Get the positional encoding for the coordinates
-                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1)
-
-                    # Placeholder for nearest neighbor logic
-                    selected_clip_embeds = clip_embeds[:, 0, :]
-                    
-                    # Concatenate positional features and clip features
-                    combined_features = torch.cat([pe_features, selected_clip_embeds], dim=1)
-                    
-                    # Reshape and assign to input_embed
-                    cur_input = combined_features.unsqueeze(-1).unsqueeze(-1)
-                    input_for_model = (None, cur_input) # Pass as input_embed
-                else:
-                    # Fallback if no clip embeddings are available
-                    input_for_model = (pe_input, None) # Pass coordinates to be encoded by the model
+                # Note: We predict CLIP as output, not use as input
+                # So just pass the positional encoding coordinates
+                input_for_model = (pe_input, None)
             else:
-                # Fallback for non-positional encoding case
+                # Fallback for non-positional encoding case (HNeRV: image-based)
                 input_for_model = (img_data, None)
 
             cur_epoch = (epoch + float(i) / len(train_dataloader)) / args.epochs
@@ -586,16 +570,8 @@ def evaluate(model, full_dataloader, local_rank, args,
             input_for_model = None
             if 'pe' in args.embed:
                 pe_input = norm_idx
-                model_instance = cur_model.module if hasattr(cur_model, 'module') else cur_model
-
-                if clip_embeds is not None and clip_coords is not None:
-                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1)
-                    selected_clip_embeds = clip_embeds[:, 0, :]
-                    combined_features = torch.cat([pe_features, selected_clip_embeds], dim=1)
-                    cur_input = combined_features.unsqueeze(-1).unsqueeze(-1)
-                    input_for_model = (None, cur_input)
-                else:
-                    input_for_model = (pe_input, None)
+                # Note: We predict CLIP as output, not use as input
+                input_for_model = (pe_input, None)
             else:
                 input_for_model = (img_data, None)
 
