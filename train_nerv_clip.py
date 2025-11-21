@@ -311,13 +311,16 @@ def train(local_rank, args):
                 # `norm_idx` represents the coordinates (and time)
                 pe_input = norm_idx
                 
+                # Handle both single-GPU and multi-GPU cases
+                model_instance = model.module if hasattr(model, 'module') else model
+
                 if clip_embeds is not None and clip_coords is not None:
                     # Find the nearest CLIP embedding for each coordinate
                     # This is a simplified approach. For a batch, you'd need to handle this carefully.
                     # Assuming batch size is 1 for simplicity here.
                     
                     # Get the positional encoding for the coordinates
-                    pe_features = model.module.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1) # Shape: [B, 160]
+                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1) # Shape: [B, 160]
 
                     # For each item in the batch, find the nearest clip embedding
                     # This is a placeholder for the actual nearest neighbor logic.
@@ -332,7 +335,7 @@ def train(local_rank, args):
                     cur_input = combined_features.unsqueeze(-1).unsqueeze(-1)
                 else:
                     # Fallback if no clip embeddings are available
-                    cur_input = model.module.pe_embed(pe_input[:, None]).float()
+                    cur_input = model_instance.pe_embed(pe_input[:, None]).float()
             else:
                 # For image-based input, concatenate image data with clip embeddings if available
                 # (This part of the logic would need to be implemented if you use image-based input with CLIP)
