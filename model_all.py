@@ -143,6 +143,12 @@ class HNeRV(nn.Module):
             self.encoder = nn.Identity()
             self.fc_h, self.fc_w = [int(x) for x in args.fc_hw.split('_')]
         else:
+            # Parse encoder dimensions from args.enc_dim (format: "enc_dim1_enc_dim2")
+            enc_dim1, enc_dim2 = [int(x) for x in args.enc_dim.split('_')]
+            c_out_list = [enc_dim1] * len(args.enc_strds)
+            c_out_list[-1] = enc_dim2
+            c_in_list = [enc_dim1] * len(args.enc_strds)
+            
             ch_in = 3
             if args.clip_dim > 0:
                 ch_in += args.clip_dim

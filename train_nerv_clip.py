@@ -171,13 +171,16 @@ def train(local_rank, args):
         assert torch.distributed.is_initialized()        
         args.batchSize = int(args.batchSize / args.ngpus_per_node)
 
-    args.metric_names = ['pred_seen_psnr', 'pred_seen_ssim', 'pred_unseen_psnr', 'pred_unseen_ssim',
+    args.metric_names = ['pred_seen_psnr', 'pred_seen_ssim', 'pred_unseen_psnr', 'pred_unseen_ssim', 
         'quant_seen_psnr', 'quant_seen_ssim', 'quant_unseen_psnr', 'quant_unseen_ssim']
     best_metric_list = [torch.tensor(0) for _ in range(len(args.metric_names))]
 
+    # Check if distributed training is actually initialized
+    use_distributed = args.distributed and args.ngpus_per_node > 1
+
     # setup dataloader    
     full_dataset = VideoDataSet(args)
-    sampler = torch.utils.data.distributed.DistributedSampler(full_dataset) if args.distributed else None
+    sampler = torch.utils.data.distributed.DistributedSampler(full_dataset) if use_distributed else None
     full_dataloader = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, shuffle=False,
             num_workers=args.workers, pin_memory=True, sampler=sampler, drop_last=False, worker_init_fn=worker_init_fn)
     args.final_size = full_dataset.final_size
@@ -188,11 +191,9 @@ def train(local_rank, args):
 
     #  Make sure the testing dataset is fixed for every run
     train_dataset =  Subset(full_dataset, train_ind_list)
-    train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset) if args.distributed else None
+    train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset) if use_distributed else None
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batchSize, shuffle=(train_sampler is None),
-         num_workers=args.workers, pin_memory=True, sampler=train_sampler, drop_last=True, worker_init_fn=worker_init_fn)
-
-    # Compute the parameter number
+         num_workers=args.workers, pin_memory=True, sampler=train_sampler, drop_last=True, worker_init_fn=worker_init_fn)    # Compute the parameter number
     if 'pe' in args.embed or 'le' in args.embed:
         embed_param = 0
         embed_dim = int(args.embed.split('_')[-1]) * 2
