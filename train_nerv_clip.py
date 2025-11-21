@@ -351,20 +351,19 @@ def train(local_rank, args):
             if img_out.shape[-2:] != img_gt.shape[-2:]:
                 img_out = F.interpolate(img_out, size=img_gt.shape[-2:], mode='bilinear', align_corners=False)
 
-            if model_ind == 0:
-                pixel_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)
-                
-                final_loss = pixel_loss
-                if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
-                    # Assuming the model can also output clip embeddings for the generated image
-                    # This part needs to be implemented in the model
-                    pred_clip_embeds = model(cur_input, encode_only=True) # This needs to be implemented
-                    clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, clip_embeds, dim=-1).mean()
-                    final_loss += args.clip_loss_weight * clip_loss
+            pixel_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)
+            
+            final_loss = pixel_loss
+            if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
+                # Assuming the model can also output clip embeddings for the generated image
+                # This part needs to be implemented in the model
+                pred_clip_embeds = model(cur_input, encode_only=True) # This needs to be implemented
+                clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, clip_embeds, dim=-1).mean()
+                final_loss += args.clip_loss_weight * clip_loss
 
-                optimizer.zero_grad()
-                final_loss.backward()
-                optimizer.step()
+            optimizer.zero_grad()
+            final_loss.backward()
+            optimizer.step()
 
             pred_psnr_list.append(psnr_fn_single(img_out.detach(), img_gt)) 
             if i % args.print_freq == 0 or i == len(train_dataloader) - 1:
