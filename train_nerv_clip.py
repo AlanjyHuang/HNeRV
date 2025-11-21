@@ -531,7 +531,11 @@ def evaluate(model, full_dataloader, local_rank, args,
             else:
                 input_for_model = (img_data, None)
 
-            img_out, embed_list, dec_time = cur_model(input_for_model[0], input_embed=input_for_model[1])
+            # Pass inputs to model - handle DataParallel by passing positional args only
+            if input_for_model[1] is not None:
+                img_out, embed_list, dec_time = cur_model(input_for_model[0], input_for_model[1])
+            else:
+                img_out, embed_list, dec_time = cur_model(input_for_model[0])
 
             # Resize model output to match ground truth size
             if img_out.shape[-2:] != img_gt.shape[-2:]:
