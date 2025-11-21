@@ -493,7 +493,7 @@ def evaluate(model, full_dataloader, local_rank, args,
             else:
                 input_for_model = (img_data, None)
 
-            img_out, embed_list, dec_time = cur_model(input_for_model[0], input_embed=input_for_model[1], dequant_vid_embed=dequant_vid_embed[i] if model_ind else None)
+            img_out, embed_list, dec_time = cur_model(input_for_model[0], input_embed=input_for_model[1])
             if model_ind == 0:
                 img_embed_list.append(embed_list[0])
             
