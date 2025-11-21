@@ -337,6 +337,10 @@ def train(local_rank, args):
             lr = adjust_lr(optimizer, cur_epoch, args)
             img_out, _, _ = model(input_for_model[0], input_embed=input_for_model[1])
             
+            # Resize model output to match ground truth size
+            if img_out.shape[-2:] != img_gt.shape[-2:]:
+                img_out = F.interpolate(img_out, size=img_gt.shape[-2:], mode='bilinear', align_corners=False)
+
             pixel_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)
             
             final_loss = pixel_loss
