@@ -262,7 +262,21 @@ def train(local_rank, args):
         checkpoint_path = os.path.join(args.outf, 'model_latest.pth')
         if os.path.isfile(checkpoint_path):
             checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
-            model.load_state_dict(checkpoint['state_dict'])
+            state_dict = checkpoint['state_dict']
+            
+            # Handle module prefix mismatch between single-GPU and multi-GPU models
+            if hasattr(model, 'module'):
+                # Current model is DataParallel, check if checkpoint has 'module.' prefix
+                if not any(k.startswith('module.') for k in state_dict.keys()):
+                    # Add 'module.' prefix to checkpoint keys
+                    state_dict = {'module.' + k: v for k, v in state_dict.items()}
+            else:
+                # Current model is not DataParallel, check if checkpoint has 'module.' prefix
+                if any(k.startswith('module.') for k in state_dict.keys()):
+                    # Remove 'module.' prefix from checkpoint keys
+                    state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
+            
+            model.load_state_dict(state_dict)
             print("=> Auto resume loaded checkpoint '{}' (epoch {})".format(checkpoint_path, checkpoint['epoch']))
         else:
             print("=> No resume checkpoint found at '{}'".format(checkpoint_path))
