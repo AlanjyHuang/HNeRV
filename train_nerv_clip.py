@@ -761,7 +761,9 @@ def evaluate(model, full_dataloader, local_rank, args,
     if local_rank in [0, None] and quant_ckt != None:
         quant_vid = {'embed': quant_embed, 'model': quant_ckt}
         torch.save(quant_vid, f'{args.outf}/quant_vid.pth')
-        torch.jit.save(torch.jit.trace(HNeRVDecoder(model), (vid_embed[:2])), f'{args.outf}/img_decoder.pth')
+        # Unwrap DDP model to access underlying module
+        base_model = model.module if hasattr(model, 'module') else model
+        torch.jit.save(torch.jit.trace(HNeRVDecoder(base_model), (vid_embed[:2])), f'{args.outf}/img_decoder.pth')
         # huffman coding
         if huffman_coding:
             quant_v_list = quant_embed['quant'].flatten().tolist()
