@@ -136,6 +136,10 @@ def main():
 def data_to_gpu(x, device):
     if isinstance(x, torch.Tensor):
         return x.to(device)
+    if isinstance(x, dict):
+        return {k: data_to_gpu(v, device) for k, v in x.items()}
+    if isinstance(x, list):
+        return [data_to_gpu(v, device) for v in x]
     return x
 
 
