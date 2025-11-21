@@ -573,48 +573,36 @@ def evaluate(model, full_dataloader, local_rank, args,
                 model_output = cur_model(input_for_model[0])
             
             if len(model_output) == 4:
-                img_out, embed_list, dec_time, _ = model_output
+                img_out, embed_list, dec_time, pred_clip_embeds = model_output
             else:
                 img_out, embed_list, dec_time = model_output
+                pred_clip_embeds = None
 
             # Resize model output to match ground truth size
             if img_out.shape[-2:] != img_gt.shape[-2:]:
                 img_out = F.interpolate(img_out, size=img_gt.shape[-2:], mode='bilinear', align_corners=False)
             
-            # Compute CLIP similarity for evaluation
-            if clip_embeds is not None and model_ind == 0:
-                # Extract patches from reconstructed image
-                from model_all import CLIPManager
-                clip_manager = CLIPManager(device=device)
+            # Compute CLIP similarity for evaluation (using model's predicted CLIP embeddings)
+            if pred_clip_embeds is not None and clip_embeds is not None and model_ind == 0:
+                # Use the selected CLIP embedding (same logic as training)
+                selected_gt_embeds = clip_embeds[:, 0, :]  # Shape: [batch, 512]
                 
-                # Generate CLIP embeddings for reconstructed image
-                with torch.no_grad():
-                    pred_clip_embeds = []
-                    for b in range(img_out.shape[0]):
-                        # Denormalize image from [-1, 1] to [0, 1]
-                        img_denorm = (img_out[b] + 1) / 2
-                        img_denorm = torch.clamp(img_denorm, 0, 1)
-                        patches, _ = clip_manager.extract_patches_and_coords(img_denorm.unsqueeze(0))
-                        embeds = clip_manager.encode_patches(patches)
-                        pred_clip_embeds.append(embeds)
-                    pred_clip_embeds = torch.stack(pred_clip_embeds)
+                # Compute per-frame cosine similarity
+                for batch_i, frame_idx in enumerate(img_idx):
+                    frame_idx = frame_idx.item() if hasattr(frame_idx, 'item') else frame_idx
+                    clip_sim = F.cosine_similarity(
+                        pred_clip_embeds[batch_i:batch_i+1], 
+                        selected_gt_embeds[batch_i:batch_i+1], 
+                        dim=-1
+                    ).mean().item()
                     
-                    # Compute per-frame cosine similarity with ground truth CLIP embeddings
-                    for batch_i, frame_idx in enumerate(img_idx):
-                        frame_idx = frame_idx.item() if hasattr(frame_idx, 'item') else frame_idx
-                        clip_sim = F.cosine_similarity(
-                            pred_clip_embeds[batch_i:batch_i+1], 
-                            clip_embeds[batch_i:batch_i+1], 
-                            dim=-1
-                        ).mean().item()
-                        
-                        # Check if this frame was in training set
-                        is_train_frame = frame_idx not in args.val_ind_list
-                        
-                        clip_similarity_per_frame[frame_idx] = {
-                            'clip_sim': clip_sim,
-                            'is_train': is_train_frame
-                        }
+                    # Check if this frame was in training set
+                    is_train_frame = frame_idx not in args.val_ind_list
+                    
+                    clip_similarity_per_frame[frame_idx] = {
+                        'clip_sim': clip_sim,
+                        'is_train': is_train_frame
+                    }
             
             if model_ind == 0:
                 img_embed_list.append(embed_list[0])
