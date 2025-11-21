@@ -10,7 +10,7 @@ This project extends the HNeRV (Hybrid Neural Representation for Videos) archite
 
 ### Input → Output
 ```
-(x, y, t) coordinates → RGB Image (3 channels) + CLIP Embeddings (512 dimensions)
+(x, y, t) coordinates → RGB Image (3 channels) + Multi-Patch CLIP Embeddings
 ```
 
 ### Network Structure
@@ -21,22 +21,36 @@ Spatial-Temporal Coordinates (x, y, t)
           ↓
     Encoder (ConvNeXt)
           ↓
-    Decoder Network
-          ├──→ RGB Head → Reconstructed Frame (H × W × 3)
-          └──→ CLIP Head → Semantic Embedding (512-dim)
+    Decoder Network (produces spatial features)
+          ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
+          └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
 ```
+
+### Per-Patch CLIP Prediction
+
+The model predicts **multiple CLIP embeddings per frame**, one for each spatial patch:
+
+- **Patch Size**: 448×448 pixels with stride 224 (50% overlap)
+- **Patches per Frame**: ~8 patches (2 rows × 4 columns for 640×1280 images)
+- **Prediction Method**: 1×1 convolutions on decoder features → [batch, 512, H, W]
+- **Supervision**: Each spatial location supervised by its corresponding patch's CLIP embedding
 
 ### CLIP Prediction Head
 ```python
+# Per-patch prediction using spatial convolutions
 nn.Sequential(
-    nn.AdaptiveAvgPool2d(1),      # Global spatial pooling
-    nn.Flatten(),
-    nn.Linear(ngf, ngf * 2),
+    nn.Conv2d(ngf, ngf * 2, 1, 1, 0),    # 1×1 conv to expand features
     nn.ReLU(inplace=True),
-    nn.Linear(ngf * 2, 512),      # Output CLIP embedding
-    nn.Normalize()                 # L2 normalization
+    nn.Conv2d(ngf * 2, 512, 1, 1, 0),    # Output: [batch, 512, H, W]
+    nn.Normalize(dim=1)                   # L2 normalize each embedding
 )
 ```
+
+**Why Per-Patch?**
+- ✅ **Spatial Correspondence**: Each image region gets its own semantic embedding
+- ✅ **Better Coverage**: Overlapping patches ensure full frame coverage
+- ✅ **Independent Supervision**: Each patch embedding is directly supervised
+- ✅ **Preserves Spatial Structure**: Feature map maintains spatial relationships
 
 ## Key Features
 
@@ -66,11 +80,25 @@ nn.Sequential(
 **Pixel Loss** (Fusion6):
 ```python
 L_pixel = MSE(predicted_rgb, ground_truth_rgb)
+# Compares every pixel in the reconstructed frame
 ```
 
-**CLIP Loss** (Cosine Similarity):
+**CLIP Loss** (Per-Patch Cosine Similarity):
 ```python
-L_CLIP = 1 - cosine_similarity(predicted_clip, ground_truth_clip)
+# For each patch:
+#   1. Map patch coordinates to feature map position
+#   2. Extract predicted embedding at that position
+#   3. Compute similarity with ground truth patch embedding
+
+L_CLIP = mean([1 - cosine_similarity(pred_patch[i], gt_patch[i]) 
+               for i in all_patches])
+# Averages loss across ~8 patches per frame
+```
+
+**Total Loss**:
+```python
+L_total = L_pixel + λ * L_CLIP
+# λ = clip_loss_weight (default 0.5)
 ```
 
 ## Why Both Outputs?
@@ -98,42 +126,69 @@ pip install git+https://github.com/openai/CLIP.git
 
 ## Usage
 
-### Training with CLIP Prediction
+### Training with Per-Patch CLIP Prediction (Recommended)
 
+**80/20 Train/Validation Split:**
 ```bash
-CUDA_VISIBLE_DEVICES=0 python train_nerv_clip.py \
-  --predict_clip \
-  --data_path ./data/Kitchen \
-  --vid Kitchen \
-  --epochs 300 \
-  --batchSize 1 \
-  --lr 0.001 \
-  --loss Fusion6 \
-  --embed pe_1.25_80 \
-  --enc_strds 5 2 2 \
-  --dec_strds 5 2 2 \
-  --num_blks 1_1 \
-  --fc_hw 9_16 \
-  --reduce 1.5 \
-  --lower_width 12 \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python train_nerv_clip.py \
+  --data_path data/Kitchen \
+  --data_split 4_5_5 \
+  --enc_strds 5 4 4 2 2 \
+  --dec_strds 5 4 4 2 2 \
   --conv_type convnext pshuffel \
-  --norm none \
-  --act gelu \
+  --fc_hw 9_16 \
+  --enc_dim 64_16 \
+  --ks 0_1_5 \
+  --reduce 1.2 \
+  --lower_width 12 \
+  --num_blks 1_1 \
   --modelsize 1.5 \
-  --clip_dim 512 \
-  --clip_loss_weight 0.2 \
+  --act gelu \
+  --epochs 300 \
+  -b 2 \
+  --lr 0.001 \
+  --quant_model_bit 8 \
+  --quant_embed_bit 6 \
+  --outf output/1120/Kitchen \
+  --predict_clip \
+  --clip_loss_weight 0.5 \
   --pixel_loss_warmup_epochs 50 \
-  --outf output/clip_experiment
+  --distributed
+```
+
+**Key Configuration:**
+- `--data_split 4_5_5`: 80% training (4 out of 5 frames), 20% validation (1 out of 5)
+- `--predict_clip`: Enable per-patch CLIP prediction
+- `--clip_loss_weight 0.5`: Balance between pixel and semantic loss
+- `--pixel_loss_warmup_epochs 50`: Train 50 epochs with pixel-only before adding CLIP loss
+- `-b 2`: Batch size per GPU (automatically divided by number of GPUs)
+- `--distributed`: Multi-GPU training with 8× A100 GPUs
+
+**For Different Splits:**
+```bash
+# 90/10 split (training/validation)
+--data_split 9_10_10
+
+# 70/30 split
+--data_split 7_10_10
+
+# Full training (no validation)
+--data_split 1_1_1
 ```
 
 ### Key Arguments
 
-| Argument | Description | Default |
-|----------|-------------|---------|
-| `--predict_clip` | Enable CLIP embedding prediction | False |
-| `--clip_dim` | CLIP embedding dimension | 512 |
-| `--clip_loss_weight` | Weight for CLIP loss (λ) | 0.1 |
-| `--pixel_loss_warmup_epochs` | Epochs before adding CLIP loss | 50 |
+| Argument | Description | Default | Recommended |
+|----------|-------------|---------|-------------|
+| `--predict_clip` | Enable per-patch CLIP prediction | False | True |
+| `--clip_dim` | CLIP embedding dimension | 512 | 512 |
+| `--clip_loss_weight` | Weight for CLIP loss (λ) | 0.1 | 0.5 |
+| `--pixel_loss_warmup_epochs` | Epochs before adding CLIP loss | 50 | 50 |
+| `--data_split` | Train/val split (X_Y_Z format) | 1_1_1 | 4_5_5 (80/20) |
+
+**Data Split Format:** `X_Y_Z`
+- For every Z frames: first X used for training, frames X to Y-1 skipped, frames Y+ used for validation
+- Example `4_5_5`: Every 5 frames → first 4 train, last 1 validation = 80/20 split
 
 ### Training Baseline (No CLIP)
 

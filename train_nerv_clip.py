@@ -389,11 +389,44 @@ def train(local_rank, args):
             final_loss = pixel_loss
             clip_loss = torch.tensor(0.0).to(device)
             
-            # CLIP loss: compare predicted CLIP embeddings with ground truth
-            if args.predict_clip and epoch >= args.pixel_loss_warmup_epochs and pred_clip_embeds is not None and clip_embeds is not None:
-                # Average all patch embeddings to get frame-level representation
-                selected_gt_embeds = clip_embeds.mean(dim=1)  # Shape: [batch, 512]
-                clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, selected_gt_embeds, dim=-1).mean()
+            # CLIP loss: compare predicted CLIP embeddings with ground truth per-patch
+            if args.predict_clip and epoch >= args.pixel_loss_warmup_epochs and pred_clip_embeds is not None and clip_embeds is not None and clip_coords is not None:
+                # pred_clip_embeds: [batch, 512, H, W]
+                # clip_embeds: [batch, num_patches, 512]
+                # clip_coords: [batch, num_patches, 2] - (x, y) coordinates
+                
+                batch_clip_losses = []
+                img_h, img_w = img_gt.shape[-2:]  # 640, 1280
+                feat_h, feat_w = pred_clip_embeds.shape[-2:]  # Feature map size
+                
+                for b in range(pred_clip_embeds.shape[0]):
+                    # Map patch coordinates to feature map positions
+                    patch_losses = []
+                    for p in range(clip_embeds.shape[1]):  # For each patch
+                        # Get patch center coordinate in image space
+                        patch_x, patch_y = clip_coords[b, p]  # Top-left corner
+                        patch_size = 448  # Current patch size
+                        center_x = (patch_x + patch_size / 2) / img_w  # Normalize to [0, 1]
+                        center_y = (patch_y + patch_size / 2) / img_h
+                        
+                        # Map to feature map position
+                        feat_x = int(center_x * feat_w)
+                        feat_y = int(center_y * feat_h)
+                        feat_x = min(feat_x, feat_w - 1)
+                        feat_y = min(feat_y, feat_h - 1)
+                        
+                        # Get predicted embedding at this location
+                        pred_embed = pred_clip_embeds[b, :, feat_y, feat_x]  # [512]
+                        gt_embed = clip_embeds[b, p]  # [512]
+                        
+                        # Compute cosine similarity for this patch
+                        patch_sim = F.cosine_similarity(pred_embed.unsqueeze(0), gt_embed.unsqueeze(0), dim=-1)
+                        patch_losses.append(1 - patch_sim)
+                    
+                    # Average loss across all patches for this sample
+                    batch_clip_losses.append(torch.stack(patch_losses).mean())
+                
+                clip_loss = torch.stack(batch_clip_losses).mean()
                 final_loss = final_loss + args.clip_loss_weight * clip_loss
             #
             # if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
@@ -583,18 +616,39 @@ def evaluate(model, full_dataloader, local_rank, args,
                 img_out = F.interpolate(img_out, size=img_gt.shape[-2:], mode='bilinear', align_corners=False)
             
             # Compute CLIP similarity for evaluation (using model's predicted CLIP embeddings)
-            if pred_clip_embeds is not None and clip_embeds is not None and model_ind == 0:
-                # Average all patch embeddings to get frame-level representation
-                selected_gt_embeds = clip_embeds.mean(dim=1)  # Shape: [batch, 512]
+            if pred_clip_embeds is not None and clip_embeds is not None and clip_coords is not None and model_ind == 0:
+                # pred_clip_embeds: [batch, 512, H, W]
+                # clip_embeds: [batch, num_patches, 512]
+                # clip_coords: [batch, num_patches, 2]
+                
+                img_h, img_w = img_gt.shape[-2:]  # 640, 1280
+                feat_h, feat_w = pred_clip_embeds.shape[-2:]
                 
                 # Compute per-frame cosine similarity
                 for batch_i, frame_idx in enumerate(img_idx):
                     frame_idx = frame_idx.item() if hasattr(frame_idx, 'item') else frame_idx
-                    clip_sim = F.cosine_similarity(
-                        pred_clip_embeds[batch_i:batch_i+1], 
-                        selected_gt_embeds[batch_i:batch_i+1], 
-                        dim=-1
-                    ).mean().item()
+                    
+                    # Compute similarity for all patches in this frame
+                    patch_sims = []
+                    for p in range(clip_embeds.shape[1]):  # For each patch
+                        patch_x, patch_y = clip_coords[batch_i, p]
+                        patch_size = 448
+                        center_x = (patch_x + patch_size / 2) / img_w
+                        center_y = (patch_y + patch_size / 2) / img_h
+                        
+                        feat_x = int(center_x * feat_w)
+                        feat_y = int(center_y * feat_h)
+                        feat_x = min(feat_x, feat_w - 1)
+                        feat_y = min(feat_y, feat_h - 1)
+                        
+                        pred_embed = pred_clip_embeds[batch_i, :, feat_y, feat_x]
+                        gt_embed = clip_embeds[batch_i, p]
+                        
+                        patch_sim = F.cosine_similarity(pred_embed.unsqueeze(0), gt_embed.unsqueeze(0), dim=-1).item()
+                        patch_sims.append(patch_sim)
+                    
+                    # Average similarity across all patches
+                    clip_sim = sum(patch_sims) / len(patch_sims)
                     
                     # Check if this frame was in training set
                     is_train_frame = frame_idx not in args.val_ind_list

@@ -185,14 +185,13 @@ class HNeRV(nn.Module):
         # Add CLIP prediction head
         self.predict_clip = args.predict_clip if hasattr(args, 'predict_clip') else False
         if self.predict_clip:
-            # Global average pooling + MLP to predict CLIP embeddings
+            # Per-patch CLIP prediction: predict embeddings at each spatial location
+            # Input: [batch, ngf, H, W] -> Output: [batch, 512, H, W]
             clip_dim = args.clip_dim if hasattr(args, 'clip_dim') else 512
             self.clip_head = nn.Sequential(
-                nn.AdaptiveAvgPool2d(1),  # Pool to 1x1
-                nn.Flatten(),
-                nn.Linear(ngf, ngf * 2),
+                nn.Conv2d(ngf, ngf * 2, 1, 1, 0),  # 1x1 conv
                 nn.ReLU(inplace=True),
-                nn.Linear(ngf * 2, clip_dim)
+                nn.Conv2d(ngf * 2, clip_dim, 1, 1, 0)  # Output: [batch, 512, H, W]
             )
 
     def forward(self, input, input_embed=None, encode_only=False):
@@ -222,8 +221,13 @@ class HNeRV(nn.Module):
         # Predict CLIP embeddings if enabled
         clip_out = None
         if self.predict_clip:
+            # Output: [batch, 512, H, W]
             clip_out = self.clip_head(output)
-            clip_out = F.normalize(clip_out, dim=-1)  # Normalize like CLIP
+            # Normalize each spatial location's embedding
+            b, c, h, w = clip_out.shape
+            clip_out = clip_out.view(b, c, -1)  # [batch, 512, H*W]
+            clip_out = F.normalize(clip_out, dim=1)  # Normalize along embedding dim
+            clip_out = clip_out.view(b, c, h, w)  # [batch, 512, H, W]
 
         return  img_out, embed_list, dec_time, clip_out
 
