@@ -530,7 +530,7 @@ class LayerNorm(nn.Module):
 
 
 class CLIPManager(nn.Module):
-    def __init__(self, patch_size=128, stride=128, device='cuda'):
+    def __init__(self, patch_size=448, stride=224, device='cuda'):
         super().__init__()
         self.device = device
         self.patch_size = patch_size

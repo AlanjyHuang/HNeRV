@@ -391,8 +391,8 @@ def train(local_rank, args):
             
             # CLIP loss: compare predicted CLIP embeddings with ground truth
             if args.predict_clip and epoch >= args.pixel_loss_warmup_epochs and pred_clip_embeds is not None and clip_embeds is not None:
-                # Use the selected CLIP embedding (same logic as input selection)
-                selected_gt_embeds = clip_embeds[:, 0, :]  # Shape: [batch, 512]
+                # Average all patch embeddings to get frame-level representation
+                selected_gt_embeds = clip_embeds.mean(dim=1)  # Shape: [batch, 512]
                 clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, selected_gt_embeds, dim=-1).mean()
                 final_loss = final_loss + args.clip_loss_weight * clip_loss
             #
@@ -584,8 +584,8 @@ def evaluate(model, full_dataloader, local_rank, args,
             
             # Compute CLIP similarity for evaluation (using model's predicted CLIP embeddings)
             if pred_clip_embeds is not None and clip_embeds is not None and model_ind == 0:
-                # Use the selected CLIP embedding (same logic as training)
-                selected_gt_embeds = clip_embeds[:, 0, :]  # Shape: [batch, 512]
+                # Average all patch embeddings to get frame-level representation
+                selected_gt_embeds = clip_embeds.mean(dim=1)  # Shape: [batch, 512]
                 
                 # Compute per-frame cosine similarity
                 for batch_i, frame_idx in enumerate(img_idx):
