@@ -304,10 +304,9 @@ def train(local_rank, args):
             img_data, img_gt, inpaint_mask = args.transform_func(img_data)
             
             cur_input = None
+            input_for_model = None
+            
             if 'pe' in args.embed:
-                # When using positional encoding, we construct an input tensor that combines
-                # the positional encoding of the coordinates with the corresponding CLIP embeddings.
-                
                 # `norm_idx` represents the coordinates (and time)
                 pe_input = norm_idx
                 
@@ -315,35 +314,28 @@ def train(local_rank, args):
                 model_instance = model.module if hasattr(model, 'module') else model
 
                 if clip_embeds is not None and clip_coords is not None:
-                    # Find the nearest CLIP embedding for each coordinate
-                    # This is a simplified approach. For a batch, you'd need to handle this carefully.
-                    # Assuming batch size is 1 for simplicity here.
-                    
                     # Get the positional encoding for the coordinates
-                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1) # Shape: [B, 160]
+                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1)
 
-                    # For each item in the batch, find the nearest clip embedding
-                    # This is a placeholder for the actual nearest neighbor logic.
-                    # A proper implementation would calculate distances and find the closest patch.
-                    # For now, we'll just take the first clip embedding as an example.
-                    selected_clip_embeds = clip_embeds[:, 0, :] # Shape: [B, 512]
+                    # Placeholder for nearest neighbor logic
+                    selected_clip_embeds = clip_embeds[:, 0, :]
                     
                     # Concatenate positional features and clip features
                     combined_features = torch.cat([pe_features, selected_clip_embeds], dim=1)
                     
-                    # Reshape to be a valid input for the model [B, C, 1, 1]
+                    # Reshape and assign to input_embed
                     cur_input = combined_features.unsqueeze(-1).unsqueeze(-1)
+                    input_for_model = (None, cur_input) # Pass as input_embed
                 else:
                     # Fallback if no clip embeddings are available
-                    cur_input = model_instance.pe_embed(pe_input[:, None]).float()
+                    input_for_model = (pe_input, None) # Pass coordinates to be encoded by the model
             else:
-                # For image-based input, concatenate image data with clip embeddings if available
-                # (This part of the logic would need to be implemented if you use image-based input with CLIP)
-                cur_input = img_data
+                # Fallback for non-positional encoding case
+                input_for_model = (img_data, None)
 
             cur_epoch = (epoch + float(i) / len(train_dataloader)) / args.epochs
             lr = adjust_lr(optimizer, cur_epoch, args)
-            img_out, _, _ = model(cur_input)
+            img_out, _, _ = model(input_for_model[0], input_embed=input_for_model[1])
             
             pixel_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)
             
