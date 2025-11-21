@@ -110,7 +110,7 @@ def main():
     args.enc_strd_str, args.dec_strd_str = ','.join([str(x) for x in args.enc_strds]), ','.join([str(x) for x in args.dec_strds])
     extra_str = 'Size{}_ENC_{}_{}_DEC_{}_{}_{}{}{}'.format(args.modelsize, args.conv_type[0], args.enc_strd_str, 
         args.conv_type[1], args.dec_strd_str, '' if args.norm == 'none' else f'_{args.norm}', 
-        '_dist' if args.distributed else '', '_shuffle_data' if args.shuffle_data else '',)
+        '_dist' if args.distributed else '', '_shuffle_data' if args.shuffle_data else '')
     args.quant_str = f'quant_M{args.quant_model_bit}_E{args.quant_embed_bit}'
     embed_str = f'{args.embed}_Dim{args.enc_dim}'
     exp_id = f'{args.vid}/{args.data_split}_{embed_str}_FC{args.fc_hw}_KS{args.ks}_RED{args.reduce}_low{args.lower_width}_blk{args.num_blks}' + \
