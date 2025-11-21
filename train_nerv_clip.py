@@ -150,12 +150,14 @@ def train(local_rank, args):
     random.seed(args.manualSeed)
 
     # Determine the correct device
+    print(f"DEBUG: local_rank={local_rank}, torch.cuda.is_available()={torch.cuda.is_available()}, torch.cuda.device_count()={torch.cuda.device_count()}")
     if local_rank is not None:
         device = torch.device(f"cuda:{local_rank}")
     elif torch.cuda.is_available():
         device = torch.device("cuda")
     else:
         device = torch.device("cpu")
+    print(f"DEBUG: Selected device = {device}")
 
     if args.distributed and args.ngpus_per_node > 1:
         torch.distributed.init_process_group(
