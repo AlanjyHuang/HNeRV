@@ -150,14 +150,12 @@ def train(local_rank, args):
     random.seed(args.manualSeed)
 
     # Determine the correct device
-    print(f"DEBUG: local_rank={local_rank}, torch.cuda.is_available()={torch.cuda.is_available()}, torch.cuda.device_count()={torch.cuda.device_count()}")
     if local_rank is not None:
         device = torch.device(f"cuda:{local_rank}")
     elif torch.cuda.is_available():
         device = torch.device("cuda")
     else:
         device = torch.device("cpu")
-    print(f"DEBUG: Selected device = {device}")
 
     if args.distributed and args.ngpus_per_node > 1:
         torch.distributed.init_process_group(
@@ -300,6 +298,9 @@ def train(local_rank, args):
         model.train()       
         epoch_start_time = datetime.now()
         pred_psnr_list = []
+        pixel_loss_list = []
+        clip_loss_list = []
+        total_loss_list = []
         # iterate over dataloader
         for i, sample in enumerate(train_dataloader):
             sample = data_to_gpu(sample, device)
@@ -356,6 +357,7 @@ def train(local_rank, args):
             pixel_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)
             
             final_loss = pixel_loss
+            clip_loss = torch.tensor(0.0).to(device)
             if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
                 # Assuming the model can also output clip embeddings for the generated image
                 # This part needs to be implemented in the model
@@ -367,12 +369,20 @@ def train(local_rank, args):
             final_loss.backward()
             optimizer.step()
 
+            # Track losses
+            pixel_loss_list.append(pixel_loss.item())
+            clip_loss_list.append(clip_loss.item())
+            total_loss_list.append(final_loss.item())
+
             pred_psnr_list.append(psnr_fn_single(img_out.detach(), img_gt)) 
             if i % args.print_freq == 0 or i == len(train_dataloader) - 1:
                 pred_psnr = torch.cat(pred_psnr_list).mean()
-                print_str = '[{}] Rank:{}, Epoch[{}/{}], Step [{}/{}], lr:{:.2e} pred_PSNR: {}'.format(
+                avg_pixel_loss = sum(pixel_loss_list) / len(pixel_loss_list)
+                avg_clip_loss = sum(clip_loss_list) / len(clip_loss_list)
+                avg_total_loss = sum(total_loss_list) / len(total_loss_list)
+                print_str = '[{}] Rank:{}, Epoch[{}/{}], Step [{}/{}], lr:{:.2e} pred_PSNR: {} pixel_loss: {:.4f} clip_loss: {:.4f} total_loss: {:.4f}'.format(
                     datetime.now().strftime("%Y/%m/%d %H:%M:%S"), local_rank, epoch+1, args.epochs, i+1, len(train_dataloader), lr, 
-                    RoundTensor(pred_psnr, 2))
+                    RoundTensor(pred_psnr, 2), avg_pixel_loss, avg_clip_loss, avg_total_loss)
                 print(print_str, flush=True)
                 if local_rank in [0, None]:
                     with open('{}/rank0.txt'.format(args.outf), 'a') as f:
@@ -387,6 +397,13 @@ def train(local_rank, args):
             h, w = img_out.shape[-2:]
             writer.add_scalar(f'Train/pred_PSNR_{h}X{w}', pred_psnr, epoch+1)
             writer.add_scalar('Train/lr', lr, epoch+1)
+            # Add loss tracking to TensorBoard
+            epoch_avg_pixel_loss = sum(pixel_loss_list) / len(pixel_loss_list)
+            epoch_avg_clip_loss = sum(clip_loss_list) / len(clip_loss_list)
+            epoch_avg_total_loss = sum(total_loss_list) / len(total_loss_list)
+            writer.add_scalar('Train/pixel_loss', epoch_avg_pixel_loss, epoch+1)
+            writer.add_scalar('Train/clip_loss', epoch_avg_clip_loss, epoch+1)
+            writer.add_scalar('Train/total_loss', epoch_avg_total_loss, epoch+1)
             epoch_end_time = datetime.now()
             print("Time/epoch: \tCurrent:{:.2f} \tAverage:{:.2f}".format( (epoch_end_time - epoch_start_time).total_seconds(), \
                     (epoch_end_time - start).total_seconds() / (epoch + 1 - args.start_epoch) ))
