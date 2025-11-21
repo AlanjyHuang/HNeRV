@@ -288,7 +288,7 @@ def train(local_rank, args):
 
     if args.eval_only:
         print_str = 'Evaluation ... \n {} Results for checkpoint: {}\n'.format(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'), args.weight)
-        results_list, hw = evaluate(model, full_dataloader, local_rank, args, args.dump_vis, huffman_coding=True)
+        results_list, hw = evaluate(model, full_dataloader, local_rank, args, args.dump_vis, huffman_coding=True, epoch=None, writer=None)
         print_str = f'PSNR for output {hw} for quant {args.quant_str}: '
         for i, (metric_name, best_metric_value, metric_value) in enumerate(zip(args.metric_names, best_metric_list, results_list)):
             best_metric_value = best_metric_value if best_metric_value > metric_value.max() else metric_value.max()
@@ -431,7 +431,8 @@ def train(local_rank, args):
         if (epoch + 1) % args.eval_freq == 0 or (args.epochs - epoch) in [1, 3, 5]:
             results_list, hw = evaluate(model, full_dataloader, local_rank, args, 
                 args.dump_vis if epoch == args.epochs - 1 else False, 
-                True if epoch == args.epochs - 1 else False)            
+                True if epoch == args.epochs - 1 else False,
+                epoch=epoch, writer=writer)            
             if local_rank in [0, None]:
                 # ADD val_PSNR TO TENSORBOARD
                 print_str = f'Eval at epoch {epoch+1} for {hw}: '
@@ -488,10 +489,13 @@ def Dump2CSV(args, best_results_list, results_list, psnr_list, filename='results
 
 @torch.no_grad()
 def evaluate(model, full_dataloader, local_rank, args, 
-    dump_vis=False, huffman_coding=False):
+    dump_vis=False, huffman_coding=False, epoch=None, writer=None):
     img_embed_list = []
     model_list, quant_ckt = quant_model(model, args)
     metric_list = [[] for _ in range(len(args.metric_names))]
+    # CLIP evaluation metrics - per frame tracking
+    clip_similarity_per_frame = {}  # {frame_idx: {'clip_sim': value, 'is_train': bool}}
+    
     for model_ind, cur_model in enumerate(model_list):
         time_list = []
         cur_model.eval()
@@ -540,6 +544,41 @@ def evaluate(model, full_dataloader, local_rank, args,
             # Resize model output to match ground truth size
             if img_out.shape[-2:] != img_gt.shape[-2:]:
                 img_out = F.interpolate(img_out, size=img_gt.shape[-2:], mode='bilinear', align_corners=False)
+            
+            # Compute CLIP similarity for evaluation
+            if clip_embeds is not None and model_ind == 0:
+                # Extract patches from reconstructed image
+                from model_all import CLIPManager
+                clip_manager = CLIPManager(device=device)
+                
+                # Generate CLIP embeddings for reconstructed image
+                with torch.no_grad():
+                    pred_clip_embeds = []
+                    for b in range(img_out.shape[0]):
+                        # Denormalize image from [-1, 1] to [0, 1]
+                        img_denorm = (img_out[b] + 1) / 2
+                        img_denorm = torch.clamp(img_denorm, 0, 1)
+                        patches, _ = clip_manager.extract_patches_and_coords(img_denorm.unsqueeze(0))
+                        embeds = clip_manager.encode_patches(patches)
+                        pred_clip_embeds.append(embeds)
+                    pred_clip_embeds = torch.stack(pred_clip_embeds)
+                    
+                    # Compute per-frame cosine similarity with ground truth CLIP embeddings
+                    for batch_i, frame_idx in enumerate(img_idx):
+                        frame_idx = frame_idx.item() if hasattr(frame_idx, 'item') else frame_idx
+                        clip_sim = F.cosine_similarity(
+                            pred_clip_embeds[batch_i:batch_i+1], 
+                            clip_embeds[batch_i:batch_i+1], 
+                            dim=-1
+                        ).mean().item()
+                        
+                        # Check if this frame was in training set
+                        is_train_frame = frame_idx not in args.val_ind_list
+                        
+                        clip_similarity_per_frame[frame_idx] = {
+                            'clip_sim': clip_sim,
+                            'is_train': is_train_frame
+                        }
             
             if model_ind == 0:
                 img_embed_list.append(embed_list[0])
@@ -592,6 +631,54 @@ def evaluate(model, full_dataloader, local_rank, args,
 
         # Collect results from 
         results_list = [torch.stack(v_list, dim=1).mean(1).cpu() if len(v_list) else torch.zeros(1) for v_list in metric_list]
+        
+        # Print and save per-frame CLIP similarity results
+        if len(clip_similarity_per_frame) > 0 and model_ind == 0:
+            # Separate train and validation frames
+            train_frames = {k: v for k, v in clip_similarity_per_frame.items() if v['is_train']}
+            val_frames = {k: v for k, v in clip_similarity_per_frame.items() if not v['is_train']}
+            
+            # Calculate averages
+            avg_clip_sim_all = sum(v['clip_sim'] for v in clip_similarity_per_frame.values()) / len(clip_similarity_per_frame)
+            avg_clip_sim_train = sum(v['clip_sim'] for v in train_frames.values()) / len(train_frames) if train_frames else 0
+            avg_clip_sim_val = sum(v['clip_sim'] for v in val_frames.values()) / len(val_frames) if val_frames else 0
+            
+            # Print summary
+            print(f'\n=== CLIP Similarity Results ===')
+            print(f'Average (All):        {avg_clip_sim_all:.4f}')
+            print(f'Average (Train):      {avg_clip_sim_train:.4f} ({len(train_frames)} frames)')
+            print(f'Average (Validation): {avg_clip_sim_val:.4f} ({len(val_frames)} frames)')
+            
+            # Log to TensorBoard
+            if writer is not None and local_rank in [0, None]:
+                writer.add_scalar('eval/clip_similarity_all', avg_clip_sim_all, epoch)
+                writer.add_scalar('eval/clip_similarity_train', avg_clip_sim_train, epoch)
+                writer.add_scalar('eval/clip_similarity_val', avg_clip_sim_val, epoch)
+                
+                # Create histogram of per-frame similarities
+                all_sims = [v['clip_sim'] for v in clip_similarity_per_frame.values()]
+                writer.add_histogram('eval/clip_similarity_distribution', torch.tensor(all_sims), epoch)
+            
+            # Save detailed per-frame results to CSV
+            if local_rank in [0, None]:
+                import csv
+                csv_path = f'{args.outf}/clip_similarity_per_frame.csv'
+                with open(csv_path, 'w', newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerow(['Frame_Index', 'CLIP_Similarity', 'Is_Train_Frame'])
+                    for frame_idx in sorted(clip_similarity_per_frame.keys()):
+                        frame_data = clip_similarity_per_frame[frame_idx]
+                        writer.writerow([frame_idx, f"{frame_data['clip_sim']:.6f}", frame_data['is_train']])
+                
+                print(f'Per-frame CLIP results saved to: {csv_path}\n')
+                
+                # Also write summary to rank0.txt
+                with open('{}/rank0.txt'.format(args.outf), 'a') as f:
+                    f.write(f'\n=== CLIP Similarity Results ===\n')
+                    f.write(f'Average (All):        {avg_clip_sim_all:.4f}\n')
+                    f.write(f'Average (Train):      {avg_clip_sim_train:.4f} ({len(train_frames)} frames)\n')
+                    f.write(f'Average (Validation): {avg_clip_sim_val:.4f} ({len(val_frames)} frames)\n')
+        
         args.fps = fps
         h,w = img_data.shape[-2:]
         cur_model.train()
