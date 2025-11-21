@@ -567,4 +567,8 @@ def quant_model(model, args):
 
 
 if __name__ == '__main__':
+    # Set the start method for multiprocessing to 'spawn' to avoid CUDA errors in subprocesses.
+    # This is necessary when using CUDA in DataLoader workers.
+    if torch.cuda.is_available():
+        torch.multiprocessing.set_start_method('spawn', force=True)
     main()
