@@ -149,6 +149,14 @@ def train(local_rank, args):
     np.random.seed(args.manualSeed)
     random.seed(args.manualSeed)
 
+    # Determine the correct device
+    if local_rank is not None:
+        device = torch.device(f"cuda:{local_rank}")
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        device = torch.device("cpu")
+
     if args.distributed and args.ngpus_per_node > 1:
         torch.distributed.init_process_group(
             backend='nccl',
@@ -206,6 +214,7 @@ def train(local_rank, args):
 
     # Building model
     model = HNeRV(args)
+    model.to(device)
 
     ##### get model params and flops #####
     if local_rank in [0, None]:
@@ -222,24 +231,21 @@ def train(local_rank, args):
         writer = None
 
     # distrite model to gpu or parallel
-    print("Use GPU: {} for training".format(local_rank))
+    print(f"Using device: {device} for training")
     if args.distributed and args.ngpus_per_node > 1:
-        model = torch.nn.parallel.DistributedDataParallel(model.to(local_rank), device_ids=[local_rank], output_device=local_rank, find_unused_parameters=False)
+        model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank], output_device=local_rank, find_unused_parameters=False)
     elif args.ngpus_per_node > 1:
         model = torch.nn.DataParallel(model)
-    elif torch.cuda.is_available():
-        model = model.cuda()
 
     optimizer = optim.Adam(model.parameters(), weight_decay=0.)
     args.transform_func = TransformInput(args)
 
     # resume from args.weight
     checkpoint = None
-    loc = 'cuda:{}'.format(local_rank if local_rank is not None else 0)
     if args.weight != 'None':
         print("=> loading checkpoint '{}'".format(args.weight))
         checkpoint_path = args.weight
-        checkpoint = torch.load(checkpoint_path, map_location='cpu')
+        checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
         orig_ckt = checkpoint['state_dict']
         new_ckt={k.replace('blocks.0.',''):v for k,v in orig_ckt.items()} 
         if 'module' in list(orig_ckt.keys())[0] and not hasattr(model, 'module'):
@@ -255,7 +261,7 @@ def train(local_rank, args):
     if not args.not_resume:
         checkpoint_path = os.path.join(args.outf, 'model_latest.pth')
         if os.path.isfile(checkpoint_path):
-            checkpoint = torch.load(checkpoint_path, map_location='cpu')
+            checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
             model.load_state_dict(checkpoint['state_dict'])
             print("=> Auto resume loaded checkpoint '{}' (epoch {})".format(checkpoint_path, checkpoint['epoch']))
         else:
@@ -293,13 +299,13 @@ def train(local_rank, args):
         epoch_start_time = datetime.now()
         pred_psnr_list = []
         # iterate over dataloader
-        device = next(model.parameters()).device
         for i, sample in enumerate(train_dataloader):
-            img_data = data_to_gpu(sample['img'], device)
-            norm_idx = data_to_gpu(sample['norm_idx'], device)
-            img_idx = data_to_gpu(sample['idx'], device)
-            clip_embeds = data_to_gpu(sample.get('clip_embeds'), device)
-            clip_coords = data_to_gpu(sample.get('clip_coords'), device)
+            sample = data_to_gpu(sample, device)
+            img_data = sample['img']
+            norm_idx = sample['norm_idx']
+            img_idx = sample['idx']
+            clip_embeds = sample.get('clip_embeds')
+            clip_coords = sample.get('clip_coords')
 
             if i > 10 and args.debug:
                 break
