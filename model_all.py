@@ -547,16 +547,34 @@ class CLIPManager(nn.Module):
         self.device = device
         self.patch_size = patch_size
         self.stride = stride
-        self.model, self.preprocess = clip.load("ViT-B/32", device=self.device)
-        self.model.eval()
+        # Lazy load CLIP model per worker to handle distributed training
+        self.model = None
+        self.preprocess = None
+
+    def _ensure_model_loaded(self):
+        """Lazy load CLIP model on the current device (handles multi-GPU workers)"""
+        if self.model is None:
+            # Get current device from torch.cuda.current_device() if available
+            if torch.cuda.is_available():
+                current_device = torch.cuda.current_device()
+                device = f'cuda:{current_device}'
+            else:
+                device = 'cpu'
+            self.model, self.preprocess = clip.load("ViT-B/32", device=device)
+            self.model.eval()
 
     def get_clip_embeddings(self, image_path):
+        self._ensure_model_loaded()
+        
         image = Image.open(image_path).convert("RGB")
         patches, coords = self.extract_patches(image)
         if not patches:
             return None, None
         
-        preprocessed_patches = torch.stack([self.preprocess(patch) for patch in patches]).to(self.device)
+        preprocessed_patches = torch.stack([self.preprocess(patch) for patch in patches])
+        if torch.cuda.is_available():
+            current_device = torch.cuda.current_device()
+            preprocessed_patches = preprocessed_patches.to(f'cuda:{current_device}')
         
         with torch.no_grad():
             embeddings = self.model.encode_image(preprocessed_patches)
