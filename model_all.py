@@ -181,6 +181,19 @@ class HNeRV(nn.Module):
         self.decoder = nn.ModuleList(decoder_layers)
         self.head_layer = nn.Conv2d(ngf, 3, 3, 1, 1) 
         self.out_bias = args.out_bias
+        
+        # Add CLIP prediction head
+        self.predict_clip = args.predict_clip if hasattr(args, 'predict_clip') else False
+        if self.predict_clip:
+            # Global average pooling + MLP to predict CLIP embeddings
+            clip_dim = args.clip_dim if hasattr(args, 'clip_dim') else 512
+            self.clip_head = nn.Sequential(
+                nn.AdaptiveAvgPool2d(1),  # Pool to 1x1
+                nn.Flatten(),
+                nn.Linear(ngf, ngf * 2),
+                nn.ReLU(inplace=True),
+                nn.Linear(ngf * 2, clip_dim)
+            )
 
     def forward(self, input, input_embed=None, encode_only=False):
         if input_embed != None:
@@ -206,7 +219,13 @@ class HNeRV(nn.Module):
             torch.cuda.synchronize()
         dec_time = time.time() - dec_start
 
-        return  img_out, embed_list, dec_time
+        # Predict CLIP embeddings if enabled
+        clip_out = None
+        if self.predict_clip:
+            clip_out = self.clip_head(output)
+            clip_out = F.normalize(clip_out, dim=-1)  # Normalize like CLIP
+
+        return  img_out, embed_list, dec_time, clip_out
 
 
 class HNeRVDecoder(nn.Module):

@@ -67,8 +67,11 @@ def main():
     parser.add_argument('--lr_type', type=str, default='cosine_0.1_1_0.1', help='learning rate type, default=cosine')
     parser.add_argument('--loss', type=str, default='Fusion6', help='loss type, default=L2')
     parser.add_argument('--out_bias', default='tanh', type=str, help='using sigmoid/tanh/0.5 for output prediction')
+    parser.add_argument('--predict_clip', action='store_true', default=False, help='Enable CLIP embedding prediction head')
+    parser.add_argument('--clip_dim', type=int, default=512, help='CLIP embedding dimension')
     parser.add_argument('--clip_loss_weight', type=float, default=0.1, help='Weight for CLIP loss')
     parser.add_argument('--pixel_loss_warmup_epochs', type=int, default=50, help='Number of epochs to train with only pixel loss')
+
 
 
     # evaluation parameters
@@ -364,10 +367,18 @@ def train(local_rank, args):
             lr = adjust_lr(optimizer, cur_epoch, args)
             
             # Pass inputs to model - handle DataParallel by passing positional args only
+            # Model now returns: img_out, embed_list, dec_time, clip_out
             if input_for_model[1] is not None:
-                img_out, _, _ = model(input_for_model[0], input_for_model[1])
+                model_output = model(input_for_model[0], input_for_model[1])
             else:
-                img_out, _, _ = model(input_for_model[0])
+                model_output = model(input_for_model[0])
+            
+            # Unpack outputs (handle both old 3-output and new 4-output models)
+            if len(model_output) == 4:
+                img_out, _, _, pred_clip_embeds = model_output
+            else:
+                img_out, _, _ = model_output
+                pred_clip_embeds = None
             
             # Resize model output to match ground truth size
             if img_out.shape[-2:] != img_gt.shape[-2:]:
@@ -377,12 +388,30 @@ def train(local_rank, args):
             
             final_loss = pixel_loss
             clip_loss = torch.tensor(0.0).to(device)
-            if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
-                # Assuming the model can also output clip embeddings for the generated image
-                # This part needs to be implemented in the model
-                pred_clip_embeds = model(cur_input, encode_only=True) # This needs to be implemented
-                clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, clip_embeds, dim=-1).mean()
-                final_loss += args.clip_loss_weight * clip_loss
+            
+            # CLIP loss: compare predicted CLIP embeddings with ground truth
+            if args.predict_clip and epoch >= args.pixel_loss_warmup_epochs and pred_clip_embeds is not None and clip_embeds is not None:
+                # Use the selected CLIP embedding (same logic as input selection)
+                selected_gt_embeds = clip_embeds[:, 0, :]  # Shape: [batch, 512]
+                clip_loss = 1 - F.cosine_similarity(pred_clip_embeds, selected_gt_embeds, dim=-1).mean()
+                final_loss = final_loss + args.clip_loss_weight * clip_loss
+            #
+            # if epoch >= args.pixel_loss_warmup_epochs and clip_embeds is not None:
+            #     # Need to extract CLIP embeddings from img_out
+            #     from model_all import CLIPManager
+            #     clip_manager = CLIPManager(device=device)
+            #     with torch.no_grad():
+            #         pred_clip_embeds = []
+            #         for b in range(img_out.shape[0]):
+            #             img_denorm = (img_out[b] + 1) / 2
+            #             img_denorm = torch.clamp(img_denorm, 0, 1)
+            #             patches, _ = clip_manager.extract_patches_and_coords(img_denorm.unsqueeze(0))
+            #             embeds = clip_manager.encode_patches(patches)
+            #             pred_clip_embeds.append(embeds)
+            #         pred_clip_embeds = torch.stack(pred_clip_embeds)
+            #         selected_gt_embeds = clip_embeds[:, 0, :]  # Match the selection used in input
+            #         clip_loss = 1 - F.cosine_similarity(pred_clip_embeds.squeeze(1), selected_gt_embeds, dim=-1).mean()
+            #         final_loss = final_loss + args.clip_loss_weight * clip_loss
 
             optimizer.zero_grad()
             final_loss.backward()
@@ -392,6 +421,7 @@ def train(local_rank, args):
             pixel_loss_list.append(pixel_loss.item())
             clip_loss_list.append(clip_loss.item())
             total_loss_list.append(final_loss.item())
+
 
             pred_psnr_list.append(psnr_fn_single(img_out.detach(), img_gt)) 
             if i % args.print_freq == 0 or i == len(train_dataloader) - 1:
@@ -536,10 +566,16 @@ def evaluate(model, full_dataloader, local_rank, args,
                 input_for_model = (img_data, None)
 
             # Pass inputs to model - handle DataParallel by passing positional args only
+            # Handle both old 3-output and new 4-output model format
             if input_for_model[1] is not None:
-                img_out, embed_list, dec_time = cur_model(input_for_model[0], input_for_model[1])
+                model_output = cur_model(input_for_model[0], input_for_model[1])
             else:
-                img_out, embed_list, dec_time = cur_model(input_for_model[0])
+                model_output = cur_model(input_for_model[0])
+            
+            if len(model_output) == 4:
+                img_out, embed_list, dec_time, _ = model_output
+            else:
+                img_out, embed_list, dec_time = model_output
 
             # Resize model output to match ground truth size
             if img_out.shape[-2:] != img_gt.shape[-2:]:
@@ -588,7 +624,11 @@ def evaluate(model, full_dataloader, local_rank, args,
             if args.eval_fps:
                 time_list.pop()
                 for _ in range(100):
-                    img_out, embed_list, dec_time = cur_model(input_for_model[0], embed_list[0])
+                    fps_output = cur_model(input_for_model[0], embed_list[0])
+                    if len(fps_output) == 4:
+                        img_out, embed_list, dec_time, _ = fps_output
+                    else:
+                        img_out, embed_list, dec_time = fps_output
                     time_list.append(dec_time)
 
             # compute psnr and ms-ssim
