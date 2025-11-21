@@ -137,8 +137,9 @@ class HNeRV(nn.Module):
         # BUILD Encoder LAYERS
         if 'pe' in self.embed:
             ch_in = 2 * int(args.embed.split('_')[-1])
-            if args.clip_dim > 0:
-                ch_in += args.clip_dim
+            # Note: CLIP embeddings are predicted as output, not used as input
+            # if args.clip_dim > 0:
+            #     ch_in += args.clip_dim
             self.pe_embed = PositionEncoding(args.embed)
             self.encoder = nn.Identity()
             self.fc_h, self.fc_w = [int(x) for x in args.fc_hw.split('_')]
@@ -149,9 +150,10 @@ class HNeRV(nn.Module):
             c_out_list[-1] = enc_dim2
             c_in_list = [enc_dim1] * len(args.enc_strds)
             
-            ch_in = 3
-            if args.clip_dim > 0:
-                ch_in += args.clip_dim
+            ch_in = 3  # RGB input only
+            # Note: CLIP embeddings are predicted as output, not used as input
+            # if args.clip_dim > 0:
+            #     ch_in += args.clip_dim
             self.encoder = ConvNeXt(stage_blocks=enc_blks, strds=args.enc_strds, dims=c_out_list,
                 drop_path_rate=0, in_chans=ch_in) if args.conv_type[0] == 'convnext' else ...
             
