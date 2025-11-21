@@ -465,12 +465,35 @@ def evaluate(model, full_dataloader, local_rank, args,
                 os.makedirs(visual_dir)        
 
         for i, sample in enumerate(full_dataloader):
-            img_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), data_to_gpu(sample['norm_idx'], device), data_to_gpu(sample['idx'], device)
+            sample = data_to_gpu(sample, device)
+            img_data = sample['img']
+            norm_idx = sample['norm_idx']
+            img_idx = sample['idx']
+            clip_embeds = sample.get('clip_embeds')
+            clip_coords = sample.get('clip_coords')
+
             if i > 10 and args.debug:
                 break
+            
             img_data, img_gt, inpaint_mask = args.transform_func(img_data)
-            cur_input = norm_idx if 'pe' in args.embed else img_data
-            img_out, embed_list, dec_time = cur_model(cur_input, dequant_vid_embed[i] if model_ind else None)
+            
+            input_for_model = None
+            if 'pe' in args.embed:
+                pe_input = norm_idx
+                model_instance = cur_model.module if hasattr(cur_model, 'module') else cur_model
+
+                if clip_embeds is not None and clip_coords is not None:
+                    pe_features = model_instance.pe_embed(pe_input[:, None]).float().squeeze(-1).squeeze(-1)
+                    selected_clip_embeds = clip_embeds[:, 0, :]
+                    combined_features = torch.cat([pe_features, selected_clip_embeds], dim=1)
+                    cur_input = combined_features.unsqueeze(-1).unsqueeze(-1)
+                    input_for_model = (None, cur_input)
+                else:
+                    input_for_model = (pe_input, None)
+            else:
+                input_for_model = (img_data, None)
+
+            img_out, embed_list, dec_time = cur_model(input_for_model[0], input_embed=input_for_model[1], dequant_vid_embed=dequant_vid_embed[i] if model_ind else None)
             if model_ind == 0:
                 img_embed_list.append(embed_list[0])
             
@@ -479,7 +502,7 @@ def evaluate(model, full_dataloader, local_rank, args,
             if args.eval_fps:
                 time_list.pop()
                 for _ in range(100):
-                    img_out, embed_list, dec_time = cur_model(cur_input, embed_list[0])
+                    img_out, embed_list, dec_time = cur_model(input_for_model[0], embed_list[0])
                     time_list.append(dec_time)
 
             # compute psnr and ms-ssim
