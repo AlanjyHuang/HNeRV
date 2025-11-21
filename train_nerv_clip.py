@@ -68,9 +68,9 @@ def main():
     parser.add_argument('--loss', type=str, default='Fusion6', help='loss type, default=L2')
     parser.add_argument('--out_bias', default='tanh', type=str, help='using sigmoid/tanh/0.5 for output prediction')
     parser.add_argument('--predict_clip', action='store_true', default=False, help='Enable CLIP embedding prediction head')
-    parser.add_argument('--clip_dim', type=int, default=512, help='CLIP embedding dimension')
     parser.add_argument('--clip_loss_weight', type=float, default=0.1, help='Weight for CLIP loss')
     parser.add_argument('--pixel_loss_warmup_epochs', type=int, default=50, help='Number of epochs to train with only pixel loss')
+
 
 
 
