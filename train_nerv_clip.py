@@ -458,12 +458,12 @@ def train(local_rank, args):
 
         # collect numbers from other gpus
         if args.distributed and args.ngpus_per_node > 1:
-            pred_psnr = all_reduce([pred_psnr.to(local_rank)])
+            pred_psnr = all_reduce([pred_psnr.to(local_rank)])[0]
 
         # ADD train_PSNR TO TENSORBOARD
         if local_rank in [0, None]:
             h, w = img_out.shape[-2:]
-            writer.add_scalar(f'Train/pred_PSNR_{h}X{w}', pred_psnr, epoch+1)
+            writer.add_scalar(f'Train/pred_PSNR_{h}X{w}', pred_psnr.item(), epoch+1)
             writer.add_scalar('Train/lr', lr, epoch+1)
             # Add loss tracking to TensorBoard
             epoch_avg_pixel_loss = sum(pixel_loss_list) / len(pixel_loss_list)
@@ -743,8 +743,8 @@ def evaluate(model, full_dataloader, local_rank, args,
         h,w = img_data.shape[-2:]
         cur_model.train()
         if args.distributed and args.ngpus_per_node > 1:
-            for cur_v in results_list:
-                cur_v = all_reduce([cur_v.to(local_rank)])
+            for i, cur_v in enumerate(results_list):
+                results_list[i] = all_reduce([cur_v.to(local_rank)])[0]
 
         # Dump predictions and concat into videos
         if dump_vis and args.dump_videos:
