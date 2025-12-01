@@ -438,6 +438,7 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
     
     # Collect predictions and ground truth per patch
     all_results = {}  # frame_idx -> {'patches': {patch_idx: {'rgb_pred', 'rgb_gt', 'clip_pred', 'clip_gt'}}}
+    all_frames_seen = set()  # Track all frames seen so far
     
     for i, sample in enumerate(full_dataloader):
         patch_img = sample['img'].to(device)
@@ -446,16 +447,18 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
         frame_indices = sample['frame_idx'].cpu().numpy()
         patch_indices = sample['patch_idx'].cpu().numpy()
         
+        # Track frames seen
+        all_frames_seen.update(frame_indices)
+        
         if i > 10 and args.debug:
-            # In debug mode, break early but warn if no val frames seen
-            frames_seen = set(sample['frame_idx'].cpu().numpy())
-            val_frames_seen = frames_seen.intersection(args.val_frame_list)
+            # In debug mode, break early but check if we've seen any val frames across ALL batches
+            val_frames_seen = all_frames_seen.intersection(args.val_frame_list)
             if not val_frames_seen:
-                print(f"  [DEBUG] Processed {i+1} batches but no validation frames yet. Continuing a bit more...")
-                if i > 50:  # Hard limit
+                print(f"  [DEBUG] Processed {i+1} batches, {len(all_frames_seen)} unique frames, but no validation frames yet. Continuing...")
+                if i > 80:  # Hard limit - enough to reach frame 9 with batch_size=2
                     break
             else:
-                break
+                print(f"  [DEBUG] Found validation frames: {sorted(val_frames_seen)[:5]}... Breaking after this batch.")
         
         # Forward pass
         rgb_out, clip_out, _, _ = model(input_coords)
@@ -478,6 +481,12 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
                 'clip_pred': clip_out[b].cpu(),
                 'clip_gt': clip_embed_gt[b].cpu(),
             }
+        
+        # Break if we found validation frames in debug mode
+        if i > 10 and args.debug:
+            val_frames_seen = all_frames_seen.intersection(args.val_frame_list)
+            if val_frames_seen:
+                break
     
     # Compute metrics per frame
     train_psnr_list = []
