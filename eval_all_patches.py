@@ -8,30 +8,69 @@ import sys
 import argparse
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
-from skimage.metrics import structural_similarity as ssim
-from skimage.metrics import peak_signal_noise_ratio as psnr
 
 from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet, CLIPManager
 
 
 def calculate_psnr(img1, img2):
-    """Calculate PSNR between two images"""
+    """Calculate PSNR between two images (numpy arrays in [0,1] range)"""
     mse = np.mean((img1 - img2) ** 2)
     if mse == 0:
         return 100
     return 20 * np.log10(1.0 / np.sqrt(mse))
 
 
+def calculate_ssim_torch(img1, img2, window_size=11):
+    """
+    Calculate SSIM using PyTorch
+    img1, img2: torch tensors of shape [1, C, H, W] in [0, 1] range
+    """
+    C1 = 0.01 ** 2
+    C2 = 0.03 ** 2
+    
+    # Create Gaussian window
+    sigma = 1.5
+    gauss = torch.Tensor([np.exp(-(x - window_size//2)**2/float(2*sigma**2)) for x in range(window_size)])
+    gauss = gauss / gauss.sum()
+    
+    # Create 2D Gaussian kernel
+    _1D_window = gauss.unsqueeze(1)
+    _2D_window = _1D_window.mm(_1D_window.t()).float().unsqueeze(0).unsqueeze(0)
+    window = _2D_window.expand(img1.size(1), 1, window_size, window_size).contiguous()
+    window = window.to(img1.device)
+    
+    # Calculate SSIM
+    mu1 = F.conv2d(img1, window, padding=window_size//2, groups=img1.size(1))
+    mu2 = F.conv2d(img2, window, padding=window_size//2, groups=img2.size(1))
+    
+    mu1_sq = mu1.pow(2)
+    mu2_sq = mu2.pow(2)
+    mu1_mu2 = mu1 * mu2
+    
+    sigma1_sq = F.conv2d(img1*img1, window, padding=window_size//2, groups=img1.size(1)) - mu1_sq
+    sigma2_sq = F.conv2d(img2*img2, window, padding=window_size//2, groups=img2.size(1)) - mu2_sq
+    sigma12 = F.conv2d(img1*img2, window, padding=window_size//2, groups=img1.size(1)) - mu1_mu2
+    
+    ssim_map = ((2*mu1_mu2 + C1)*(2*sigma12 + C2)) / ((mu1_sq + mu2_sq + C1)*(sigma1_sq + sigma2_sq + C2))
+    
+    return ssim_map.mean().item()
+
+
 def calculate_ssim(img1, img2):
-    """Calculate SSIM between two images"""
-    # Convert to HWC format for SSIM
-    if img1.shape[0] == 3:  # CHW -> HWC
-        img1 = np.transpose(img1, (1, 2, 0))
-        img2 = np.transpose(img2, (1, 2, 0))
-    return ssim(img1, img2, multichannel=True, channel_axis=2, data_range=1.0)
+    """Calculate SSIM between two numpy images"""
+    # Convert to torch tensor [1, C, H, W]
+    if img1.shape[0] == 3:  # CHW format
+        img1_t = torch.from_numpy(img1).unsqueeze(0).float()
+        img2_t = torch.from_numpy(img2).unsqueeze(0).float()
+    else:  # HWC format
+        img1_t = torch.from_numpy(img1).permute(2, 0, 1).unsqueeze(0).float()
+        img2_t = torch.from_numpy(img2).permute(2, 0, 1).unsqueeze(0).float()
+    
+    return calculate_ssim_torch(img1_t, img2_t)
 
 
 def evaluate_all_patches(model, dataset, device, split_name='all'):
