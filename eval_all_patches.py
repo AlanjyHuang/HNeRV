@@ -213,21 +213,7 @@ def main():
     print("Building model...")
     print("="*80)
     
-    model = DualHeadHNeRV(
-        embed=args.embed,
-        stem_dim_num=args.fc_dim,
-        fc_hw_dim=args.fc_hw,
-        expansion=args.reduce,
-        num_blks=list(map(int, args.num_blks.split('_'))),
-        norm=args.norm,
-        act=args.act,
-        bias=True,
-        conv_type=args.conv_type,
-        stride_list=args.dec_strds,
-        clip_dim=args.clip_dim,
-        lower_width=args.lower_width,
-        ks=args.ks
-    ).to(device)
+    model = DualHeadHNeRV(args).to(device)
     
     # Load checkpoint
     print(f"\nLoading checkpoint: {args.weight}")
