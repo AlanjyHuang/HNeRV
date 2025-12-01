@@ -33,7 +33,7 @@ CUDA_VISIBLE_DEVICES=7 python train_patch_dual.py \
     --clip_loss_weight 0.1 \
     --lr 0.001 \
     --lr_type cosine_0.1_1_0.1 \
-    --loss L1 \
+    --loss Fusion6 \
     --outf output/Kitchen_patch_dual_full
 
 echo ""
