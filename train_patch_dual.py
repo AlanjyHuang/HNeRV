@@ -96,11 +96,11 @@ def main():
 
     # Build experiment ID
     dec_strd_str = ','.join([str(x) for x in args.dec_strds])
-    extra_str = f'DEC_{args.conv_type[1]}_{dec_strd_str}_{args.act}'
-    exp_id = (f'{args.vid}/{args.data_split}_{args.embed}_FC{args.fc_hw}_KS{args.ks}' +
-              f'_RED{args.reduce}_low{args.lower_width}_blk{args.num_blks}' +
-              f'_e{args.epochs}_b{args.batchSize}_lr{args.lr}_{args.lr_type}_{args.loss}' +
-              f'_CLIP{args.clip_loss_weight}_warmup{args.pixel_loss_warmup_epochs}_{extra_str}{args.suffix}')
+    extra_str = 'DEC_' + args.conv_type[1] + '_' + dec_strd_str + '_' + args.act
+    exp_id = (args.vid + '/' + args.data_split + '_' + args.embed + '_FC' + args.fc_hw + '_KS' + args.ks +
+              '_RED' + str(args.reduce) + '_low' + str(args.lower_width) + '_blk' + args.num_blks +
+              '_e' + str(args.epochs) + '_b' + str(args.batchSize) + '_lr' + str(args.lr) + '_' + args.lr_type + '_' + args.loss +
+              '_CLIP' + str(args.clip_loss_weight) + '_warmup' + str(args.pixel_loss_warmup_epochs) + '_' + extra_str + args.suffix)
     args.exp_id = exp_id
     args.outf = os.path.join(args.outf, exp_id)
     
