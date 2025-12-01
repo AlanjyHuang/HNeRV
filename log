@@ -1,0 +1,1632 @@
+ Encoder_0.31M_Decoder_1.49M_Total_1.51M
+Using device: cuda for training
+=> No resume checkpoint found at 'output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/model_latest.pth'
+[2025/11/21 02:23:15] Rank:None, Epoch[1/300], Step [1/77], lr:1.00e-04 pred_PSNR: 9.37 pixel_loss: 0.3694 clip_loss: 0.0000 total_loss: 0.3694
+[2025/11/21 02:23:17] Rank:None, Epoch[1/300], Step [51/77], lr:1.19e-04 pred_PSNR: 9.51 pixel_loss: 0.3690 clip_loss: 0.0000 total_loss: 0.3690
+[2025/11/21 02:23:19] Rank:None, Epoch[1/300], Step [77/77], lr:1.30e-04 pred_PSNR: 10.17 pixel_loss: 0.3428 clip_loss: 0.0000 total_loss: 0.3428
+Time/epoch: 	Current:47.87 	Average:47.87
+[2025/11/21 02:24:03] Rank:None, Epoch[2/300], Step [1/77], lr:1.30e-04 pred_PSNR: 11.56 pixel_loss: 0.2765 clip_loss: 0.0000 total_loss: 0.2765
+[2025/11/21 02:24:06] Rank:None, Epoch[2/300], Step [51/77], lr:1.49e-04 pred_PSNR: 12.88 pixel_loss: 0.2460 clip_loss: 0.0000 total_loss: 0.2460
+[2025/11/21 02:24:07] Rank:None, Epoch[2/300], Step [77/77], lr:1.60e-04 pred_PSNR: 13.16 pixel_loss: 0.2384 clip_loss: 0.0000 total_loss: 0.2384
+Time/epoch: 	Current:48.29 	Average:48.15
+[2025/11/21 02:24:56] Rank:None, Epoch[3/300], Step [1/77], lr:1.60e-04 pred_PSNR: 13.63 pixel_loss: 0.2236 clip_loss: 0.0000 total_loss: 0.2236
+[2025/11/21 02:24:59] Rank:None, Epoch[3/300], Step [51/77], lr:1.79e-04 pred_PSNR: 14.15 pixel_loss: 0.2131 clip_loss: 0.0000 total_loss: 0.2131
+[2025/11/21 02:25:00] Rank:None, Epoch[3/300], Step [77/77], lr:1.90e-04 pred_PSNR: 14.35 pixel_loss: 0.2102 clip_loss: 0.0000 total_loss: 0.2102
+Time/epoch: 	Current:52.89 	Average:49.78
+[2025/11/21 02:25:41] Rank:None, Epoch[4/300], Step [1/77], lr:1.90e-04 pred_PSNR: 16.56 pixel_loss: 0.1732 clip_loss: 0.0000 total_loss: 0.1732
+[2025/11/21 02:25:44] Rank:None, Epoch[4/300], Step [51/77], lr:2.09e-04 pred_PSNR: 14.78 pixel_loss: 0.2015 clip_loss: 0.0000 total_loss: 0.2015
+[2025/11/21 02:25:46] Rank:None, Epoch[4/300], Step [77/77], lr:2.20e-04 pred_PSNR: 14.86 pixel_loss: 0.1998 clip_loss: 0.0000 total_loss: 0.1998
+Time/epoch: 	Current:45.20 	Average:48.67
+[2025/11/21 02:26:27] Rank:None, Epoch[5/300], Step [1/77], lr:2.20e-04 pred_PSNR: 14.56 pixel_loss: 0.1952 clip_loss: 0.0000 total_loss: 0.1952
+[2025/11/21 02:26:30] Rank:None, Epoch[5/300], Step [51/77], lr:2.39e-04 pred_PSNR: 15.11 pixel_loss: 0.1942 clip_loss: 0.0000 total_loss: 0.1942
+[2025/11/21 02:26:31] Rank:None, Epoch[5/300], Step [77/77], lr:2.50e-04 pred_PSNR: 15.15 pixel_loss: 0.1941 clip_loss: 0.0000 total_loss: 0.1941
+Time/epoch: 	Current:45.35 	Average:48.03
+[2025/11/21 02:27:15] Rank:None, Epoch[6/300], Step [1/77], lr:2.50e-04 pred_PSNR: 14.79 pixel_loss: 0.1936 clip_loss: 0.0000 total_loss: 0.1936
+[2025/11/21 02:27:18] Rank:None, Epoch[6/300], Step [51/77], lr:2.69e-04 pred_PSNR: 15.34 pixel_loss: 0.1904 clip_loss: 0.0000 total_loss: 0.1904
+[2025/11/21 02:27:19] Rank:None, Epoch[6/300], Step [77/77], lr:2.80e-04 pred_PSNR: 15.45 pixel_loss: 0.1887 clip_loss: 0.0000 total_loss: 0.1887
+Time/epoch: 	Current:47.92 	Average:48.04
+[2025/11/21 02:28:08] Rank:None, Epoch[7/300], Step [1/77], lr:2.80e-04 pred_PSNR: 15.18 pixel_loss: 0.1908 clip_loss: 0.0000 total_loss: 0.1908
+[2025/11/21 02:28:11] Rank:None, Epoch[7/300], Step [51/77], lr:2.99e-04 pred_PSNR: 15.69 pixel_loss: 0.1844 clip_loss: 0.0000 total_loss: 0.1844
+[2025/11/21 02:28:12] Rank:None, Epoch[7/300], Step [77/77], lr:3.10e-04 pred_PSNR: 15.75 pixel_loss: 0.1835 clip_loss: 0.0000 total_loss: 0.1835
+Time/epoch: 	Current:53.12 	Average:48.78
+[2025/11/21 02:29:02] Rank:None, Epoch[8/300], Step [1/77], lr:3.10e-04 pred_PSNR: 16.5 pixel_loss: 0.1780 clip_loss: 0.0000 total_loss: 0.1780
+[2025/11/21 02:29:05] Rank:None, Epoch[8/300], Step [51/77], lr:3.29e-04 pred_PSNR: 15.97 pixel_loss: 0.1784 clip_loss: 0.0000 total_loss: 0.1784
+[2025/11/21 02:29:07] Rank:None, Epoch[8/300], Step [77/77], lr:3.40e-04 pred_PSNR: 15.93 pixel_loss: 0.1796 clip_loss: 0.0000 total_loss: 0.1796
+Time/epoch: 	Current:54.07 	Average:49.46
+[2025/11/21 02:30:13] Rank:None, Epoch[9/300], Step [1/77], lr:3.40e-04 pred_PSNR: 16.67 pixel_loss: 0.1758 clip_loss: 0.0000 total_loss: 0.1758
+[2025/11/21 02:30:16] Rank:None, Epoch[9/300], Step [51/77], lr:3.59e-04 pred_PSNR: 15.96 pixel_loss: 0.1786 clip_loss: 0.0000 total_loss: 0.1786
+[2025/11/21 02:30:18] Rank:None, Epoch[9/300], Step [77/77], lr:3.70e-04 pred_PSNR: 16.07 pixel_loss: 0.1773 clip_loss: 0.0000 total_loss: 0.1773
+Time/epoch: 	Current:70.76 	Average:51.84
+[2025/11/21 02:31:20] Rank:None, Epoch[10/300], Step [1/77], lr:3.70e-04 pred_PSNR: 16.12 pixel_loss: 0.1759 clip_loss: 0.0000 total_loss: 0.1759
+[2025/11/21 02:31:23] Rank:None, Epoch[10/300], Step [51/77], lr:3.89e-04 pred_PSNR: 16.36 pixel_loss: 0.1719 clip_loss: 0.0000 total_loss: 0.1719
+[2025/11/21 02:31:25] Rank:None, Epoch[10/300], Step [77/77], lr:4.00e-04 pred_PSNR: 16.37 pixel_loss: 0.1710 clip_loss: 0.0000 total_loss: 0.1710
+Time/epoch: 	Current:67.20 	Average:53.39
+[2025/11/21 02:32:17] Rank:None, Eval at Step [1/96] , FPS 322.4, pred_seen_psnr: 18.11 | 
+[2025/11/21 02:32:19] Rank:None, Eval at Step [51/96] , FPS 366.0, pred_seen_psnr: 16.9 | 
+[2025/11/21 02:32:21] Rank:None, Eval at Step [96/96] , FPS 354.8, pred_seen_psnr: 16.4 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.1043
+Average (Train):      0.1043 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 02:33:13] Rank:None, Eval at Step [1/96] , FPS 247.0, quant_seen_psnr: 18.11 | 
+[2025/11/21 02:33:15] Rank:None, Eval at Step [51/96] , FPS 376.2, quant_seen_psnr: 16.89 | 
+[2025/11/21 02:33:16] Rank:None, Eval at Step [96/96] , FPS 369.7, quant_seen_psnr: 16.4 | 
+Eval at epoch 10 for (640, 1280): pred_seen_psnr: 16.4 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 16.4 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 02:34:07] Rank:None, Epoch[11/300], Step [1/77], lr:4.00e-04 pred_PSNR: 16.61 pixel_loss: 0.1647 clip_loss: 0.0000 total_loss: 0.1647
+[2025/11/21 02:34:09] Rank:None, Epoch[11/300], Step [51/77], lr:4.19e-04 pred_PSNR: 16.46 pixel_loss: 0.1680 clip_loss: 0.0000 total_loss: 0.1680
+[2025/11/21 02:34:11] Rank:None, Epoch[11/300], Step [77/77], lr:4.30e-04 pred_PSNR: 16.55 pixel_loss: 0.1666 clip_loss: 0.0000 total_loss: 0.1666
+Time/epoch: 	Current:53.99 	Average:63.64
+[2025/11/21 02:35:00] Rank:None, Epoch[12/300], Step [1/77], lr:4.30e-04 pred_PSNR: 15.9 pixel_loss: 0.1687 clip_loss: 0.0000 total_loss: 0.1687
+[2025/11/21 02:35:03] Rank:None, Epoch[12/300], Step [51/77], lr:4.49e-04 pred_PSNR: 16.63 pixel_loss: 0.1647 clip_loss: 0.0000 total_loss: 0.1647
+[2025/11/21 02:35:04] Rank:None, Epoch[12/300], Step [77/77], lr:4.60e-04 pred_PSNR: 16.69 pixel_loss: 0.1641 clip_loss: 0.0000 total_loss: 0.1641
+Time/epoch: 	Current:53.31 	Average:62.79
+[2025/11/21 02:35:55] Rank:None, Epoch[13/300], Step [1/77], lr:4.60e-04 pred_PSNR: 17.22 pixel_loss: 0.1661 clip_loss: 0.0000 total_loss: 0.1661
+[2025/11/21 02:35:58] Rank:None, Epoch[13/300], Step [51/77], lr:4.79e-04 pred_PSNR: 16.96 pixel_loss: 0.1600 clip_loss: 0.0000 total_loss: 0.1600
+[2025/11/21 02:35:59] Rank:None, Epoch[13/300], Step [77/77], lr:4.90e-04 pred_PSNR: 16.91 pixel_loss: 0.1602 clip_loss: 0.0000 total_loss: 0.1602
+Time/epoch: 	Current:54.74 	Average:62.18
+[2025/11/21 02:36:50] Rank:None, Epoch[14/300], Step [1/77], lr:4.90e-04 pred_PSNR: 17.47 pixel_loss: 0.1626 clip_loss: 0.0000 total_loss: 0.1626
+[2025/11/21 02:36:53] Rank:None, Epoch[14/300], Step [51/77], lr:5.09e-04 pred_PSNR: 17.07 pixel_loss: 0.1576 clip_loss: 0.0000 total_loss: 0.1576
+[2025/11/21 02:36:54] Rank:None, Epoch[14/300], Step [77/77], lr:5.20e-04 pred_PSNR: 17.07 pixel_loss: 0.1574 clip_loss: 0.0000 total_loss: 0.1574
+Time/epoch: 	Current:55.09 	Average:61.68
+[2025/11/21 02:37:47] Rank:None, Epoch[15/300], Step [1/77], lr:5.20e-04 pred_PSNR: 16.38 pixel_loss: 0.1599 clip_loss: 0.0000 total_loss: 0.1599
+[2025/11/21 02:37:50] Rank:None, Epoch[15/300], Step [51/77], lr:5.39e-04 pred_PSNR: 17.23 pixel_loss: 0.1546 clip_loss: 0.0000 total_loss: 0.1546
+[2025/11/21 02:37:51] Rank:None, Epoch[15/300], Step [77/77], lr:5.50e-04 pred_PSNR: 17.25 pixel_loss: 0.1546 clip_loss: 0.0000 total_loss: 0.1546
+Time/epoch: 	Current:56.95 	Average:61.37
+[2025/11/21 02:38:36] Rank:None, Epoch[16/300], Step [1/77], lr:5.50e-04 pred_PSNR: 17.58 pixel_loss: 0.1462 clip_loss: 0.0000 total_loss: 0.1462
+[2025/11/21 02:38:39] Rank:None, Epoch[16/300], Step [51/77], lr:5.69e-04 pred_PSNR: 17.43 pixel_loss: 0.1515 clip_loss: 0.0000 total_loss: 0.1515
+[2025/11/21 02:38:41] Rank:None, Epoch[16/300], Step [77/77], lr:5.80e-04 pred_PSNR: 17.51 pixel_loss: 0.1500 clip_loss: 0.0000 total_loss: 0.1500
+Time/epoch: 	Current:49.01 	Average:60.61
+[2025/11/21 02:39:24] Rank:None, Epoch[17/300], Step [1/77], lr:5.80e-04 pred_PSNR: 17.66 pixel_loss: 0.1402 clip_loss: 0.0000 total_loss: 0.1402
+[2025/11/21 02:39:27] Rank:None, Epoch[17/300], Step [51/77], lr:5.99e-04 pred_PSNR: 17.68 pixel_loss: 0.1482 clip_loss: 0.0000 total_loss: 0.1482
+[2025/11/21 02:39:29] Rank:None, Epoch[17/300], Step [77/77], lr:6.10e-04 pred_PSNR: 17.63 pixel_loss: 0.1488 clip_loss: 0.0000 total_loss: 0.1488
+Time/epoch: 	Current:47.90 	Average:59.87
+[2025/11/21 02:40:13] Rank:None, Epoch[18/300], Step [1/77], lr:6.10e-04 pred_PSNR: 18.28 pixel_loss: 0.1451 clip_loss: 0.0000 total_loss: 0.1451
+[2025/11/21 02:40:15] Rank:None, Epoch[18/300], Step [51/77], lr:6.29e-04 pred_PSNR: 17.86 pixel_loss: 0.1457 clip_loss: 0.0000 total_loss: 0.1457
+[2025/11/21 02:40:17] Rank:None, Epoch[18/300], Step [77/77], lr:6.40e-04 pred_PSNR: 17.88 pixel_loss: 0.1459 clip_loss: 0.0000 total_loss: 0.1459
+Time/epoch: 	Current:47.90 	Average:59.22
+[2025/11/21 02:40:59] Rank:None, Epoch[19/300], Step [1/77], lr:6.40e-04 pred_PSNR: 18.08 pixel_loss: 0.1438 clip_loss: 0.0000 total_loss: 0.1438
+[2025/11/21 02:41:02] Rank:None, Epoch[19/300], Step [51/77], lr:6.59e-04 pred_PSNR: 17.99 pixel_loss: 0.1439 clip_loss: 0.0000 total_loss: 0.1439
+[2025/11/21 02:41:03] Rank:None, Epoch[19/300], Step [77/77], lr:6.70e-04 pred_PSNR: 18.02 pixel_loss: 0.1437 clip_loss: 0.0000 total_loss: 0.1437
+Time/epoch: 	Current:46.47 	Average:58.55
+[2025/11/21 02:41:47] Rank:None, Epoch[20/300], Step [1/77], lr:6.70e-04 pred_PSNR: 18.09 pixel_loss: 0.1418 clip_loss: 0.0000 total_loss: 0.1418
+[2025/11/21 02:41:50] Rank:None, Epoch[20/300], Step [51/77], lr:6.89e-04 pred_PSNR: 18.11 pixel_loss: 0.1415 clip_loss: 0.0000 total_loss: 0.1415
+[2025/11/21 02:41:51] Rank:None, Epoch[20/300], Step [77/77], lr:7.00e-04 pred_PSNR: 18.15 pixel_loss: 0.1414 clip_loss: 0.0000 total_loss: 0.1414
+Time/epoch: 	Current:47.92 	Average:58.03
+[2025/11/21 02:42:34] Rank:None, Eval at Step [1/96] , FPS 304.3, pred_seen_psnr: 19.49 | 
+[2025/11/21 02:42:37] Rank:None, Eval at Step [51/96] , FPS 385.1, pred_seen_psnr: 18.83 | 
+[2025/11/21 02:42:39] Rank:None, Eval at Step [96/96] , FPS 375.5, pred_seen_psnr: 18.37 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.1028
+Average (Train):      0.1028 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 02:43:21] Rank:None, Eval at Step [1/96] , FPS 215.8, quant_seen_psnr: 19.49 | 
+[2025/11/21 02:43:23] Rank:None, Eval at Step [51/96] , FPS 396.2, quant_seen_psnr: 18.82 | 
+[2025/11/21 02:43:25] Rank:None, Eval at Step [96/96] , FPS 394.9, quant_seen_psnr: 18.37 | 
+Eval at epoch 20 for (640, 1280): pred_seen_psnr: 18.37 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 18.37 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 02:44:09] Rank:None, Epoch[21/300], Step [1/77], lr:7.00e-04 pred_PSNR: 17.72 pixel_loss: 0.1540 clip_loss: 0.0000 total_loss: 0.1540
+[2025/11/21 02:44:12] Rank:None, Epoch[21/300], Step [51/77], lr:7.19e-04 pred_PSNR: 18.19 pixel_loss: 0.1407 clip_loss: 0.0000 total_loss: 0.1407
+[2025/11/21 02:44:13] Rank:None, Epoch[21/300], Step [77/77], lr:7.30e-04 pred_PSNR: 18.25 pixel_loss: 0.1399 clip_loss: 0.0000 total_loss: 0.1399
+Time/epoch: 	Current:47.77 	Average:62.02
+[2025/11/21 02:44:56] Rank:None, Epoch[22/300], Step [1/77], lr:7.30e-04 pred_PSNR: 18.06 pixel_loss: 0.1308 clip_loss: 0.0000 total_loss: 0.1308
+[2025/11/21 02:44:59] Rank:None, Epoch[22/300], Step [51/77], lr:7.49e-04 pred_PSNR: 18.54 pixel_loss: 0.1354 clip_loss: 0.0000 total_loss: 0.1354
+[2025/11/21 02:45:00] Rank:None, Epoch[22/300], Step [77/77], lr:7.60e-04 pred_PSNR: 18.49 pixel_loss: 0.1351 clip_loss: 0.0000 total_loss: 0.1351
+Time/epoch: 	Current:46.50 	Average:61.32
+[2025/11/21 02:45:41] Rank:None, Epoch[23/300], Step [1/77], lr:7.60e-04 pred_PSNR: 18.87 pixel_loss: 0.1269 clip_loss: 0.0000 total_loss: 0.1269
+[2025/11/21 02:45:44] Rank:None, Epoch[23/300], Step [51/77], lr:7.79e-04 pred_PSNR: 18.56 pixel_loss: 0.1345 clip_loss: 0.0000 total_loss: 0.1345
+[2025/11/21 02:45:46] Rank:None, Epoch[23/300], Step [77/77], lr:7.90e-04 pred_PSNR: 18.58 pixel_loss: 0.1338 clip_loss: 0.0000 total_loss: 0.1338
+Time/epoch: 	Current:45.56 	Average:60.64
+[2025/11/21 02:46:27] Rank:None, Epoch[24/300], Step [1/77], lr:7.90e-04 pred_PSNR: 18.34 pixel_loss: 0.1344 clip_loss: 0.0000 total_loss: 0.1344
+[2025/11/21 02:46:30] Rank:None, Epoch[24/300], Step [51/77], lr:8.09e-04 pred_PSNR: 18.84 pixel_loss: 0.1291 clip_loss: 0.0000 total_loss: 0.1291
+[2025/11/21 02:46:32] Rank:None, Epoch[24/300], Step [77/77], lr:8.20e-04 pred_PSNR: 18.78 pixel_loss: 0.1297 clip_loss: 0.0000 total_loss: 0.1297
+Time/epoch: 	Current:46.05 	Average:60.04
+[2025/11/21 02:47:13] Rank:None, Epoch[25/300], Step [1/77], lr:8.20e-04 pred_PSNR: 19.35 pixel_loss: 0.1178 clip_loss: 0.0000 total_loss: 0.1178
+[2025/11/21 02:47:16] Rank:None, Epoch[25/300], Step [51/77], lr:8.39e-04 pred_PSNR: 18.68 pixel_loss: 0.1312 clip_loss: 0.0000 total_loss: 0.1312
+[2025/11/21 02:47:18] Rank:None, Epoch[25/300], Step [77/77], lr:8.50e-04 pred_PSNR: 18.64 pixel_loss: 0.1314 clip_loss: 0.0000 total_loss: 0.1314
+Time/epoch: 	Current:45.69 	Average:59.47
+[2025/11/21 02:47:59] Rank:None, Epoch[26/300], Step [1/77], lr:8.50e-04 pred_PSNR: 19.05 pixel_loss: 0.1352 clip_loss: 0.0000 total_loss: 0.1352
+[2025/11/21 02:48:02] Rank:None, Epoch[26/300], Step [51/77], lr:8.69e-04 pred_PSNR: 18.83 pixel_loss: 0.1285 clip_loss: 0.0000 total_loss: 0.1285
+[2025/11/21 02:48:04] Rank:None, Epoch[26/300], Step [77/77], lr:8.80e-04 pred_PSNR: 18.8 pixel_loss: 0.1287 clip_loss: 0.0000 total_loss: 0.1287
+Time/epoch: 	Current:45.71 	Average:58.95
+[2025/11/21 02:48:59] Rank:None, Epoch[27/300], Step [1/77], lr:8.80e-04 pred_PSNR: 18.79 pixel_loss: 0.1283 clip_loss: 0.0000 total_loss: 0.1283
+[2025/11/21 02:49:02] Rank:None, Epoch[27/300], Step [51/77], lr:8.99e-04 pred_PSNR: 18.95 pixel_loss: 0.1271 clip_loss: 0.0000 total_loss: 0.1271
+[2025/11/21 02:49:03] Rank:None, Epoch[27/300], Step [77/77], lr:9.10e-04 pred_PSNR: 19.0 pixel_loss: 0.1254 clip_loss: 0.0000 total_loss: 0.1254
+Time/epoch: 	Current:59.53 	Average:58.97
+[2025/11/21 02:50:00] Rank:None, Epoch[28/300], Step [1/77], lr:9.10e-04 pred_PSNR: 19.14 pixel_loss: 0.1269 clip_loss: 0.0000 total_loss: 0.1269
+[2025/11/21 02:50:03] Rank:None, Epoch[28/300], Step [51/77], lr:9.29e-04 pred_PSNR: 18.97 pixel_loss: 0.1263 clip_loss: 0.0000 total_loss: 0.1263
+[2025/11/21 02:50:04] Rank:None, Epoch[28/300], Step [77/77], lr:9.40e-04 pred_PSNR: 19.01 pixel_loss: 0.1257 clip_loss: 0.0000 total_loss: 0.1257
+Time/epoch: 	Current:60.63 	Average:59.04
+[2025/11/21 02:50:56] Rank:None, Epoch[29/300], Step [1/77], lr:9.40e-04 pred_PSNR: 18.71 pixel_loss: 0.1307 clip_loss: 0.0000 total_loss: 0.1307
+[2025/11/21 02:50:59] Rank:None, Epoch[29/300], Step [51/77], lr:9.59e-04 pred_PSNR: 19.17 pixel_loss: 0.1226 clip_loss: 0.0000 total_loss: 0.1226
+[2025/11/21 02:51:00] Rank:None, Epoch[29/300], Step [77/77], lr:9.70e-04 pred_PSNR: 19.13 pixel_loss: 0.1228 clip_loss: 0.0000 total_loss: 0.1228
+Time/epoch: 	Current:55.89 	Average:58.93
+[2025/11/21 02:51:44] Rank:None, Epoch[30/300], Step [1/77], lr:9.70e-04 pred_PSNR: 19.39 pixel_loss: 0.1183 clip_loss: 0.0000 total_loss: 0.1183
+[2025/11/21 02:51:47] Rank:None, Epoch[30/300], Step [51/77], lr:9.89e-04 pred_PSNR: 19.19 pixel_loss: 0.1209 clip_loss: 0.0000 total_loss: 0.1209
+[2025/11/21 02:51:48] Rank:None, Epoch[30/300], Step [77/77], lr:1.00e-03 pred_PSNR: 19.26 pixel_loss: 0.1208 clip_loss: 0.0000 total_loss: 0.1208
+Time/epoch: 	Current:47.94 	Average:58.57
+[2025/11/21 02:52:39] Rank:None, Eval at Step [1/96] , FPS 277.6, pred_seen_psnr: 20.82 | 
+[2025/11/21 02:52:41] Rank:None, Eval at Step [51/96] , FPS 322.5, pred_seen_psnr: 19.73 | 
+[2025/11/21 02:52:43] Rank:None, Eval at Step [96/96] , FPS 343.5, pred_seen_psnr: 19.51 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.0971
+Average (Train):      0.0971 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 02:53:35] Rank:None, Eval at Step [1/96] , FPS 301.5, quant_seen_psnr: 20.83 | 
+[2025/11/21 02:53:37] Rank:None, Eval at Step [51/96] , FPS 401.4, quant_seen_psnr: 19.73 | 
+[2025/11/21 02:53:39] Rank:None, Eval at Step [96/96] , FPS 398.2, quant_seen_psnr: 19.51 | 
+Eval at epoch 30 for (640, 1280): pred_seen_psnr: 19.51 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 19.51 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 02:55:07] Rank:None, Epoch[31/300], Step [1/77], lr:1.00e-03 pred_PSNR: 19.52 pixel_loss: 0.1170 clip_loss: 0.0000 total_loss: 0.1170
+[2025/11/21 02:55:10] Rank:None, Epoch[31/300], Step [51/77], lr:1.00e-03 pred_PSNR: 19.37 pixel_loss: 0.1194 clip_loss: 0.0000 total_loss: 0.1194
+[2025/11/21 02:55:12] Rank:None, Epoch[31/300], Step [77/77], lr:1.00e-03 pred_PSNR: 19.4 pixel_loss: 0.1192 clip_loss: 0.0000 total_loss: 0.1192
+Time/epoch: 	Current:92.08 	Average:63.25
+[2025/11/21 02:55:56] Rank:None, Epoch[32/300], Step [1/77], lr:1.00e-03 pred_PSNR: 19.52 pixel_loss: 0.1180 clip_loss: 0.0000 total_loss: 0.1180
+[2025/11/21 02:55:59] Rank:None, Epoch[32/300], Step [51/77], lr:1.00e-03 pred_PSNR: 19.7 pixel_loss: 0.1150 clip_loss: 0.0000 total_loss: 0.1150
+[2025/11/21 02:56:00] Rank:None, Epoch[32/300], Step [77/77], lr:1.00e-03 pred_PSNR: 19.59 pixel_loss: 0.1162 clip_loss: 0.0000 total_loss: 0.1162
+Time/epoch: 	Current:48.19 	Average:62.78
+[2025/11/21 02:56:43] Rank:None, Epoch[33/300], Step [1/77], lr:1.00e-03 pred_PSNR: 19.71 pixel_loss: 0.1178 clip_loss: 0.0000 total_loss: 0.1178
+[2025/11/21 02:56:46] Rank:None, Epoch[33/300], Step [51/77], lr:1.00e-03 pred_PSNR: 19.76 pixel_loss: 0.1141 clip_loss: 0.0000 total_loss: 0.1141
+[2025/11/21 02:56:48] Rank:None, Epoch[33/300], Step [77/77], lr:1.00e-03 pred_PSNR: 19.76 pixel_loss: 0.1139 clip_loss: 0.0000 total_loss: 0.1139
+Time/epoch: 	Current:47.49 	Average:62.32
+[2025/11/21 02:58:23] Rank:None, Epoch[34/300], Step [1/77], lr:1.00e-03 pred_PSNR: 20.04 pixel_loss: 0.1127 clip_loss: 0.0000 total_loss: 0.1127
+[2025/11/21 02:58:27] Rank:None, Epoch[34/300], Step [51/77], lr:1.00e-03 pred_PSNR: 19.89 pixel_loss: 0.1121 clip_loss: 0.0000 total_loss: 0.1121
+[2025/11/21 02:58:28] Rank:None, Epoch[34/300], Step [77/77], lr:9.99e-04 pred_PSNR: 19.92 pixel_loss: 0.1116 clip_loss: 0.0000 total_loss: 0.1116
+Time/epoch: 	Current:100.42 	Average:63.45
+[2025/11/21 02:59:12] Rank:None, Epoch[35/300], Step [1/77], lr:9.99e-04 pred_PSNR: 19.35 pixel_loss: 0.1131 clip_loss: 0.0000 total_loss: 0.1131
+[2025/11/21 02:59:15] Rank:None, Epoch[35/300], Step [51/77], lr:9.99e-04 pred_PSNR: 20.11 pixel_loss: 0.1100 clip_loss: 0.0000 total_loss: 0.1100
+[2025/11/21 02:59:16] Rank:None, Epoch[35/300], Step [77/77], lr:9.99e-04 pred_PSNR: 20.09 pixel_loss: 0.1096 clip_loss: 0.0000 total_loss: 0.1096
+Time/epoch: 	Current:47.73 	Average:63.00
+[2025/11/21 03:00:22] Rank:None, Epoch[36/300], Step [1/77], lr:9.99e-04 pred_PSNR: 19.73 pixel_loss: 0.1127 clip_loss: 0.0000 total_loss: 0.1127
+[2025/11/21 03:00:25] Rank:None, Epoch[36/300], Step [51/77], lr:9.99e-04 pred_PSNR: 20.09 pixel_loss: 0.1093 clip_loss: 0.0000 total_loss: 0.1093
+[2025/11/21 03:00:26] Rank:None, Epoch[36/300], Step [77/77], lr:9.99e-04 pred_PSNR: 20.13 pixel_loss: 0.1095 clip_loss: 0.0000 total_loss: 0.1095
+Time/epoch: 	Current:69.98 	Average:63.20
+[2025/11/21 03:01:56] Rank:None, Epoch[37/300], Step [1/77], lr:9.99e-04 pred_PSNR: 20.38 pixel_loss: 0.1015 clip_loss: 0.0000 total_loss: 0.1015
+[2025/11/21 03:01:59] Rank:None, Epoch[37/300], Step [51/77], lr:9.99e-04 pred_PSNR: 20.34 pixel_loss: 0.1070 clip_loss: 0.0000 total_loss: 0.1070
+[2025/11/21 03:02:01] Rank:None, Epoch[37/300], Step [77/77], lr:9.98e-04 pred_PSNR: 20.3 pixel_loss: 0.1070 clip_loss: 0.0000 total_loss: 0.1070
+Time/epoch: 	Current:94.37 	Average:64.05
+[2025/11/21 03:03:04] Rank:None, Epoch[38/300], Step [1/77], lr:9.98e-04 pred_PSNR: 19.78 pixel_loss: 0.1079 clip_loss: 0.0000 total_loss: 0.1079
+[2025/11/21 03:03:07] Rank:None, Epoch[38/300], Step [51/77], lr:9.98e-04 pred_PSNR: 20.4 pixel_loss: 0.1062 clip_loss: 0.0000 total_loss: 0.1062
+[2025/11/21 03:03:08] Rank:None, Epoch[38/300], Step [77/77], lr:9.98e-04 pred_PSNR: 20.42 pixel_loss: 0.1059 clip_loss: 0.0000 total_loss: 0.1059
+Time/epoch: 	Current:67.39 	Average:64.14
+[2025/11/21 03:03:51] Rank:None, Epoch[39/300], Step [1/77], lr:9.98e-04 pred_PSNR: 21.7 pixel_loss: 0.0900 clip_loss: 0.0000 total_loss: 0.0900
+[2025/11/21 03:03:54] Rank:None, Epoch[39/300], Step [51/77], lr:9.97e-04 pred_PSNR: 20.63 pixel_loss: 0.1034 clip_loss: 0.0000 total_loss: 0.1034
+[2025/11/21 03:03:55] Rank:None, Epoch[39/300], Step [77/77], lr:9.97e-04 pred_PSNR: 20.64 pixel_loss: 0.1034 clip_loss: 0.0000 total_loss: 0.1034
+Time/epoch: 	Current:46.96 	Average:63.70
+[2025/11/21 03:05:23] Rank:None, Epoch[40/300], Step [1/77], lr:9.97e-04 pred_PSNR: 20.53 pixel_loss: 0.1059 clip_loss: 0.0000 total_loss: 0.1059
+[2025/11/21 03:05:26] Rank:None, Epoch[40/300], Step [51/77], lr:9.97e-04 pred_PSNR: 20.79 pixel_loss: 0.1019 clip_loss: 0.0000 total_loss: 0.1019
+[2025/11/21 03:05:27] Rank:None, Epoch[40/300], Step [77/77], lr:9.97e-04 pred_PSNR: 20.76 pixel_loss: 0.1019 clip_loss: 0.0000 total_loss: 0.1019
+Time/epoch: 	Current:91.79 	Average:64.41
+[2025/11/21 03:07:11] Rank:None, Eval at Step [1/96] , FPS 306.9, pred_seen_psnr: 21.28 | 
+[2025/11/21 03:07:13] Rank:None, Eval at Step [51/96] , FPS 376.8, pred_seen_psnr: 20.62 | 
+[2025/11/21 03:07:16] Rank:None, Eval at Step [96/96] , FPS 394.6, pred_seen_psnr: 20.64 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.0959
+Average (Train):      0.0959 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 03:09:04] Rank:None, Eval at Step [1/96] , FPS 222.0, quant_seen_psnr: 21.28 | 
+[2025/11/21 03:09:07] Rank:None, Eval at Step [51/96] , FPS 329.8, quant_seen_psnr: 20.62 | 
+[2025/11/21 03:09:08] Rank:None, Eval at Step [96/96] , FPS 358.7, quant_seen_psnr: 20.64 | 
+Eval at epoch 40 for (640, 1280): pred_seen_psnr: 20.64 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 20.64 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 03:10:49] Rank:None, Epoch[41/300], Step [1/77], lr:9.97e-04 pred_PSNR: 21.16 pixel_loss: 0.0962 clip_loss: 0.0000 total_loss: 0.0962
+[2025/11/21 03:10:52] Rank:None, Epoch[41/300], Step [51/77], lr:9.96e-04 pred_PSNR: 20.93 pixel_loss: 0.0993 clip_loss: 0.0000 total_loss: 0.0993
+[2025/11/21 03:10:53] Rank:None, Epoch[41/300], Step [77/77], lr:9.96e-04 pred_PSNR: 20.95 pixel_loss: 0.0989 clip_loss: 0.0000 total_loss: 0.0989
+Time/epoch: 	Current:104.11 	Average:70.78
+[2025/11/21 03:12:39] Rank:None, Epoch[42/300], Step [1/77], lr:9.96e-04 pred_PSNR: 21.12 pixel_loss: 0.0972 clip_loss: 0.0000 total_loss: 0.0972
+[2025/11/21 03:12:42] Rank:None, Epoch[42/300], Step [51/77], lr:9.95e-04 pred_PSNR: 20.94 pixel_loss: 0.0993 clip_loss: 0.0000 total_loss: 0.0993
+[2025/11/21 03:12:43] Rank:None, Epoch[42/300], Step [77/77], lr:9.95e-04 pred_PSNR: 21.03 pixel_loss: 0.0983 clip_loss: 0.0000 total_loss: 0.0983
+Time/epoch: 	Current:110.20 	Average:71.72
+[2025/11/21 03:14:35] Rank:None, Epoch[43/300], Step [1/77], lr:9.95e-04 pred_PSNR: 20.81 pixel_loss: 0.0986 clip_loss: 0.0000 total_loss: 0.0986
+[2025/11/21 03:14:38] Rank:None, Epoch[43/300], Step [51/77], lr:9.95e-04 pred_PSNR: 21.06 pixel_loss: 0.0976 clip_loss: 0.0000 total_loss: 0.0976
+[2025/11/21 03:14:39] Rank:None, Epoch[43/300], Step [77/77], lr:9.94e-04 pred_PSNR: 21.12 pixel_loss: 0.0968 clip_loss: 0.0000 total_loss: 0.0968
+Time/epoch: 	Current:115.67 	Average:72.75
+[2025/11/21 03:16:21] Rank:None, Epoch[44/300], Step [1/77], lr:9.94e-04 pred_PSNR: 21.5 pixel_loss: 0.0966 clip_loss: 0.0000 total_loss: 0.0966
+[2025/11/21 03:16:24] Rank:None, Epoch[44/300], Step [51/77], lr:9.94e-04 pred_PSNR: 21.14 pixel_loss: 0.0968 clip_loss: 0.0000 total_loss: 0.0968
+[2025/11/21 03:16:26] Rank:None, Epoch[44/300], Step [77/77], lr:9.93e-04 pred_PSNR: 21.16 pixel_loss: 0.0967 clip_loss: 0.0000 total_loss: 0.0967
+Time/epoch: 	Current:106.34 	Average:73.52
+[2025/11/21 03:18:06] Rank:None, Epoch[45/300], Step [1/77], lr:9.93e-04 pred_PSNR: 21.74 pixel_loss: 0.0900 clip_loss: 0.0000 total_loss: 0.0900
+[2025/11/21 03:18:10] Rank:None, Epoch[45/300], Step [51/77], lr:9.93e-04 pred_PSNR: 21.23 pixel_loss: 0.0958 clip_loss: 0.0000 total_loss: 0.0958
+[2025/11/21 03:18:11] Rank:None, Epoch[45/300], Step [77/77], lr:9.92e-04 pred_PSNR: 21.29 pixel_loss: 0.0952 clip_loss: 0.0000 total_loss: 0.0952
+Time/epoch: 	Current:105.44 	Average:74.23
+[2025/11/21 03:19:59] Rank:None, Epoch[46/300], Step [1/77], lr:9.92e-04 pred_PSNR: 21.56 pixel_loss: 0.0889 clip_loss: 0.0000 total_loss: 0.0889
+[2025/11/21 03:20:02] Rank:None, Epoch[46/300], Step [51/77], lr:9.92e-04 pred_PSNR: 21.55 pixel_loss: 0.0918 clip_loss: 0.0000 total_loss: 0.0918
+[2025/11/21 03:20:03] Rank:None, Epoch[46/300], Step [77/77], lr:9.91e-04 pred_PSNR: 21.53 pixel_loss: 0.0922 clip_loss: 0.0000 total_loss: 0.0922
+Time/epoch: 	Current:111.88 	Average:75.05
+[2025/11/21 03:21:46] Rank:None, Epoch[47/300], Step [1/77], lr:9.91e-04 pred_PSNR: 21.29 pixel_loss: 0.0920 clip_loss: 0.0000 total_loss: 0.0920
+[2025/11/21 03:21:49] Rank:None, Epoch[47/300], Step [51/77], lr:9.91e-04 pred_PSNR: 21.31 pixel_loss: 0.0941 clip_loss: 0.0000 total_loss: 0.0941
+[2025/11/21 03:21:50] Rank:None, Epoch[47/300], Step [77/77], lr:9.90e-04 pred_PSNR: 21.36 pixel_loss: 0.0936 clip_loss: 0.0000 total_loss: 0.0936
+Time/epoch: 	Current:107.18 	Average:75.74
+[2025/11/21 03:23:21] Rank:None, Epoch[48/300], Step [1/77], lr:9.90e-04 pred_PSNR: 20.96 pixel_loss: 0.0978 clip_loss: 0.0000 total_loss: 0.0978
+[2025/11/21 03:23:25] Rank:None, Epoch[48/300], Step [51/77], lr:9.89e-04 pred_PSNR: 21.37 pixel_loss: 0.0931 clip_loss: 0.0000 total_loss: 0.0931
+[2025/11/21 03:23:26] Rank:None, Epoch[48/300], Step [77/77], lr:9.89e-04 pred_PSNR: 21.45 pixel_loss: 0.0923 clip_loss: 0.0000 total_loss: 0.0923
+Time/epoch: 	Current:95.24 	Average:76.15
+[2025/11/21 03:25:09] Rank:None, Epoch[49/300], Step [1/77], lr:9.89e-04 pred_PSNR: 22.29 pixel_loss: 0.0875 clip_loss: 0.0000 total_loss: 0.0875
+[2025/11/21 03:25:13] Rank:None, Epoch[49/300], Step [51/77], lr:9.88e-04 pred_PSNR: 21.72 pixel_loss: 0.0899 clip_loss: 0.0000 total_loss: 0.0899
+[2025/11/21 03:25:14] Rank:None, Epoch[49/300], Step [77/77], lr:9.88e-04 pred_PSNR: 21.59 pixel_loss: 0.0911 clip_loss: 0.0000 total_loss: 0.0911
+Time/epoch: 	Current:107.93 	Average:76.80
+[2025/11/21 03:26:55] Rank:None, Epoch[50/300], Step [1/77], lr:9.88e-04 pred_PSNR: 22.24 pixel_loss: 0.0835 clip_loss: 0.0000 total_loss: 0.0835
+[2025/11/21 03:26:58] Rank:None, Epoch[50/300], Step [51/77], lr:9.87e-04 pred_PSNR: 21.8 pixel_loss: 0.0889 clip_loss: 0.0000 total_loss: 0.0889
+[2025/11/21 03:27:00] Rank:None, Epoch[50/300], Step [77/77], lr:9.87e-04 pred_PSNR: 21.8 pixel_loss: 0.0889 clip_loss: 0.0000 total_loss: 0.0889
+Time/epoch: 	Current:105.50 	Average:77.37
+[2025/11/21 03:28:43] Rank:None, Eval at Step [1/96] , FPS 181.4, pred_seen_psnr: 23.02 | 
+[2025/11/21 03:28:46] Rank:None, Eval at Step [51/96] , FPS 377.1, pred_seen_psnr: 21.94 | 
+[2025/11/21 03:28:48] Rank:None, Eval at Step [96/96] , FPS 376.8, pred_seen_psnr: 21.86 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.0965
+Average (Train):      0.0965 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 03:30:26] Rank:None, Eval at Step [1/96] , FPS 224.9, quant_seen_psnr: 23.0 | 
+[2025/11/21 03:30:29] Rank:None, Eval at Step [51/96] , FPS 370.2, quant_seen_psnr: 21.94 | 
+[2025/11/21 03:30:31] Rank:None, Eval at Step [96/96] , FPS 366.0, quant_seen_psnr: 21.85 | 
+Eval at epoch 50 for (640, 1280): pred_seen_psnr: 21.86 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 21.85 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 03:32:22] Rank:None, Epoch[51/300], Step [1/77], lr:9.87e-04 pred_PSNR: 21.84 pixel_loss: 0.0859 clip_loss: 0.9022 total_loss: 0.5370
+[2025/11/21 03:32:42] Rank:None, Epoch[51/300], Step [51/77], lr:9.86e-04 pred_PSNR: 21.36 pixel_loss: 0.0953 clip_loss: 0.3791 total_loss: 0.2848
+[2025/11/21 03:32:52] Rank:None, Epoch[51/300], Step [77/77], lr:9.85e-04 pred_PSNR: 21.42 pixel_loss: 0.0947 clip_loss: 0.2771 total_loss: 0.2332
+Time/epoch: 	Current:141.01 	Average:82.77
+[2025/11/21 03:34:44] Rank:None, Epoch[52/300], Step [1/77], lr:9.85e-04 pred_PSNR: 21.87 pixel_loss: 0.0895 clip_loss: 0.0574 total_loss: 0.1182
+[2025/11/21 03:35:03] Rank:None, Epoch[52/300], Step [51/77], lr:9.84e-04 pred_PSNR: 21.86 pixel_loss: 0.0887 clip_loss: 0.0533 total_loss: 0.1154
+[2025/11/21 03:35:14] Rank:None, Epoch[52/300], Step [77/77], lr:9.84e-04 pred_PSNR: 21.8 pixel_loss: 0.0890 clip_loss: 0.0528 total_loss: 0.1153
+Time/epoch: 	Current:141.19 	Average:83.90
+[2025/11/21 03:36:55] Rank:None, Epoch[53/300], Step [1/77], lr:9.84e-04 pred_PSNR: 20.69 pixel_loss: 0.0964 clip_loss: 0.0390 total_loss: 0.1159
+[2025/11/21 03:37:15] Rank:None, Epoch[53/300], Step [51/77], lr:9.83e-04 pred_PSNR: 21.6 pixel_loss: 0.0899 clip_loss: 0.0469 total_loss: 0.1134
+[2025/11/21 03:37:25] Rank:None, Epoch[53/300], Step [77/77], lr:9.82e-04 pred_PSNR: 21.66 pixel_loss: 0.0897 clip_loss: 0.0450 total_loss: 0.1122
+Time/epoch: 	Current:131.44 	Average:84.80
+[2025/11/21 03:39:09] Rank:None, Epoch[54/300], Step [1/77], lr:9.82e-04 pred_PSNR: 21.16 pixel_loss: 0.0953 clip_loss: 0.0387 total_loss: 0.1147
+[2025/11/21 03:39:28] Rank:None, Epoch[54/300], Step [51/77], lr:9.81e-04 pred_PSNR: 21.93 pixel_loss: 0.0875 clip_loss: 0.0380 total_loss: 0.1064
+[2025/11/21 03:39:38] Rank:None, Epoch[54/300], Step [77/77], lr:9.81e-04 pred_PSNR: 21.91 pixel_loss: 0.0875 clip_loss: 0.0368 total_loss: 0.1059
+Time/epoch: 	Current:133.25 	Average:85.70
+[2025/11/21 03:41:24] Rank:None, Epoch[55/300], Step [1/77], lr:9.81e-04 pred_PSNR: 22.6 pixel_loss: 0.0761 clip_loss: 0.0356 total_loss: 0.0938
+[2025/11/21 03:41:43] Rank:None, Epoch[55/300], Step [51/77], lr:9.80e-04 pred_PSNR: 21.97 pixel_loss: 0.0863 clip_loss: 0.0325 total_loss: 0.1025
+[2025/11/21 03:41:53] Rank:None, Epoch[55/300], Step [77/77], lr:9.79e-04 pred_PSNR: 21.98 pixel_loss: 0.0863 clip_loss: 0.0317 total_loss: 0.1022
+Time/epoch: 	Current:134.77 	Average:86.59
+[2025/11/21 03:43:30] Rank:None, Epoch[56/300], Step [1/77], lr:9.79e-04 pred_PSNR: 21.24 pixel_loss: 0.0948 clip_loss: 0.0282 total_loss: 0.1088
+[2025/11/21 03:43:50] Rank:None, Epoch[56/300], Step [51/77], lr:9.78e-04 pred_PSNR: 21.99 pixel_loss: 0.0864 clip_loss: 0.0287 total_loss: 0.1007
+[2025/11/21 03:44:00] Rank:None, Epoch[56/300], Step [77/77], lr:9.77e-04 pred_PSNR: 22.08 pixel_loss: 0.0857 clip_loss: 0.0284 total_loss: 0.0999
+Time/epoch: 	Current:126.53 	Average:87.31
+[2025/11/21 03:45:45] Rank:None, Epoch[57/300], Step [1/77], lr:9.77e-04 pred_PSNR: 22.46 pixel_loss: 0.0797 clip_loss: 0.0265 total_loss: 0.0930
+[2025/11/21 03:46:04] Rank:None, Epoch[57/300], Step [51/77], lr:9.76e-04 pred_PSNR: 22.2 pixel_loss: 0.0845 clip_loss: 0.0262 total_loss: 0.0976
+[2025/11/21 03:46:15] Rank:None, Epoch[57/300], Step [77/77], lr:9.76e-04 pred_PSNR: 22.19 pixel_loss: 0.0848 clip_loss: 0.0264 total_loss: 0.0980
+Time/epoch: 	Current:134.05 	Average:88.13
+[2025/11/21 03:46:59] Rank:None, Epoch[58/300], Step [1/77], lr:9.76e-04 pred_PSNR: 22.19 pixel_loss: 0.0855 clip_loss: 0.0234 total_loss: 0.0972
+[2025/11/21 03:47:18] Rank:None, Epoch[58/300], Step [51/77], lr:9.74e-04 pred_PSNR: 22.2 pixel_loss: 0.0844 clip_loss: 0.0253 total_loss: 0.0971
+[2025/11/21 03:47:29] Rank:None, Epoch[58/300], Step [77/77], lr:9.74e-04 pred_PSNR: 22.27 pixel_loss: 0.0834 clip_loss: 0.0248 total_loss: 0.0958
+Time/epoch: 	Current:73.93 	Average:87.89
+[2025/11/21 03:48:13] Rank:None, Epoch[59/300], Step [1/77], lr:9.74e-04 pred_PSNR: 22.12 pixel_loss: 0.0837 clip_loss: 0.0239 total_loss: 0.0957
+[2025/11/21 03:48:33] Rank:None, Epoch[59/300], Step [51/77], lr:9.72e-04 pred_PSNR: 22.38 pixel_loss: 0.0819 clip_loss: 0.0236 total_loss: 0.0938
+[2025/11/21 03:48:43] Rank:None, Epoch[59/300], Step [77/77], lr:9.72e-04 pred_PSNR: 22.41 pixel_loss: 0.0814 clip_loss: 0.0234 total_loss: 0.0931
+Time/epoch: 	Current:74.27 	Average:87.66
+[2025/11/21 03:49:28] Rank:None, Epoch[60/300], Step [1/77], lr:9.72e-04 pred_PSNR: 22.4 pixel_loss: 0.0808 clip_loss: 0.0204 total_loss: 0.0910
+[2025/11/21 03:49:48] Rank:None, Epoch[60/300], Step [51/77], lr:9.71e-04 pred_PSNR: 22.29 pixel_loss: 0.0822 clip_loss: 0.0228 total_loss: 0.0936
+[2025/11/21 03:49:58] Rank:None, Epoch[60/300], Step [77/77], lr:9.70e-04 pred_PSNR: 22.16 pixel_loss: 0.0834 clip_loss: 0.0223 total_loss: 0.0946
+Time/epoch: 	Current:74.62 	Average:87.45
+[2025/11/21 03:50:41] Rank:None, Eval at Step [1/96] , FPS 325.0, pred_seen_psnr: 23.94 | 
+[2025/11/21 03:50:43] Rank:None, Eval at Step [51/96] , FPS 397.7, pred_seen_psnr: 21.87 | 
+[2025/11/21 03:50:45] Rank:None, Eval at Step [96/96] , FPS 397.8, pred_seen_psnr: 22.05 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9778
+Average (Train):      0.9778 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 03:51:30] Rank:None, Eval at Step [1/96] , FPS 314.1, quant_seen_psnr: 23.94 | 
+[2025/11/21 03:51:33] Rank:None, Eval at Step [51/96] , FPS 364.2, quant_seen_psnr: 21.88 | 
+[2025/11/21 03:51:34] Rank:None, Eval at Step [96/96] , FPS 373.6, quant_seen_psnr: 22.05 | 
+Eval at epoch 60 for (640, 1280): pred_seen_psnr: 22.05 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 22.05 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 03:52:17] Rank:None, Epoch[61/300], Step [1/77], lr:9.70e-04 pred_PSNR: 21.23 pixel_loss: 0.0928 clip_loss: 0.0190 total_loss: 0.1023
+[2025/11/21 03:52:37] Rank:None, Epoch[61/300], Step [51/77], lr:9.69e-04 pred_PSNR: 22.29 pixel_loss: 0.0827 clip_loss: 0.0218 total_loss: 0.0936
+[2025/11/21 03:52:47] Rank:None, Epoch[61/300], Step [77/77], lr:9.68e-04 pred_PSNR: 22.22 pixel_loss: 0.0835 clip_loss: 0.0216 total_loss: 0.0943
+Time/epoch: 	Current:72.51 	Average:88.79
+[2025/11/21 03:53:31] Rank:None, Epoch[62/300], Step [1/77], lr:9.68e-04 pred_PSNR: 21.0 pixel_loss: 0.0976 clip_loss: 0.0207 total_loss: 0.1080
+[2025/11/21 03:53:50] Rank:None, Epoch[62/300], Step [51/77], lr:9.66e-04 pred_PSNR: 22.38 pixel_loss: 0.0821 clip_loss: 0.0210 total_loss: 0.0926
+[2025/11/21 03:54:01] Rank:None, Epoch[62/300], Step [77/77], lr:9.66e-04 pred_PSNR: 22.41 pixel_loss: 0.0814 clip_loss: 0.0206 total_loss: 0.0917
+Time/epoch: 	Current:73.10 	Average:88.54
+[2025/11/21 03:54:45] Rank:None, Epoch[63/300], Step [1/77], lr:9.66e-04 pred_PSNR: 22.14 pixel_loss: 0.0855 clip_loss: 0.0196 total_loss: 0.0953
+[2025/11/21 03:55:05] Rank:None, Epoch[63/300], Step [51/77], lr:9.64e-04 pred_PSNR: 22.16 pixel_loss: 0.0832 clip_loss: 0.0197 total_loss: 0.0931
+[2025/11/21 03:55:15] Rank:None, Epoch[63/300], Step [77/77], lr:9.64e-04 pred_PSNR: 22.13 pixel_loss: 0.0839 clip_loss: 0.0197 total_loss: 0.0937
+Time/epoch: 	Current:74.28 	Average:88.32
+[2025/11/21 03:56:07] Rank:None, Epoch[64/300], Step [1/77], lr:9.64e-04 pred_PSNR: 22.8 pixel_loss: 0.0767 clip_loss: 0.0173 total_loss: 0.0853
+[2025/11/21 03:56:27] Rank:None, Epoch[64/300], Step [51/77], lr:9.62e-04 pred_PSNR: 22.59 pixel_loss: 0.0798 clip_loss: 0.0191 total_loss: 0.0893
+[2025/11/21 03:56:37] Rank:None, Epoch[64/300], Step [77/77], lr:9.61e-04 pred_PSNR: 22.58 pixel_loss: 0.0797 clip_loss: 0.0191 total_loss: 0.0893
+Time/epoch: 	Current:81.93 	Average:88.22
+[2025/11/21 03:57:30] Rank:None, Epoch[65/300], Step [1/77], lr:9.61e-04 pred_PSNR: 22.54 pixel_loss: 0.0736 clip_loss: 0.0179 total_loss: 0.0825
+[2025/11/21 03:57:50] Rank:None, Epoch[65/300], Step [51/77], lr:9.60e-04 pred_PSNR: 22.78 pixel_loss: 0.0777 clip_loss: 0.0182 total_loss: 0.0868
+[2025/11/21 03:58:00] Rank:None, Epoch[65/300], Step [77/77], lr:9.59e-04 pred_PSNR: 22.74 pixel_loss: 0.0782 clip_loss: 0.0182 total_loss: 0.0873
+Time/epoch: 	Current:82.62 	Average:88.14
+[2025/11/21 03:58:43] Rank:None, Epoch[66/300], Step [1/77], lr:9.59e-04 pred_PSNR: 22.75 pixel_loss: 0.0790 clip_loss: 0.0215 total_loss: 0.0897
+[2025/11/21 03:59:03] Rank:None, Epoch[66/300], Step [51/77], lr:9.58e-04 pred_PSNR: 22.71 pixel_loss: 0.0788 clip_loss: 0.0181 total_loss: 0.0878
+[2025/11/21 03:59:13] Rank:None, Epoch[66/300], Step [77/77], lr:9.57e-04 pred_PSNR: 22.78 pixel_loss: 0.0780 clip_loss: 0.0179 total_loss: 0.0869
+Time/epoch: 	Current:73.15 	Average:87.91
+[2025/11/21 03:59:57] Rank:None, Epoch[67/300], Step [1/77], lr:9.57e-04 pred_PSNR: 22.9 pixel_loss: 0.0768 clip_loss: 0.0176 total_loss: 0.0856
+[2025/11/21 04:00:17] Rank:None, Epoch[67/300], Step [51/77], lr:9.55e-04 pred_PSNR: 22.8 pixel_loss: 0.0776 clip_loss: 0.0169 total_loss: 0.0861
+[2025/11/21 04:00:27] Rank:None, Epoch[67/300], Step [77/77], lr:9.54e-04 pred_PSNR: 22.85 pixel_loss: 0.0768 clip_loss: 0.0170 total_loss: 0.0853
+Time/epoch: 	Current:73.66 	Average:87.70
+[2025/11/21 04:01:11] Rank:None, Epoch[68/300], Step [1/77], lr:9.54e-04 pred_PSNR: 23.75 pixel_loss: 0.0688 clip_loss: 0.0205 total_loss: 0.0790
+[2025/11/21 04:01:30] Rank:None, Epoch[68/300], Step [51/77], lr:9.53e-04 pred_PSNR: 22.98 pixel_loss: 0.0756 clip_loss: 0.0166 total_loss: 0.0840
+[2025/11/21 04:01:40] Rank:None, Epoch[68/300], Step [77/77], lr:9.52e-04 pred_PSNR: 22.78 pixel_loss: 0.0774 clip_loss: 0.0166 total_loss: 0.0857
+Time/epoch: 	Current:73.40 	Average:87.49
+[2025/11/21 04:02:23] Rank:None, Epoch[69/300], Step [1/77], lr:9.52e-04 pred_PSNR: 22.01 pixel_loss: 0.0839 clip_loss: 0.0152 total_loss: 0.0915
+[2025/11/21 04:02:43] Rank:None, Epoch[69/300], Step [51/77], lr:9.50e-04 pred_PSNR: 22.55 pixel_loss: 0.0798 clip_loss: 0.0163 total_loss: 0.0880
+[2025/11/21 04:02:53] Rank:None, Epoch[69/300], Step [77/77], lr:9.49e-04 pred_PSNR: 22.57 pixel_loss: 0.0796 clip_loss: 0.0163 total_loss: 0.0878
+Time/epoch: 	Current:72.13 	Average:87.27
+[2025/11/21 04:03:37] Rank:None, Epoch[70/300], Step [1/77], lr:9.49e-04 pred_PSNR: 22.2 pixel_loss: 0.0836 clip_loss: 0.0165 total_loss: 0.0919
+[2025/11/21 04:03:57] Rank:None, Epoch[70/300], Step [51/77], lr:9.48e-04 pred_PSNR: 22.9 pixel_loss: 0.0764 clip_loss: 0.0158 total_loss: 0.0844
+[2025/11/21 04:04:07] Rank:None, Epoch[70/300], Step [77/77], lr:9.47e-04 pred_PSNR: 22.87 pixel_loss: 0.0766 clip_loss: 0.0157 total_loss: 0.0845
+Time/epoch: 	Current:73.98 	Average:87.09
+[2025/11/21 04:04:53] Rank:None, Eval at Step [1/96] , FPS 261.5, pred_seen_psnr: 23.89 | 
+[2025/11/21 04:04:55] Rank:None, Eval at Step [51/96] , FPS 358.3, pred_seen_psnr: 23.0 | 
+[2025/11/21 04:04:57] Rank:None, Eval at Step [96/96] , FPS 364.3, pred_seen_psnr: 22.91 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9844
+Average (Train):      0.9844 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 04:05:44] Rank:None, Eval at Step [1/96] , FPS 306.0, quant_seen_psnr: 23.89 | 
+[2025/11/21 04:05:46] Rank:None, Eval at Step [51/96] , FPS 380.3, quant_seen_psnr: 23.0 | 
+[2025/11/21 04:05:48] Rank:None, Eval at Step [96/96] , FPS 387.9, quant_seen_psnr: 22.91 | 
+Eval at epoch 70 for (640, 1280): pred_seen_psnr: 22.91 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 22.91 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 04:06:31] Rank:None, Epoch[71/300], Step [1/77], lr:9.47e-04 pred_PSNR: 23.46 pixel_loss: 0.0704 clip_loss: 0.0145 total_loss: 0.0777
+[2025/11/21 04:06:51] Rank:None, Epoch[71/300], Step [51/77], lr:9.45e-04 pred_PSNR: 22.89 pixel_loss: 0.0759 clip_loss: 0.0155 total_loss: 0.0837
+[2025/11/21 04:07:01] Rank:None, Epoch[71/300], Step [77/77], lr:9.44e-04 pred_PSNR: 22.81 pixel_loss: 0.0770 clip_loss: 0.0156 total_loss: 0.0848
+Time/epoch: 	Current:72.80 	Average:88.31
+[2025/11/21 04:07:44] Rank:None, Epoch[72/300], Step [1/77], lr:9.44e-04 pred_PSNR: 23.68 pixel_loss: 0.0687 clip_loss: 0.0134 total_loss: 0.0754
+[2025/11/21 04:08:04] Rank:None, Epoch[72/300], Step [51/77], lr:9.42e-04 pred_PSNR: 22.91 pixel_loss: 0.0762 clip_loss: 0.0150 total_loss: 0.0836
+[2025/11/21 04:08:14] Rank:None, Epoch[72/300], Step [77/77], lr:9.42e-04 pred_PSNR: 22.86 pixel_loss: 0.0766 clip_loss: 0.0150 total_loss: 0.0840
+Time/epoch: 	Current:72.98 	Average:88.10
+[2025/11/21 04:08:58] Rank:None, Epoch[73/300], Step [1/77], lr:9.41e-04 pred_PSNR: 22.34 pixel_loss: 0.0813 clip_loss: 0.0157 total_loss: 0.0892
+[2025/11/21 04:09:18] Rank:None, Epoch[73/300], Step [51/77], lr:9.40e-04 pred_PSNR: 22.82 pixel_loss: 0.0763 clip_loss: 0.0151 total_loss: 0.0838
+[2025/11/21 04:09:28] Rank:None, Epoch[73/300], Step [77/77], lr:9.39e-04 pred_PSNR: 22.82 pixel_loss: 0.0764 clip_loss: 0.0149 total_loss: 0.0838
+Time/epoch: 	Current:74.16 	Average:87.91
+[2025/11/21 04:10:12] Rank:None, Epoch[74/300], Step [1/77], lr:9.39e-04 pred_PSNR: 23.27 pixel_loss: 0.0714 clip_loss: 0.0136 total_loss: 0.0782
+[2025/11/21 04:10:31] Rank:None, Epoch[74/300], Step [51/77], lr:9.37e-04 pred_PSNR: 23.18 pixel_loss: 0.0733 clip_loss: 0.0142 total_loss: 0.0804
+[2025/11/21 04:10:42] Rank:None, Epoch[74/300], Step [77/77], lr:9.36e-04 pred_PSNR: 23.2 pixel_loss: 0.0734 clip_loss: 0.0142 total_loss: 0.0805
+Time/epoch: 	Current:73.13 	Average:87.71
+[2025/11/21 04:11:24] Rank:None, Epoch[75/300], Step [1/77], lr:9.36e-04 pred_PSNR: 23.72 pixel_loss: 0.0678 clip_loss: 0.0131 total_loss: 0.0744
+[2025/11/21 04:11:44] Rank:None, Epoch[75/300], Step [51/77], lr:9.34e-04 pred_PSNR: 23.06 pixel_loss: 0.0747 clip_loss: 0.0142 total_loss: 0.0818
+[2025/11/21 04:11:54] Rank:None, Epoch[75/300], Step [77/77], lr:9.33e-04 pred_PSNR: 23.01 pixel_loss: 0.0750 clip_loss: 0.0142 total_loss: 0.0820
+Time/epoch: 	Current:72.02 	Average:87.51
+[2025/11/21 04:12:35] Rank:None, Epoch[76/300], Step [1/77], lr:9.33e-04 pred_PSNR: 24.06 pixel_loss: 0.0690 clip_loss: 0.0132 total_loss: 0.0755
+[2025/11/21 04:12:55] Rank:None, Epoch[76/300], Step [51/77], lr:9.31e-04 pred_PSNR: 22.91 pixel_loss: 0.0759 clip_loss: 0.0139 total_loss: 0.0829
+[2025/11/21 04:13:05] Rank:None, Epoch[76/300], Step [77/77], lr:9.30e-04 pred_PSNR: 22.96 pixel_loss: 0.0753 clip_loss: 0.0139 total_loss: 0.0822
+Time/epoch: 	Current:71.31 	Average:87.29
+[2025/11/21 04:13:48] Rank:None, Epoch[77/300], Step [1/77], lr:9.30e-04 pred_PSNR: 23.1 pixel_loss: 0.0751 clip_loss: 0.0155 total_loss: 0.0829
+[2025/11/21 04:14:08] Rank:None, Epoch[77/300], Step [51/77], lr:9.28e-04 pred_PSNR: 23.16 pixel_loss: 0.0735 clip_loss: 0.0134 total_loss: 0.0802
+[2025/11/21 04:14:18] Rank:None, Epoch[77/300], Step [77/77], lr:9.27e-04 pred_PSNR: 23.17 pixel_loss: 0.0736 clip_loss: 0.0136 total_loss: 0.0804
+Time/epoch: 	Current:72.47 	Average:87.10
+[2025/11/21 04:15:01] Rank:None, Epoch[78/300], Step [1/77], lr:9.27e-04 pred_PSNR: 23.23 pixel_loss: 0.0724 clip_loss: 0.0120 total_loss: 0.0784
+[2025/11/21 04:15:21] Rank:None, Epoch[78/300], Step [51/77], lr:9.25e-04 pred_PSNR: 22.89 pixel_loss: 0.0744 clip_loss: 0.0131 total_loss: 0.0810
+[2025/11/21 04:15:31] Rank:None, Epoch[78/300], Step [77/77], lr:9.24e-04 pred_PSNR: 23.02 pixel_loss: 0.0740 clip_loss: 0.0133 total_loss: 0.0807
+Time/epoch: 	Current:73.05 	Average:86.92
+[2025/11/21 04:16:15] Rank:None, Epoch[79/300], Step [1/77], lr:9.24e-04 pred_PSNR: 23.23 pixel_loss: 0.0705 clip_loss: 0.0132 total_loss: 0.0772
+[2025/11/21 04:16:35] Rank:None, Epoch[79/300], Step [51/77], lr:9.22e-04 pred_PSNR: 23.28 pixel_loss: 0.0716 clip_loss: 0.0130 total_loss: 0.0781
+[2025/11/21 04:16:45] Rank:None, Epoch[79/300], Step [77/77], lr:9.21e-04 pred_PSNR: 23.34 pixel_loss: 0.0717 clip_loss: 0.0130 total_loss: 0.0782
+Time/epoch: 	Current:73.71 	Average:86.76
+[2025/11/21 04:17:27] Rank:None, Epoch[80/300], Step [1/77], lr:9.21e-04 pred_PSNR: 23.59 pixel_loss: 0.0694 clip_loss: 0.0136 total_loss: 0.0761
+[2025/11/21 04:17:47] Rank:None, Epoch[80/300], Step [51/77], lr:9.19e-04 pred_PSNR: 23.38 pixel_loss: 0.0713 clip_loss: 0.0128 total_loss: 0.0777
+[2025/11/21 04:17:57] Rank:None, Epoch[80/300], Step [77/77], lr:9.18e-04 pred_PSNR: 23.35 pixel_loss: 0.0719 clip_loss: 0.0130 total_loss: 0.0784
+Time/epoch: 	Current:71.88 	Average:86.58
+[2025/11/21 04:18:39] Rank:None, Eval at Step [1/96] , FPS 287.9, pred_seen_psnr: 24.38 | 
+[2025/11/21 04:18:42] Rank:None, Eval at Step [51/96] , FPS 345.5, pred_seen_psnr: 23.34 | 
+[2025/11/21 04:18:44] Rank:None, Eval at Step [96/96] , FPS 353.7, pred_seen_psnr: 23.31 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9872
+Average (Train):      0.9872 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 04:19:27] Rank:None, Eval at Step [1/96] , FPS 307.1, quant_seen_psnr: 24.4 | 
+[2025/11/21 04:19:29] Rank:None, Eval at Step [51/96] , FPS 366.8, quant_seen_psnr: 23.34 | 
+[2025/11/21 04:19:31] Rank:None, Eval at Step [96/96] , FPS 385.7, quant_seen_psnr: 23.31 | 
+Eval at epoch 80 for (640, 1280): pred_seen_psnr: 23.31 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 23.31 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 04:20:14] Rank:None, Epoch[81/300], Step [1/77], lr:9.18e-04 pred_PSNR: 23.58 pixel_loss: 0.0689 clip_loss: 0.0120 total_loss: 0.0749
+[2025/11/21 04:20:34] Rank:None, Epoch[81/300], Step [51/77], lr:9.16e-04 pred_PSNR: 23.39 pixel_loss: 0.0717 clip_loss: 0.0127 total_loss: 0.0780
+[2025/11/21 04:20:44] Rank:None, Epoch[81/300], Step [77/77], lr:9.15e-04 pred_PSNR: 23.38 pixel_loss: 0.0719 clip_loss: 0.0128 total_loss: 0.0783
+Time/epoch: 	Current:72.73 	Average:87.57
+[2025/11/21 04:21:27] Rank:None, Epoch[82/300], Step [1/77], lr:9.15e-04 pred_PSNR: 23.45 pixel_loss: 0.0731 clip_loss: 0.0132 total_loss: 0.0797
+[2025/11/21 04:21:47] Rank:None, Epoch[82/300], Step [51/77], lr:9.12e-04 pred_PSNR: 23.34 pixel_loss: 0.0716 clip_loss: 0.0124 total_loss: 0.0778
+[2025/11/21 04:21:57] Rank:None, Epoch[82/300], Step [77/77], lr:9.11e-04 pred_PSNR: 23.36 pixel_loss: 0.0717 clip_loss: 0.0126 total_loss: 0.0780
+Time/epoch: 	Current:73.10 	Average:87.39
+[2025/11/21 04:22:42] Rank:None, Epoch[83/300], Step [1/77], lr:9.11e-04 pred_PSNR: 23.01 pixel_loss: 0.0753 clip_loss: 0.0135 total_loss: 0.0821
+[2025/11/21 04:23:01] Rank:None, Epoch[83/300], Step [51/77], lr:9.09e-04 pred_PSNR: 23.25 pixel_loss: 0.0728 clip_loss: 0.0127 total_loss: 0.0791
+[2025/11/21 04:23:12] Rank:None, Epoch[83/300], Step [77/77], lr:9.08e-04 pred_PSNR: 23.36 pixel_loss: 0.0718 clip_loss: 0.0126 total_loss: 0.0781
+Time/epoch: 	Current:74.28 	Average:87.24
+[2025/11/21 04:23:55] Rank:None, Epoch[84/300], Step [1/77], lr:9.08e-04 pred_PSNR: 24.15 pixel_loss: 0.0612 clip_loss: 0.0098 total_loss: 0.0661
+[2025/11/21 04:24:15] Rank:None, Epoch[84/300], Step [51/77], lr:9.06e-04 pred_PSNR: 23.38 pixel_loss: 0.0716 clip_loss: 0.0122 total_loss: 0.0777
+[2025/11/21 04:24:25] Rank:None, Epoch[84/300], Step [77/77], lr:9.05e-04 pred_PSNR: 23.32 pixel_loss: 0.0719 clip_loss: 0.0124 total_loss: 0.0781
+Time/epoch: 	Current:72.84 	Average:87.07
+[2025/11/21 04:25:08] Rank:None, Epoch[85/300], Step [1/77], lr:9.05e-04 pred_PSNR: 22.5 pixel_loss: 0.0773 clip_loss: 0.0156 total_loss: 0.0851
+[2025/11/21 04:25:28] Rank:None, Epoch[85/300], Step [51/77], lr:9.02e-04 pred_PSNR: 23.53 pixel_loss: 0.0699 clip_loss: 0.0124 total_loss: 0.0761
+[2025/11/21 04:25:38] Rank:None, Epoch[85/300], Step [77/77], lr:9.01e-04 pred_PSNR: 23.51 pixel_loss: 0.0702 clip_loss: 0.0123 total_loss: 0.0763
+Time/epoch: 	Current:73.10 	Average:86.91
+[2025/11/21 04:26:21] Rank:None, Epoch[86/300], Step [1/77], lr:9.01e-04 pred_PSNR: 23.11 pixel_loss: 0.0742 clip_loss: 0.0117 total_loss: 0.0801
+[2025/11/21 04:26:41] Rank:None, Epoch[86/300], Step [51/77], lr:8.99e-04 pred_PSNR: 23.68 pixel_loss: 0.0691 clip_loss: 0.0119 total_loss: 0.0751
+[2025/11/21 04:26:51] Rank:None, Epoch[86/300], Step [77/77], lr:8.98e-04 pred_PSNR: 23.47 pixel_loss: 0.0708 clip_loss: 0.0122 total_loss: 0.0769
+Time/epoch: 	Current:73.45 	Average:86.75
+[2025/11/21 04:27:34] Rank:None, Epoch[87/300], Step [1/77], lr:8.98e-04 pred_PSNR: 24.19 pixel_loss: 0.0676 clip_loss: 0.0140 total_loss: 0.0746
+[2025/11/21 04:27:54] Rank:None, Epoch[87/300], Step [51/77], lr:8.95e-04 pred_PSNR: 23.39 pixel_loss: 0.0710 clip_loss: 0.0120 total_loss: 0.0770
+[2025/11/21 04:28:04] Rank:None, Epoch[87/300], Step [77/77], lr:8.94e-04 pred_PSNR: 23.46 pixel_loss: 0.0704 clip_loss: 0.0121 total_loss: 0.0764
+Time/epoch: 	Current:72.42 	Average:86.59
+[2025/11/21 04:28:47] Rank:None, Epoch[88/300], Step [1/77], lr:8.94e-04 pred_PSNR: 24.0 pixel_loss: 0.0668 clip_loss: 0.0112 total_loss: 0.0724
+[2025/11/21 04:29:06] Rank:None, Epoch[88/300], Step [51/77], lr:8.92e-04 pred_PSNR: 23.52 pixel_loss: 0.0701 clip_loss: 0.0120 total_loss: 0.0761
+[2025/11/21 04:29:17] Rank:None, Epoch[88/300], Step [77/77], lr:8.90e-04 pred_PSNR: 23.48 pixel_loss: 0.0705 clip_loss: 0.0120 total_loss: 0.0765
+Time/epoch: 	Current:72.20 	Average:86.43
+[2025/11/21 04:30:01] Rank:None, Epoch[89/300], Step [1/77], lr:8.90e-04 pred_PSNR: 23.7 pixel_loss: 0.0678 clip_loss: 0.0133 total_loss: 0.0745
+[2025/11/21 04:30:21] Rank:None, Epoch[89/300], Step [51/77], lr:8.88e-04 pred_PSNR: 23.61 pixel_loss: 0.0694 clip_loss: 0.0119 total_loss: 0.0754
+[2025/11/21 04:30:31] Rank:None, Epoch[89/300], Step [77/77], lr:8.87e-04 pred_PSNR: 23.62 pixel_loss: 0.0694 clip_loss: 0.0119 total_loss: 0.0753
+Time/epoch: 	Current:74.57 	Average:86.30
+[2025/11/21 04:31:10] Rank:None, Epoch[90/300], Step [1/77], lr:8.87e-04 pred_PSNR: 23.31 pixel_loss: 0.0719 clip_loss: 0.0130 total_loss: 0.0784
+[2025/11/21 04:31:30] Rank:None, Epoch[90/300], Step [51/77], lr:8.84e-04 pred_PSNR: 23.85 pixel_loss: 0.0672 clip_loss: 0.0116 total_loss: 0.0730
+[2025/11/21 04:31:40] Rank:None, Epoch[90/300], Step [77/77], lr:8.83e-04 pred_PSNR: 23.88 pixel_loss: 0.0673 clip_loss: 0.0117 total_loss: 0.0732
+Time/epoch: 	Current:68.83 	Average:86.10
+[2025/11/21 04:32:18] Rank:None, Eval at Step [1/96] , FPS 313.9, pred_seen_psnr: 25.77 | 
+[2025/11/21 04:32:20] Rank:None, Eval at Step [51/96] , FPS 391.6, pred_seen_psnr: 23.93 | 
+[2025/11/21 04:32:22] Rank:None, Eval at Step [96/96] , FPS 392.6, pred_seen_psnr: 23.75 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9884
+Average (Train):      0.9884 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 04:33:00] Rank:None, Eval at Step [1/96] , FPS 264.6, quant_seen_psnr: 25.78 | 
+[2025/11/21 04:33:03] Rank:None, Eval at Step [51/96] , FPS 323.5, quant_seen_psnr: 23.93 | 
+[2025/11/21 04:33:04] Rank:None, Eval at Step [96/96] , FPS 356.3, quant_seen_psnr: 23.75 | 
+Eval at epoch 90 for (640, 1280): pred_seen_psnr: 23.75 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 23.75 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 04:33:44] Rank:None, Epoch[91/300], Step [1/77], lr:8.83e-04 pred_PSNR: 24.46 pixel_loss: 0.0662 clip_loss: 0.0105 total_loss: 0.0714
+[2025/11/21 04:34:04] Rank:None, Epoch[91/300], Step [51/77], lr:8.81e-04 pred_PSNR: 24.0 pixel_loss: 0.0661 clip_loss: 0.0116 total_loss: 0.0720
+[2025/11/21 04:34:14] Rank:None, Epoch[91/300], Step [77/77], lr:8.79e-04 pred_PSNR: 23.85 pixel_loss: 0.0673 clip_loss: 0.0116 total_loss: 0.0731
+Time/epoch: 	Current:69.02 	Average:86.84
+[2025/11/21 04:34:53] Rank:None, Epoch[92/300], Step [1/77], lr:8.79e-04 pred_PSNR: 23.94 pixel_loss: 0.0667 clip_loss: 0.0107 total_loss: 0.0720
+[2025/11/21 04:35:13] Rank:None, Epoch[92/300], Step [51/77], lr:8.77e-04 pred_PSNR: 23.98 pixel_loss: 0.0670 clip_loss: 0.0113 total_loss: 0.0726
+[2025/11/21 04:35:23] Rank:None, Epoch[92/300], Step [77/77], lr:8.75e-04 pred_PSNR: 23.95 pixel_loss: 0.0668 clip_loss: 0.0114 total_loss: 0.0725
+Time/epoch: 	Current:69.23 	Average:86.65
+[2025/11/21 04:36:03] Rank:None, Epoch[93/300], Step [1/77], lr:8.75e-04 pred_PSNR: 23.87 pixel_loss: 0.0658 clip_loss: 0.0107 total_loss: 0.0712
+[2025/11/21 04:36:23] Rank:None, Epoch[93/300], Step [51/77], lr:8.73e-04 pred_PSNR: 24.0 pixel_loss: 0.0660 clip_loss: 0.0114 total_loss: 0.0717
+[2025/11/21 04:36:33] Rank:None, Epoch[93/300], Step [77/77], lr:8.72e-04 pred_PSNR: 24.01 pixel_loss: 0.0659 clip_loss: 0.0115 total_loss: 0.0717
+Time/epoch: 	Current:69.92 	Average:86.48
+[2025/11/21 04:37:13] Rank:None, Epoch[94/300], Step [1/77], lr:8.72e-04 pred_PSNR: 23.99 pixel_loss: 0.0623 clip_loss: 0.0101 total_loss: 0.0674
+[2025/11/21 04:37:32] Rank:None, Epoch[94/300], Step [51/77], lr:8.69e-04 pred_PSNR: 24.05 pixel_loss: 0.0656 clip_loss: 0.0112 total_loss: 0.0712
+[2025/11/21 04:37:42] Rank:None, Epoch[94/300], Step [77/77], lr:8.68e-04 pred_PSNR: 23.96 pixel_loss: 0.0664 clip_loss: 0.0113 total_loss: 0.0720
+Time/epoch: 	Current:69.13 	Average:86.29
+[2025/11/21 04:38:22] Rank:None, Epoch[95/300], Step [1/77], lr:8.68e-04 pred_PSNR: 22.92 pixel_loss: 0.0754 clip_loss: 0.0122 total_loss: 0.0815
+[2025/11/21 04:38:42] Rank:None, Epoch[95/300], Step [51/77], lr:8.65e-04 pred_PSNR: 23.79 pixel_loss: 0.0678 clip_loss: 0.0113 total_loss: 0.0735
+[2025/11/21 04:38:52] Rank:None, Epoch[95/300], Step [77/77], lr:8.64e-04 pred_PSNR: 23.83 pixel_loss: 0.0676 clip_loss: 0.0113 total_loss: 0.0733
+Time/epoch: 	Current:69.26 	Average:86.11
+[2025/11/21 04:39:31] Rank:None, Epoch[96/300], Step [1/77], lr:8.64e-04 pred_PSNR: 22.99 pixel_loss: 0.0724 clip_loss: 0.0107 total_loss: 0.0778
+[2025/11/21 04:39:51] Rank:None, Epoch[96/300], Step [51/77], lr:8.61e-04 pred_PSNR: 24.0 pixel_loss: 0.0661 clip_loss: 0.0109 total_loss: 0.0716
+[2025/11/21 04:40:01] Rank:None, Epoch[96/300], Step [77/77], lr:8.60e-04 pred_PSNR: 23.92 pixel_loss: 0.0668 clip_loss: 0.0111 total_loss: 0.0723
+Time/epoch: 	Current:68.91 	Average:85.94
+[2025/11/21 04:40:40] Rank:None, Epoch[97/300], Step [1/77], lr:8.60e-04 pred_PSNR: 23.95 pixel_loss: 0.0657 clip_loss: 0.0127 total_loss: 0.0721
+[2025/11/21 04:41:00] Rank:None, Epoch[97/300], Step [51/77], lr:8.57e-04 pred_PSNR: 23.85 pixel_loss: 0.0666 clip_loss: 0.0111 total_loss: 0.0722
+[2025/11/21 04:41:10] Rank:None, Epoch[97/300], Step [77/77], lr:8.56e-04 pred_PSNR: 23.9 pixel_loss: 0.0665 clip_loss: 0.0112 total_loss: 0.0720
+Time/epoch: 	Current:68.95 	Average:85.76
+[2025/11/21 04:41:49] Rank:None, Epoch[98/300], Step [1/77], lr:8.56e-04 pred_PSNR: 23.91 pixel_loss: 0.0640 clip_loss: 0.0122 total_loss: 0.0701
+[2025/11/21 04:42:09] Rank:None, Epoch[98/300], Step [51/77], lr:8.53e-04 pred_PSNR: 23.8 pixel_loss: 0.0667 clip_loss: 0.0110 total_loss: 0.0722
+[2025/11/21 04:42:19] Rank:None, Epoch[98/300], Step [77/77], lr:8.52e-04 pred_PSNR: 23.9 pixel_loss: 0.0664 clip_loss: 0.0110 total_loss: 0.0719
+Time/epoch: 	Current:68.68 	Average:85.59
+[2025/11/21 04:43:06] Rank:None, Epoch[99/300], Step [1/77], lr:8.51e-04 pred_PSNR: 23.9 pixel_loss: 0.0647 clip_loss: 0.0105 total_loss: 0.0700
+[2025/11/21 04:43:26] Rank:None, Epoch[99/300], Step [51/77], lr:8.49e-04 pred_PSNR: 24.07 pixel_loss: 0.0657 clip_loss: 0.0110 total_loss: 0.0712
+[2025/11/21 04:43:36] Rank:None, Epoch[99/300], Step [77/77], lr:8.47e-04 pred_PSNR: 24.04 pixel_loss: 0.0656 clip_loss: 0.0110 total_loss: 0.0711
+Time/epoch: 	Current:77.10 	Average:85.51
+[2025/11/21 04:44:23] Rank:None, Epoch[100/300], Step [1/77], lr:8.47e-04 pred_PSNR: 24.66 pixel_loss: 0.0632 clip_loss: 0.0106 total_loss: 0.0685
+[2025/11/21 04:44:43] Rank:None, Epoch[100/300], Step [51/77], lr:8.45e-04 pred_PSNR: 23.81 pixel_loss: 0.0669 clip_loss: 0.0109 total_loss: 0.0723
+[2025/11/21 04:44:53] Rank:None, Epoch[100/300], Step [77/77], lr:8.43e-04 pred_PSNR: 23.94 pixel_loss: 0.0661 clip_loss: 0.0109 total_loss: 0.0715
+Time/epoch: 	Current:77.02 	Average:85.42
+[2025/11/21 04:45:37] Rank:None, Eval at Step [1/96] , FPS 322.3, pred_seen_psnr: 26.57 | 
+[2025/11/21 04:45:39] Rank:None, Eval at Step [51/96] , FPS 371.2, pred_seen_psnr: 24.31 | 
+[2025/11/21 04:45:41] Rank:None, Eval at Step [96/96] , FPS 368.7, pred_seen_psnr: 24.11 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9891
+Average (Train):      0.9891 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 04:46:23] Rank:None, Eval at Step [1/96] , FPS 342.6, quant_seen_psnr: 26.57 | 
+[2025/11/21 04:46:25] Rank:None, Eval at Step [51/96] , FPS 393.5, quant_seen_psnr: 24.31 | 
+[2025/11/21 04:46:26] Rank:None, Eval at Step [96/96] , FPS 402.9, quant_seen_psnr: 24.11 | 
+Eval at epoch 100 for (640, 1280): pred_seen_psnr: 24.11 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 24.11 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 04:47:09] Rank:None, Epoch[101/300], Step [1/77], lr:8.43e-04 pred_PSNR: 23.77 pixel_loss: 0.0680 clip_loss: 0.0114 total_loss: 0.0737
+[2025/11/21 04:47:29] Rank:None, Epoch[101/300], Step [51/77], lr:8.40e-04 pred_PSNR: 24.24 pixel_loss: 0.0643 clip_loss: 0.0106 total_loss: 0.0696
+[2025/11/21 04:47:39] Rank:None, Epoch[101/300], Step [77/77], lr:8.39e-04 pred_PSNR: 24.15 pixel_loss: 0.0647 clip_loss: 0.0107 total_loss: 0.0701
+Time/epoch: 	Current:72.54 	Average:86.22
+[2025/11/21 04:48:23] Rank:None, Epoch[102/300], Step [1/77], lr:8.39e-04 pred_PSNR: 25.44 pixel_loss: 0.0571 clip_loss: 0.0098 total_loss: 0.0620
+[2025/11/21 04:48:42] Rank:None, Epoch[102/300], Step [51/77], lr:8.36e-04 pred_PSNR: 24.17 pixel_loss: 0.0643 clip_loss: 0.0106 total_loss: 0.0696
+[2025/11/21 04:48:52] Rank:None, Epoch[102/300], Step [77/77], lr:8.35e-04 pred_PSNR: 24.22 pixel_loss: 0.0641 clip_loss: 0.0107 total_loss: 0.0694
+Time/epoch: 	Current:73.06 	Average:86.09
+[2025/11/21 04:49:34] Rank:None, Epoch[103/300], Step [1/77], lr:8.35e-04 pred_PSNR: 24.34 pixel_loss: 0.0643 clip_loss: 0.0118 total_loss: 0.0703
+[2025/11/21 04:49:54] Rank:None, Epoch[103/300], Step [51/77], lr:8.32e-04 pred_PSNR: 24.32 pixel_loss: 0.0633 clip_loss: 0.0106 total_loss: 0.0686
+[2025/11/21 04:50:04] Rank:None, Epoch[103/300], Step [77/77], lr:8.30e-04 pred_PSNR: 24.27 pixel_loss: 0.0638 clip_loss: 0.0107 total_loss: 0.0691
+Time/epoch: 	Current:71.54 	Average:85.95
+[2025/11/21 04:50:47] Rank:None, Epoch[104/300], Step [1/77], lr:8.30e-04 pred_PSNR: 25.13 pixel_loss: 0.0597 clip_loss: 0.0094 total_loss: 0.0644
+[2025/11/21 04:51:07] Rank:None, Epoch[104/300], Step [51/77], lr:8.27e-04 pred_PSNR: 24.27 pixel_loss: 0.0640 clip_loss: 0.0106 total_loss: 0.0692
+[2025/11/21 04:51:17] Rank:None, Epoch[104/300], Step [77/77], lr:8.26e-04 pred_PSNR: 24.23 pixel_loss: 0.0641 clip_loss: 0.0107 total_loss: 0.0695
+Time/epoch: 	Current:72.78 	Average:85.83
+[2025/11/21 04:52:00] Rank:None, Epoch[105/300], Step [1/77], lr:8.26e-04 pred_PSNR: 24.46 pixel_loss: 0.0643 clip_loss: 0.0107 total_loss: 0.0696
+[2025/11/21 04:52:20] Rank:None, Epoch[105/300], Step [51/77], lr:8.23e-04 pred_PSNR: 24.32 pixel_loss: 0.0634 clip_loss: 0.0106 total_loss: 0.0687
+[2025/11/21 04:52:30] Rank:None, Epoch[105/300], Step [77/77], lr:8.21e-04 pred_PSNR: 24.23 pixel_loss: 0.0641 clip_loss: 0.0106 total_loss: 0.0694
+Time/epoch: 	Current:72.90 	Average:85.71
+[2025/11/21 04:53:11] Rank:None, Epoch[106/300], Step [1/77], lr:8.21e-04 pred_PSNR: 23.84 pixel_loss: 0.0688 clip_loss: 0.0105 total_loss: 0.0740
+[2025/11/21 04:53:30] Rank:None, Epoch[106/300], Step [51/77], lr:8.18e-04 pred_PSNR: 24.32 pixel_loss: 0.0637 clip_loss: 0.0106 total_loss: 0.0690
+[2025/11/21 04:53:41] Rank:None, Epoch[106/300], Step [77/77], lr:8.17e-04 pred_PSNR: 24.33 pixel_loss: 0.0631 clip_loss: 0.0105 total_loss: 0.0684
+Time/epoch: 	Current:70.36 	Average:85.56
+[2025/11/21 04:54:21] Rank:None, Epoch[107/300], Step [1/77], lr:8.17e-04 pred_PSNR: 24.17 pixel_loss: 0.0602 clip_loss: 0.0121 total_loss: 0.0663
+[2025/11/21 04:54:40] Rank:None, Epoch[107/300], Step [51/77], lr:8.14e-04 pred_PSNR: 24.5 pixel_loss: 0.0616 clip_loss: 0.0103 total_loss: 0.0668
+[2025/11/21 04:54:51] Rank:None, Epoch[107/300], Step [77/77], lr:8.12e-04 pred_PSNR: 24.51 pixel_loss: 0.0618 clip_loss: 0.0103 total_loss: 0.0670
+Time/epoch: 	Current:69.78 	Average:85.42
+[2025/11/21 04:55:30] Rank:None, Epoch[108/300], Step [1/77], lr:8.12e-04 pred_PSNR: 24.47 pixel_loss: 0.0614 clip_loss: 0.0100 total_loss: 0.0664
+[2025/11/21 04:55:50] Rank:None, Epoch[108/300], Step [51/77], lr:8.09e-04 pred_PSNR: 24.4 pixel_loss: 0.0625 clip_loss: 0.0102 total_loss: 0.0676
+[2025/11/21 04:56:00] Rank:None, Epoch[108/300], Step [77/77], lr:8.08e-04 pred_PSNR: 24.36 pixel_loss: 0.0630 clip_loss: 0.0104 total_loss: 0.0682
+Time/epoch: 	Current:69.40 	Average:85.27
+[2025/11/21 04:56:41] Rank:None, Epoch[109/300], Step [1/77], lr:8.08e-04 pred_PSNR: 23.36 pixel_loss: 0.0699 clip_loss: 0.0115 total_loss: 0.0757
+[2025/11/21 04:57:00] Rank:None, Epoch[109/300], Step [51/77], lr:8.05e-04 pred_PSNR: 24.38 pixel_loss: 0.0632 clip_loss: 0.0103 total_loss: 0.0684
+[2025/11/21 04:57:11] Rank:None, Epoch[109/300], Step [77/77], lr:8.03e-04 pred_PSNR: 24.34 pixel_loss: 0.0632 clip_loss: 0.0103 total_loss: 0.0684
+Time/epoch: 	Current:70.22 	Average:85.13
+[2025/11/21 04:57:51] Rank:None, Epoch[110/300], Step [1/77], lr:8.03e-04 pred_PSNR: 24.6 pixel_loss: 0.0627 clip_loss: 0.0101 total_loss: 0.0677
+[2025/11/21 04:58:10] Rank:None, Epoch[110/300], Step [51/77], lr:8.00e-04 pred_PSNR: 24.57 pixel_loss: 0.0618 clip_loss: 0.0101 total_loss: 0.0668
+[2025/11/21 04:58:21] Rank:None, Epoch[110/300], Step [77/77], lr:7.99e-04 pred_PSNR: 24.55 pixel_loss: 0.0618 clip_loss: 0.0103 total_loss: 0.0669
+Time/epoch: 	Current:69.90 	Average:85.00
+[2025/11/21 04:59:01] Rank:None, Eval at Step [1/96] , FPS 262.6, pred_seen_psnr: 26.44 | 
+[2025/11/21 04:59:03] Rank:None, Eval at Step [51/96] , FPS 349.5, pred_seen_psnr: 24.6 | 
+[2025/11/21 04:59:05] Rank:None, Eval at Step [96/96] , FPS 360.0, pred_seen_psnr: 24.53 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9897
+Average (Train):      0.9897 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 04:59:45] Rank:None, Eval at Step [1/96] , FPS 301.3, quant_seen_psnr: 26.43 | 
+[2025/11/21 04:59:47] Rank:None, Eval at Step [51/96] , FPS 390.5, quant_seen_psnr: 24.6 | 
+[2025/11/21 04:59:49] Rank:None, Eval at Step [96/96] , FPS 377.3, quant_seen_psnr: 24.52 | 
+Eval at epoch 110 for (640, 1280): pred_seen_psnr: 24.53 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 24.52 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 05:00:31] Rank:None, Epoch[111/300], Step [1/77], lr:7.99e-04 pred_PSNR: 24.98 pixel_loss: 0.0608 clip_loss: 0.0110 total_loss: 0.0663
+[2025/11/21 05:00:51] Rank:None, Epoch[111/300], Step [51/77], lr:7.96e-04 pred_PSNR: 24.66 pixel_loss: 0.0605 clip_loss: 0.0101 total_loss: 0.0656
+[2025/11/21 05:01:01] Rank:None, Epoch[111/300], Step [77/77], lr:7.94e-04 pred_PSNR: 24.61 pixel_loss: 0.0611 clip_loss: 0.0102 total_loss: 0.0662
+Time/epoch: 	Current:71.18 	Average:85.68
+[2025/11/21 05:01:41] Rank:None, Epoch[112/300], Step [1/77], lr:7.94e-04 pred_PSNR: 25.14 pixel_loss: 0.0600 clip_loss: 0.0096 total_loss: 0.0647
+[2025/11/21 05:02:01] Rank:None, Epoch[112/300], Step [51/77], lr:7.91e-04 pred_PSNR: 24.63 pixel_loss: 0.0612 clip_loss: 0.0101 total_loss: 0.0662
+[2025/11/21 05:02:11] Rank:None, Epoch[112/300], Step [77/77], lr:7.89e-04 pred_PSNR: 24.55 pixel_loss: 0.0615 clip_loss: 0.0101 total_loss: 0.0665
+Time/epoch: 	Current:69.89 	Average:85.54
+[2025/11/21 05:02:51] Rank:None, Epoch[113/300], Step [1/77], lr:7.89e-04 pred_PSNR: 23.79 pixel_loss: 0.0639 clip_loss: 0.0089 total_loss: 0.0683
+[2025/11/21 05:03:11] Rank:None, Epoch[113/300], Step [51/77], lr:7.86e-04 pred_PSNR: 24.37 pixel_loss: 0.0627 clip_loss: 0.0101 total_loss: 0.0677
+[2025/11/21 05:03:21] Rank:None, Epoch[113/300], Step [77/77], lr:7.84e-04 pred_PSNR: 24.5 pixel_loss: 0.0619 clip_loss: 0.0101 total_loss: 0.0669
+Time/epoch: 	Current:69.84 	Average:85.40
+[2025/11/21 05:04:01] Rank:None, Epoch[114/300], Step [1/77], lr:7.84e-04 pred_PSNR: 24.85 pixel_loss: 0.0566 clip_loss: 0.0085 total_loss: 0.0609
+[2025/11/21 05:04:21] Rank:None, Epoch[114/300], Step [51/77], lr:7.81e-04 pred_PSNR: 24.67 pixel_loss: 0.0606 clip_loss: 0.0099 total_loss: 0.0656
+[2025/11/21 05:04:31] Rank:None, Epoch[114/300], Step [77/77], lr:7.80e-04 pred_PSNR: 24.65 pixel_loss: 0.0608 clip_loss: 0.0101 total_loss: 0.0658
+Time/epoch: 	Current:69.73 	Average:85.26
+[2025/11/21 05:05:15] Rank:None, Epoch[115/300], Step [1/77], lr:7.80e-04 pred_PSNR: 24.09 pixel_loss: 0.0583 clip_loss: 0.0087 total_loss: 0.0626
+[2025/11/21 05:05:35] Rank:None, Epoch[115/300], Step [51/77], lr:7.76e-04 pred_PSNR: 24.38 pixel_loss: 0.0625 clip_loss: 0.0099 total_loss: 0.0675
+[2025/11/21 05:05:45] Rank:None, Epoch[115/300], Step [77/77], lr:7.75e-04 pred_PSNR: 24.4 pixel_loss: 0.0627 clip_loss: 0.0101 total_loss: 0.0677
+Time/epoch: 	Current:74.08 	Average:85.17
+[2025/11/21 05:06:28] Rank:None, Epoch[116/300], Step [1/77], lr:7.75e-04 pred_PSNR: 24.5 pixel_loss: 0.0615 clip_loss: 0.0090 total_loss: 0.0660
+[2025/11/21 05:06:48] Rank:None, Epoch[116/300], Step [51/77], lr:7.72e-04 pred_PSNR: 24.55 pixel_loss: 0.0616 clip_loss: 0.0102 total_loss: 0.0667
+[2025/11/21 05:06:58] Rank:None, Epoch[116/300], Step [77/77], lr:7.70e-04 pred_PSNR: 24.58 pixel_loss: 0.0611 clip_loss: 0.0100 total_loss: 0.0661
+Time/epoch: 	Current:72.92 	Average:85.06
+[2025/11/21 05:07:40] Rank:None, Epoch[117/300], Step [1/77], lr:7.70e-04 pred_PSNR: 24.93 pixel_loss: 0.0625 clip_loss: 0.0088 total_loss: 0.0669
+[2025/11/21 05:08:00] Rank:None, Epoch[117/300], Step [51/77], lr:7.67e-04 pred_PSNR: 24.91 pixel_loss: 0.0590 clip_loss: 0.0099 total_loss: 0.0639
+[2025/11/21 05:08:10] Rank:None, Epoch[117/300], Step [77/77], lr:7.65e-04 pred_PSNR: 24.88 pixel_loss: 0.0592 clip_loss: 0.0099 total_loss: 0.0641
+Time/epoch: 	Current:71.66 	Average:84.95
+[2025/11/21 05:08:53] Rank:None, Epoch[118/300], Step [1/77], lr:7.65e-04 pred_PSNR: 24.76 pixel_loss: 0.0613 clip_loss: 0.0097 total_loss: 0.0662
+[2025/11/21 05:09:13] Rank:None, Epoch[118/300], Step [51/77], lr:7.62e-04 pred_PSNR: 24.68 pixel_loss: 0.0604 clip_loss: 0.0098 total_loss: 0.0653
+[2025/11/21 05:09:23] Rank:None, Epoch[118/300], Step [77/77], lr:7.60e-04 pred_PSNR: 24.52 pixel_loss: 0.0615 clip_loss: 0.0101 total_loss: 0.0665
+Time/epoch: 	Current:73.02 	Average:84.85
+[2025/11/21 05:10:06] Rank:None, Epoch[119/300], Step [1/77], lr:7.60e-04 pred_PSNR: 23.7 pixel_loss: 0.0692 clip_loss: 0.0099 total_loss: 0.0741
+[2025/11/21 05:10:26] Rank:None, Epoch[119/300], Step [51/77], lr:7.57e-04 pred_PSNR: 24.67 pixel_loss: 0.0602 clip_loss: 0.0099 total_loss: 0.0652
+[2025/11/21 05:10:36] Rank:None, Epoch[119/300], Step [77/77], lr:7.55e-04 pred_PSNR: 24.59 pixel_loss: 0.0610 clip_loss: 0.0099 total_loss: 0.0660
+Time/epoch: 	Current:72.57 	Average:84.75
+[2025/11/21 05:11:15] Rank:None, Epoch[120/300], Step [1/77], lr:7.55e-04 pred_PSNR: 25.02 pixel_loss: 0.0603 clip_loss: 0.0086 total_loss: 0.0646
+[2025/11/21 05:11:35] Rank:None, Epoch[120/300], Step [51/77], lr:7.52e-04 pred_PSNR: 24.66 pixel_loss: 0.0603 clip_loss: 0.0097 total_loss: 0.0652
+[2025/11/21 05:11:45] Rank:None, Epoch[120/300], Step [77/77], lr:7.50e-04 pred_PSNR: 24.67 pixel_loss: 0.0605 clip_loss: 0.0097 total_loss: 0.0653
+Time/epoch: 	Current:69.36 	Average:84.62
+[2025/11/21 05:12:25] Rank:None, Eval at Step [1/96] , FPS 150.3, pred_seen_psnr: 26.84 | 
+[2025/11/21 05:12:28] Rank:None, Eval at Step [51/96] , FPS 354.9, pred_seen_psnr: 25.02 | 
+[2025/11/21 05:12:30] Rank:None, Eval at Step [96/96] , FPS 360.7, pred_seen_psnr: 24.63 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9902
+Average (Train):      0.9902 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 05:13:12] Rank:None, Eval at Step [1/96] , FPS 293.7, quant_seen_psnr: 26.83 | 
+[2025/11/21 05:13:14] Rank:None, Eval at Step [51/96] , FPS 384.0, quant_seen_psnr: 25.02 | 
+[2025/11/21 05:13:16] Rank:None, Eval at Step [96/96] , FPS 395.0, quant_seen_psnr: 24.63 | 
+Eval at epoch 120 for (640, 1280): pred_seen_psnr: 24.63 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 24.63 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 05:14:01] Rank:None, Epoch[121/300], Step [1/77], lr:7.50e-04 pred_PSNR: 24.43 pixel_loss: 0.0591 clip_loss: 0.0082 total_loss: 0.0632
+[2025/11/21 05:14:20] Rank:None, Epoch[121/300], Step [51/77], lr:7.47e-04 pred_PSNR: 24.79 pixel_loss: 0.0595 clip_loss: 0.0098 total_loss: 0.0644
+[2025/11/21 05:14:31] Rank:None, Epoch[121/300], Step [77/77], lr:7.45e-04 pred_PSNR: 24.83 pixel_loss: 0.0592 clip_loss: 0.0097 total_loss: 0.0640
+Time/epoch: 	Current:74.33 	Average:85.29
+[2025/11/21 05:15:12] Rank:None, Epoch[122/300], Step [1/77], lr:7.45e-04 pred_PSNR: 23.74 pixel_loss: 0.0649 clip_loss: 0.0088 total_loss: 0.0693
+[2025/11/21 05:15:31] Rank:None, Epoch[122/300], Step [51/77], lr:7.42e-04 pred_PSNR: 24.95 pixel_loss: 0.0584 clip_loss: 0.0096 total_loss: 0.0632
+[2025/11/21 05:15:42] Rank:None, Epoch[122/300], Step [77/77], lr:7.40e-04 pred_PSNR: 24.92 pixel_loss: 0.0587 clip_loss: 0.0096 total_loss: 0.0635
+Time/epoch: 	Current:70.77 	Average:85.17
+[2025/11/21 05:16:22] Rank:None, Epoch[123/300], Step [1/77], lr:7.40e-04 pred_PSNR: 24.72 pixel_loss: 0.0632 clip_loss: 0.0096 total_loss: 0.0681
+[2025/11/21 05:16:42] Rank:None, Epoch[123/300], Step [51/77], lr:7.37e-04 pred_PSNR: 25.05 pixel_loss: 0.0578 clip_loss: 0.0096 total_loss: 0.0626
+[2025/11/21 05:16:52] Rank:None, Epoch[123/300], Step [77/77], lr:7.35e-04 pred_PSNR: 25.1 pixel_loss: 0.0577 clip_loss: 0.0096 total_loss: 0.0625
+Time/epoch: 	Current:70.35 	Average:85.05
+[2025/11/21 05:17:32] Rank:None, Epoch[124/300], Step [1/77], lr:7.35e-04 pred_PSNR: 24.94 pixel_loss: 0.0580 clip_loss: 0.0109 total_loss: 0.0635
+[2025/11/21 05:17:52] Rank:None, Epoch[124/300], Step [51/77], lr:7.31e-04 pred_PSNR: 24.96 pixel_loss: 0.0579 clip_loss: 0.0095 total_loss: 0.0627
+[2025/11/21 05:18:02] Rank:None, Epoch[124/300], Step [77/77], lr:7.30e-04 pred_PSNR: 24.92 pixel_loss: 0.0585 clip_loss: 0.0096 total_loss: 0.0633
+Time/epoch: 	Current:70.14 	Average:84.93
+[2025/11/21 05:18:42] Rank:None, Epoch[125/300], Step [1/77], lr:7.30e-04 pred_PSNR: 23.95 pixel_loss: 0.0633 clip_loss: 0.0087 total_loss: 0.0677
+[2025/11/21 05:19:02] Rank:None, Epoch[125/300], Step [51/77], lr:7.26e-04 pred_PSNR: 24.81 pixel_loss: 0.0592 clip_loss: 0.0096 total_loss: 0.0640
+[2025/11/21 05:19:12] Rank:None, Epoch[125/300], Step [77/77], lr:7.24e-04 pred_PSNR: 24.69 pixel_loss: 0.0601 clip_loss: 0.0096 total_loss: 0.0649
+Time/epoch: 	Current:69.88 	Average:84.81
+[2025/11/21 05:19:56] Rank:None, Epoch[126/300], Step [1/77], lr:7.24e-04 pred_PSNR: 24.27 pixel_loss: 0.0637 clip_loss: 0.0104 total_loss: 0.0689
+[2025/11/21 05:20:15] Rank:None, Epoch[126/300], Step [51/77], lr:7.21e-04 pred_PSNR: 24.79 pixel_loss: 0.0596 clip_loss: 0.0094 total_loss: 0.0643
+[2025/11/21 05:20:25] Rank:None, Epoch[126/300], Step [77/77], lr:7.19e-04 pred_PSNR: 24.81 pixel_loss: 0.0596 clip_loss: 0.0095 total_loss: 0.0644
+Time/epoch: 	Current:73.09 	Average:84.72
+[2025/11/21 05:21:09] Rank:None, Epoch[127/300], Step [1/77], lr:7.19e-04 pred_PSNR: 24.95 pixel_loss: 0.0575 clip_loss: 0.0091 total_loss: 0.0620
+[2025/11/21 05:21:28] Rank:None, Epoch[127/300], Step [51/77], lr:7.16e-04 pred_PSNR: 24.99 pixel_loss: 0.0582 clip_loss: 0.0094 total_loss: 0.0629
+[2025/11/21 05:21:38] Rank:None, Epoch[127/300], Step [77/77], lr:7.14e-04 pred_PSNR: 25.02 pixel_loss: 0.0580 clip_loss: 0.0095 total_loss: 0.0628
+Time/epoch: 	Current:72.79 	Average:84.63
+[2025/11/21 05:22:19] Rank:None, Epoch[128/300], Step [1/77], lr:7.14e-04 pred_PSNR: 23.68 pixel_loss: 0.0685 clip_loss: 0.0099 total_loss: 0.0735
+[2025/11/21 05:22:39] Rank:None, Epoch[128/300], Step [51/77], lr:7.11e-04 pred_PSNR: 25.14 pixel_loss: 0.0574 clip_loss: 0.0095 total_loss: 0.0621
+[2025/11/21 05:22:49] Rank:None, Epoch[128/300], Step [77/77], lr:7.09e-04 pred_PSNR: 25.13 pixel_loss: 0.0575 clip_loss: 0.0094 total_loss: 0.0622
+Time/epoch: 	Current:70.26 	Average:84.52
+[2025/11/21 05:23:28] Rank:None, Epoch[129/300], Step [1/77], lr:7.09e-04 pred_PSNR: 25.96 pixel_loss: 0.0512 clip_loss: 0.0084 total_loss: 0.0554
+[2025/11/21 05:23:48] Rank:None, Epoch[129/300], Step [51/77], lr:7.05e-04 pred_PSNR: 25.04 pixel_loss: 0.0578 clip_loss: 0.0094 total_loss: 0.0625
+[2025/11/21 05:23:58] Rank:None, Epoch[129/300], Step [77/77], lr:7.03e-04 pred_PSNR: 25.11 pixel_loss: 0.0575 clip_loss: 0.0094 total_loss: 0.0622
+Time/epoch: 	Current:69.28 	Average:84.40
+[2025/11/21 05:24:44] Rank:None, Epoch[130/300], Step [1/77], lr:7.03e-04 pred_PSNR: 25.08 pixel_loss: 0.0562 clip_loss: 0.0084 total_loss: 0.0604
+[2025/11/21 05:25:04] Rank:None, Epoch[130/300], Step [51/77], lr:7.00e-04 pred_PSNR: 25.46 pixel_loss: 0.0551 clip_loss: 0.0093 total_loss: 0.0597
+[2025/11/21 05:25:14] Rank:None, Epoch[130/300], Step [77/77], lr:6.98e-04 pred_PSNR: 25.43 pixel_loss: 0.0556 clip_loss: 0.0093 total_loss: 0.0603
+Time/epoch: 	Current:75.47 	Average:84.33
+[2025/11/21 05:25:57] Rank:None, Eval at Step [1/96] , FPS 288.0, pred_seen_psnr: 27.31 | 
+[2025/11/21 05:26:00] Rank:None, Eval at Step [51/96] , FPS 379.6, pred_seen_psnr: 25.73 | 
+[2025/11/21 05:26:02] Rank:None, Eval at Step [96/96] , FPS 395.2, pred_seen_psnr: 25.46 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9907
+Average (Train):      0.9907 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 05:26:45] Rank:None, Eval at Step [1/96] , FPS 264.1, quant_seen_psnr: 27.32 | 
+[2025/11/21 05:26:48] Rank:None, Eval at Step [51/96] , FPS 368.1, quant_seen_psnr: 25.73 | 
+[2025/11/21 05:26:49] Rank:None, Eval at Step [96/96] , FPS 378.0, quant_seen_psnr: 25.46 | 
+Eval at epoch 130 for (640, 1280): pred_seen_psnr: 25.46 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 25.46 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 05:27:37] Rank:None, Epoch[131/300], Step [1/77], lr:6.98e-04 pred_PSNR: 25.96 pixel_loss: 0.0478 clip_loss: 0.0076 total_loss: 0.0515
+[2025/11/21 05:27:57] Rank:None, Epoch[131/300], Step [51/77], lr:6.95e-04 pred_PSNR: 25.45 pixel_loss: 0.0550 clip_loss: 0.0091 total_loss: 0.0596
+[2025/11/21 05:28:07] Rank:None, Epoch[131/300], Step [77/77], lr:6.93e-04 pred_PSNR: 25.43 pixel_loss: 0.0551 clip_loss: 0.0093 total_loss: 0.0598
+Time/epoch: 	Current:77.42 	Average:85.01
+[2025/11/21 05:28:56] Rank:None, Epoch[132/300], Step [1/77], lr:6.93e-04 pred_PSNR: 26.24 pixel_loss: 0.0502 clip_loss: 0.0109 total_loss: 0.0557
+[2025/11/21 05:29:15] Rank:None, Epoch[132/300], Step [51/77], lr:6.89e-04 pred_PSNR: 25.45 pixel_loss: 0.0551 clip_loss: 0.0093 total_loss: 0.0598
+[2025/11/21 05:29:26] Rank:None, Epoch[132/300], Step [77/77], lr:6.87e-04 pred_PSNR: 25.42 pixel_loss: 0.0553 clip_loss: 0.0093 total_loss: 0.0599
+Time/epoch: 	Current:78.22 	Average:84.96
+[2025/11/21 05:30:10] Rank:None, Epoch[133/300], Step [1/77], lr:6.87e-04 pred_PSNR: 24.78 pixel_loss: 0.0528 clip_loss: 0.0084 total_loss: 0.0570
+[2025/11/21 05:30:30] Rank:None, Epoch[133/300], Step [51/77], lr:6.84e-04 pred_PSNR: 25.26 pixel_loss: 0.0564 clip_loss: 0.0092 total_loss: 0.0610
+[2025/11/21 05:30:40] Rank:None, Epoch[133/300], Step [77/77], lr:6.82e-04 pred_PSNR: 25.23 pixel_loss: 0.0564 clip_loss: 0.0093 total_loss: 0.0610
+Time/epoch: 	Current:74.09 	Average:84.88
+[2025/11/21 05:31:24] Rank:None, Epoch[134/300], Step [1/77], lr:6.82e-04 pred_PSNR: 25.59 pixel_loss: 0.0564 clip_loss: 0.0088 total_loss: 0.0607
+[2025/11/21 05:31:44] Rank:None, Epoch[134/300], Step [51/77], lr:6.78e-04 pred_PSNR: 25.28 pixel_loss: 0.0560 clip_loss: 0.0092 total_loss: 0.0606
+[2025/11/21 05:31:54] Rank:None, Epoch[134/300], Step [77/77], lr:6.77e-04 pred_PSNR: 25.34 pixel_loss: 0.0559 clip_loss: 0.0092 total_loss: 0.0605
+Time/epoch: 	Current:74.00 	Average:84.80
+[2025/11/21 05:32:38] Rank:None, Epoch[135/300], Step [1/77], lr:6.76e-04 pred_PSNR: 25.18 pixel_loss: 0.0565 clip_loss: 0.0092 total_loss: 0.0612
+[2025/11/21 05:32:58] Rank:None, Epoch[135/300], Step [51/77], lr:6.73e-04 pred_PSNR: 25.42 pixel_loss: 0.0555 clip_loss: 0.0092 total_loss: 0.0601
+[2025/11/21 05:33:08] Rank:None, Epoch[135/300], Step [77/77], lr:6.71e-04 pred_PSNR: 25.33 pixel_loss: 0.0558 clip_loss: 0.0092 total_loss: 0.0604
+Time/epoch: 	Current:73.82 	Average:84.72
+[2025/11/21 05:33:53] Rank:None, Epoch[136/300], Step [1/77], lr:6.71e-04 pred_PSNR: 26.27 pixel_loss: 0.0512 clip_loss: 0.0110 total_loss: 0.0567
+[2025/11/21 05:34:12] Rank:None, Epoch[136/300], Step [51/77], lr:6.67e-04 pred_PSNR: 25.36 pixel_loss: 0.0556 clip_loss: 0.0092 total_loss: 0.0602
+[2025/11/21 05:34:23] Rank:None, Epoch[136/300], Step [77/77], lr:6.66e-04 pred_PSNR: 25.38 pixel_loss: 0.0555 clip_loss: 0.0092 total_loss: 0.0601
+Time/epoch: 	Current:74.60 	Average:84.65
+[2025/11/21 05:35:07] Rank:None, Epoch[137/300], Step [1/77], lr:6.66e-04 pred_PSNR: 26.06 pixel_loss: 0.0534 clip_loss: 0.0086 total_loss: 0.0577
+[2025/11/21 05:35:27] Rank:None, Epoch[137/300], Step [51/77], lr:6.62e-04 pred_PSNR: 25.66 pixel_loss: 0.0541 clip_loss: 0.0091 total_loss: 0.0587
+[2025/11/21 05:35:37] Rank:None, Epoch[137/300], Step [77/77], lr:6.60e-04 pred_PSNR: 25.68 pixel_loss: 0.0538 clip_loss: 0.0091 total_loss: 0.0584
+Time/epoch: 	Current:74.28 	Average:84.57
+[2025/11/21 05:36:21] Rank:None, Epoch[138/300], Step [1/77], lr:6.60e-04 pred_PSNR: 26.28 pixel_loss: 0.0495 clip_loss: 0.0084 total_loss: 0.0537
+[2025/11/21 05:36:40] Rank:None, Epoch[138/300], Step [51/77], lr:6.56e-04 pred_PSNR: 25.69 pixel_loss: 0.0534 clip_loss: 0.0092 total_loss: 0.0580
+[2025/11/21 05:36:51] Rank:None, Epoch[138/300], Step [77/77], lr:6.55e-04 pred_PSNR: 25.61 pixel_loss: 0.0540 clip_loss: 0.0091 total_loss: 0.0586
+Time/epoch: 	Current:73.36 	Average:84.49
+[2025/11/21 05:37:35] Rank:None, Epoch[139/300], Step [1/77], lr:6.55e-04 pred_PSNR: 26.46 pixel_loss: 0.0496 clip_loss: 0.0082 total_loss: 0.0537
+[2025/11/21 05:37:54] Rank:None, Epoch[139/300], Step [51/77], lr:6.51e-04 pred_PSNR: 25.78 pixel_loss: 0.0531 clip_loss: 0.0091 total_loss: 0.0576
+[2025/11/21 05:38:04] Rank:None, Epoch[139/300], Step [77/77], lr:6.49e-04 pred_PSNR: 25.71 pixel_loss: 0.0535 clip_loss: 0.0091 total_loss: 0.0580
+Time/epoch: 	Current:73.75 	Average:84.41
+[2025/11/21 05:38:49] Rank:None, Epoch[140/300], Step [1/77], lr:6.49e-04 pred_PSNR: 26.72 pixel_loss: 0.0483 clip_loss: 0.0075 total_loss: 0.0521
+[2025/11/21 05:39:09] Rank:None, Epoch[140/300], Step [51/77], lr:6.45e-04 pred_PSNR: 25.36 pixel_loss: 0.0553 clip_loss: 0.0089 total_loss: 0.0598
+[2025/11/21 05:39:19] Rank:None, Epoch[140/300], Step [77/77], lr:6.43e-04 pred_PSNR: 25.4 pixel_loss: 0.0551 clip_loss: 0.0090 total_loss: 0.0596
+Time/epoch: 	Current:74.34 	Average:84.34
+[2025/11/21 05:40:04] Rank:None, Eval at Step [1/96] , FPS 270.9, pred_seen_psnr: 27.63 | 
+[2025/11/21 05:40:06] Rank:None, Eval at Step [51/96] , FPS 362.7, pred_seen_psnr: 25.56 | 
+[2025/11/21 05:40:08] Rank:None, Eval at Step [96/96] , FPS 371.8, pred_seen_psnr: 25.23 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9908
+Average (Train):      0.9908 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 05:40:52] Rank:None, Eval at Step [1/96] , FPS 297.7, quant_seen_psnr: 27.63 | 
+[2025/11/21 05:40:54] Rank:None, Eval at Step [51/96] , FPS 341.5, quant_seen_psnr: 25.56 | 
+[2025/11/21 05:40:56] Rank:None, Eval at Step [96/96] , FPS 364.3, quant_seen_psnr: 25.23 | 
+Eval at epoch 140 for (640, 1280): pred_seen_psnr: 25.23 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 25.23 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 05:41:40] Rank:None, Epoch[141/300], Step [1/77], lr:6.43e-04 pred_PSNR: 25.34 pixel_loss: 0.0507 clip_loss: 0.0070 total_loss: 0.0542
+[2025/11/21 05:42:00] Rank:None, Epoch[141/300], Step [51/77], lr:6.40e-04 pred_PSNR: 25.74 pixel_loss: 0.0532 clip_loss: 0.0090 total_loss: 0.0577
+[2025/11/21 05:42:10] Rank:None, Epoch[141/300], Step [77/77], lr:6.38e-04 pred_PSNR: 25.65 pixel_loss: 0.0537 clip_loss: 0.0090 total_loss: 0.0582
+Time/epoch: 	Current:73.73 	Average:84.96
+[2025/11/21 05:42:54] Rank:None, Epoch[142/300], Step [1/77], lr:6.38e-04 pred_PSNR: 25.95 pixel_loss: 0.0504 clip_loss: 0.0083 total_loss: 0.0545
+[2025/11/21 05:43:14] Rank:None, Epoch[142/300], Step [51/77], lr:6.34e-04 pred_PSNR: 25.72 pixel_loss: 0.0533 clip_loss: 0.0089 total_loss: 0.0578
+[2025/11/21 05:43:24] Rank:None, Epoch[142/300], Step [77/77], lr:6.32e-04 pred_PSNR: 25.74 pixel_loss: 0.0533 clip_loss: 0.0089 total_loss: 0.0578
+Time/epoch: 	Current:74.13 	Average:84.88
+[2025/11/21 05:44:21] Rank:None, Epoch[143/300], Step [1/77], lr:6.32e-04 pred_PSNR: 25.8 pixel_loss: 0.0551 clip_loss: 0.0083 total_loss: 0.0593
+[2025/11/21 05:44:40] Rank:None, Epoch[143/300], Step [51/77], lr:6.29e-04 pred_PSNR: 25.49 pixel_loss: 0.0547 clip_loss: 0.0088 total_loss: 0.0591
+[2025/11/21 05:44:51] Rank:None, Epoch[143/300], Step [77/77], lr:6.27e-04 pred_PSNR: 25.51 pixel_loss: 0.0547 clip_loss: 0.0090 total_loss: 0.0592
+Time/epoch: 	Current:86.39 	Average:84.89
+[2025/11/21 05:45:51] Rank:None, Epoch[144/300], Step [1/77], lr:6.27e-04 pred_PSNR: 26.27 pixel_loss: 0.0533 clip_loss: 0.0098 total_loss: 0.0582
+[2025/11/21 05:46:11] Rank:None, Epoch[144/300], Step [51/77], lr:6.23e-04 pred_PSNR: 25.6 pixel_loss: 0.0545 clip_loss: 0.0089 total_loss: 0.0590
+[2025/11/21 05:46:21] Rank:None, Epoch[144/300], Step [77/77], lr:6.21e-04 pred_PSNR: 25.67 pixel_loss: 0.0540 clip_loss: 0.0089 total_loss: 0.0584
+Time/epoch: 	Current:89.87 	Average:84.93
+[2025/11/21 05:47:20] Rank:None, Epoch[145/300], Step [1/77], lr:6.21e-04 pred_PSNR: 26.16 pixel_loss: 0.0488 clip_loss: 0.0087 total_loss: 0.0531
+[2025/11/21 05:47:40] Rank:None, Epoch[145/300], Step [51/77], lr:6.17e-04 pred_PSNR: 25.79 pixel_loss: 0.0529 clip_loss: 0.0089 total_loss: 0.0573
+[2025/11/21 05:47:50] Rank:None, Epoch[145/300], Step [77/77], lr:6.15e-04 pred_PSNR: 25.75 pixel_loss: 0.0533 clip_loss: 0.0088 total_loss: 0.0577
+Time/epoch: 	Current:89.06 	Average:84.96
+[2025/11/21 05:48:50] Rank:None, Epoch[146/300], Step [1/77], lr:6.15e-04 pred_PSNR: 24.31 pixel_loss: 0.0638 clip_loss: 0.0080 total_loss: 0.0679
+[2025/11/21 05:49:09] Rank:None, Epoch[146/300], Step [51/77], lr:6.12e-04 pred_PSNR: 25.68 pixel_loss: 0.0538 clip_loss: 0.0087 total_loss: 0.0581
+[2025/11/21 05:49:20] Rank:None, Epoch[146/300], Step [77/77], lr:6.10e-04 pred_PSNR: 25.66 pixel_loss: 0.0540 clip_loss: 0.0088 total_loss: 0.0584
+Time/epoch: 	Current:89.53 	Average:84.99
+[2025/11/21 05:50:20] Rank:None, Epoch[147/300], Step [1/77], lr:6.10e-04 pred_PSNR: 26.53 pixel_loss: 0.0503 clip_loss: 0.0081 total_loss: 0.0543
+[2025/11/21 05:50:40] Rank:None, Epoch[147/300], Step [51/77], lr:6.06e-04 pred_PSNR: 25.61 pixel_loss: 0.0541 clip_loss: 0.0088 total_loss: 0.0585
+[2025/11/21 05:50:50] Rank:None, Epoch[147/300], Step [77/77], lr:6.04e-04 pred_PSNR: 25.68 pixel_loss: 0.0538 clip_loss: 0.0089 total_loss: 0.0582
+Time/epoch: 	Current:89.97 	Average:85.03
+[2025/11/21 05:51:50] Rank:None, Epoch[148/300], Step [1/77], lr:6.04e-04 pred_PSNR: 26.22 pixel_loss: 0.0530 clip_loss: 0.0083 total_loss: 0.0571
+[2025/11/21 05:52:10] Rank:None, Epoch[148/300], Step [51/77], lr:6.00e-04 pred_PSNR: 25.88 pixel_loss: 0.0528 clip_loss: 0.0088 total_loss: 0.0572
+[2025/11/21 05:52:20] Rank:None, Epoch[148/300], Step [77/77], lr:5.98e-04 pred_PSNR: 25.92 pixel_loss: 0.0522 clip_loss: 0.0088 total_loss: 0.0566
+Time/epoch: 	Current:90.29 	Average:85.06
+[2025/11/21 05:53:08] Rank:None, Epoch[149/300], Step [1/77], lr:5.98e-04 pred_PSNR: 25.69 pixel_loss: 0.0519 clip_loss: 0.0089 total_loss: 0.0564
+[2025/11/21 05:53:28] Rank:None, Epoch[149/300], Step [51/77], lr:5.95e-04 pred_PSNR: 25.92 pixel_loss: 0.0519 clip_loss: 0.0086 total_loss: 0.0561
+[2025/11/21 05:53:38] Rank:None, Epoch[149/300], Step [77/77], lr:5.93e-04 pred_PSNR: 25.85 pixel_loss: 0.0523 clip_loss: 0.0087 total_loss: 0.0566
+Time/epoch: 	Current:77.59 	Average:85.01
+[2025/11/21 05:54:23] Rank:None, Epoch[150/300], Step [1/77], lr:5.93e-04 pred_PSNR: 24.85 pixel_loss: 0.0597 clip_loss: 0.0083 total_loss: 0.0638
+[2025/11/21 05:54:43] Rank:None, Epoch[150/300], Step [51/77], lr:5.89e-04 pred_PSNR: 25.78 pixel_loss: 0.0530 clip_loss: 0.0086 total_loss: 0.0573
+[2025/11/21 05:54:53] Rank:None, Epoch[150/300], Step [77/77], lr:5.87e-04 pred_PSNR: 25.79 pixel_loss: 0.0529 clip_loss: 0.0087 total_loss: 0.0573
+Time/epoch: 	Current:75.15 	Average:84.95
+[2025/11/21 05:55:35] Rank:None, Eval at Step [1/96] , FPS 259.8, pred_seen_psnr: 27.4 | 
+[2025/11/21 05:55:37] Rank:None, Eval at Step [51/96] , FPS 360.2, pred_seen_psnr: 26.24 | 
+[2025/11/21 05:55:39] Rank:None, Eval at Step [96/96] , FPS 353.2, pred_seen_psnr: 25.92 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9911
+Average (Train):      0.9911 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 05:56:22] Rank:None, Eval at Step [1/96] , FPS 232.8, quant_seen_psnr: 27.41 | 
+[2025/11/21 05:56:24] Rank:None, Eval at Step [51/96] , FPS 372.9, quant_seen_psnr: 26.23 | 
+[2025/11/21 05:56:26] Rank:None, Eval at Step [96/96] , FPS 371.0, quant_seen_psnr: 25.92 | 
+Eval at epoch 150 for (640, 1280): pred_seen_psnr: 25.92 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 25.92 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 05:57:09] Rank:None, Epoch[151/300], Step [1/77], lr:5.87e-04 pred_PSNR: 25.83 pixel_loss: 0.0515 clip_loss: 0.0077 total_loss: 0.0553
+[2025/11/21 05:57:29] Rank:None, Epoch[151/300], Step [51/77], lr:5.83e-04 pred_PSNR: 26.12 pixel_loss: 0.0509 clip_loss: 0.0087 total_loss: 0.0553
+[2025/11/21 05:57:39] Rank:None, Epoch[151/300], Step [77/77], lr:5.81e-04 pred_PSNR: 26.1 pixel_loss: 0.0509 clip_loss: 0.0086 total_loss: 0.0552
+Time/epoch: 	Current:73.35 	Average:85.49
+[2025/11/21 05:58:23] Rank:None, Epoch[152/300], Step [1/77], lr:5.81e-04 pred_PSNR: 25.73 pixel_loss: 0.0527 clip_loss: 0.0080 total_loss: 0.0567
+[2025/11/21 05:58:43] Rank:None, Epoch[152/300], Step [51/77], lr:5.77e-04 pred_PSNR: 25.82 pixel_loss: 0.0520 clip_loss: 0.0085 total_loss: 0.0563
+[2025/11/21 05:58:53] Rank:None, Epoch[152/300], Step [77/77], lr:5.75e-04 pred_PSNR: 25.78 pixel_loss: 0.0527 clip_loss: 0.0086 total_loss: 0.0570
+Time/epoch: 	Current:73.39 	Average:85.41
+[2025/11/21 05:59:35] Rank:None, Epoch[153/300], Step [1/77], lr:5.75e-04 pred_PSNR: 26.18 pixel_loss: 0.0510 clip_loss: 0.0080 total_loss: 0.0550
+[2025/11/21 05:59:55] Rank:None, Epoch[153/300], Step [51/77], lr:5.72e-04 pred_PSNR: 26.05 pixel_loss: 0.0513 clip_loss: 0.0084 total_loss: 0.0555
+[2025/11/21 06:00:05] Rank:None, Epoch[153/300], Step [77/77], lr:5.70e-04 pred_PSNR: 26.09 pixel_loss: 0.0511 clip_loss: 0.0086 total_loss: 0.0554
+Time/epoch: 	Current:72.42 	Average:85.32
+[2025/11/21 06:00:41] Rank:None, Epoch[154/300], Step [1/77], lr:5.70e-04 pred_PSNR: 26.28 pixel_loss: 0.0475 clip_loss: 0.0082 total_loss: 0.0516
+[2025/11/21 06:01:01] Rank:None, Epoch[154/300], Step [51/77], lr:5.66e-04 pred_PSNR: 26.22 pixel_loss: 0.0497 clip_loss: 0.0085 total_loss: 0.0540
+[2025/11/21 06:01:11] Rank:None, Epoch[154/300], Step [77/77], lr:5.64e-04 pred_PSNR: 26.16 pixel_loss: 0.0504 clip_loss: 0.0086 total_loss: 0.0547
+Time/epoch: 	Current:65.23 	Average:85.19
+[2025/11/21 06:01:47] Rank:None, Epoch[155/300], Step [1/77], lr:5.64e-04 pred_PSNR: 25.51 pixel_loss: 0.0548 clip_loss: 0.0073 total_loss: 0.0585
+[2025/11/21 06:02:06] Rank:None, Epoch[155/300], Step [51/77], lr:5.60e-04 pred_PSNR: 26.16 pixel_loss: 0.0502 clip_loss: 0.0085 total_loss: 0.0544
+[2025/11/21 06:02:17] Rank:None, Epoch[155/300], Step [77/77], lr:5.58e-04 pred_PSNR: 26.19 pixel_loss: 0.0502 clip_loss: 0.0086 total_loss: 0.0545
+Time/epoch: 	Current:65.54 	Average:85.07
+[2025/11/21 06:02:52] Rank:None, Epoch[156/300], Step [1/77], lr:5.58e-04 pred_PSNR: 27.37 pixel_loss: 0.0453 clip_loss: 0.0082 total_loss: 0.0494
+[2025/11/21 06:03:12] Rank:None, Epoch[156/300], Step [51/77], lr:5.54e-04 pred_PSNR: 26.32 pixel_loss: 0.0498 clip_loss: 0.0085 total_loss: 0.0541
+[2025/11/21 06:03:22] Rank:None, Epoch[156/300], Step [77/77], lr:5.52e-04 pred_PSNR: 26.27 pixel_loss: 0.0499 clip_loss: 0.0086 total_loss: 0.0541
+Time/epoch: 	Current:65.33 	Average:84.94
+[2025/11/21 06:03:58] Rank:None, Epoch[157/300], Step [1/77], lr:5.52e-04 pred_PSNR: 25.99 pixel_loss: 0.0517 clip_loss: 0.0087 total_loss: 0.0561
+[2025/11/21 06:04:18] Rank:None, Epoch[157/300], Step [51/77], lr:5.49e-04 pred_PSNR: 26.2 pixel_loss: 0.0503 clip_loss: 0.0086 total_loss: 0.0545
+[2025/11/21 06:04:28] Rank:None, Epoch[157/300], Step [77/77], lr:5.47e-04 pred_PSNR: 26.18 pixel_loss: 0.0504 clip_loss: 0.0086 total_loss: 0.0547
+Time/epoch: 	Current:65.98 	Average:84.82
+[2025/11/21 06:05:06] Rank:None, Epoch[158/300], Step [1/77], lr:5.46e-04 pred_PSNR: 25.67 pixel_loss: 0.0513 clip_loss: 0.0088 total_loss: 0.0557
+[2025/11/21 06:05:26] Rank:None, Epoch[158/300], Step [51/77], lr:5.43e-04 pred_PSNR: 26.02 pixel_loss: 0.0511 clip_loss: 0.0083 total_loss: 0.0553
+[2025/11/21 06:05:36] Rank:None, Epoch[158/300], Step [77/77], lr:5.41e-04 pred_PSNR: 26.03 pixel_loss: 0.0512 clip_loss: 0.0085 total_loss: 0.0554
+Time/epoch: 	Current:67.86 	Average:84.72
+[2025/11/21 06:06:14] Rank:None, Epoch[159/300], Step [1/77], lr:5.41e-04 pred_PSNR: 25.37 pixel_loss: 0.0555 clip_loss: 0.0090 total_loss: 0.0601
+[2025/11/21 06:06:34] Rank:None, Epoch[159/300], Step [51/77], lr:5.37e-04 pred_PSNR: 26.28 pixel_loss: 0.0496 clip_loss: 0.0085 total_loss: 0.0539
+[2025/11/21 06:06:44] Rank:None, Epoch[159/300], Step [77/77], lr:5.35e-04 pred_PSNR: 26.29 pixel_loss: 0.0497 clip_loss: 0.0085 total_loss: 0.0539
+Time/epoch: 	Current:67.88 	Average:84.61
+[2025/11/21 06:07:22] Rank:None, Epoch[160/300], Step [1/77], lr:5.35e-04 pred_PSNR: 26.47 pixel_loss: 0.0475 clip_loss: 0.0090 total_loss: 0.0520
+[2025/11/21 06:07:42] Rank:None, Epoch[160/300], Step [51/77], lr:5.31e-04 pred_PSNR: 26.06 pixel_loss: 0.0512 clip_loss: 0.0083 total_loss: 0.0554
+[2025/11/21 06:07:52] Rank:None, Epoch[160/300], Step [77/77], lr:5.29e-04 pred_PSNR: 26.08 pixel_loss: 0.0510 clip_loss: 0.0084 total_loss: 0.0552
+Time/epoch: 	Current:67.70 	Average:84.51
+[2025/11/21 06:08:30] Rank:None, Eval at Step [1/96] , FPS 216.3, pred_seen_psnr: 27.94 | 
+[2025/11/21 06:08:32] Rank:None, Eval at Step [51/96] , FPS 360.6, pred_seen_psnr: 25.92 | 
+[2025/11/21 06:08:34] Rank:None, Eval at Step [96/96] , FPS 365.7, pred_seen_psnr: 25.85 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9914
+Average (Train):      0.9914 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 06:09:11] Rank:None, Eval at Step [1/96] , FPS 285.1, quant_seen_psnr: 27.93 | 
+[2025/11/21 06:09:13] Rank:None, Eval at Step [51/96] , FPS 343.8, quant_seen_psnr: 25.91 | 
+[2025/11/21 06:09:15] Rank:None, Eval at Step [96/96] , FPS 368.0, quant_seen_psnr: 25.84 | 
+Eval at epoch 160 for (640, 1280): pred_seen_psnr: 25.85 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 25.84 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 06:09:50] Rank:None, Epoch[161/300], Step [1/77], lr:5.29e-04 pred_PSNR: 26.98 pixel_loss: 0.0470 clip_loss: 0.0068 total_loss: 0.0504
+[2025/11/21 06:10:10] Rank:None, Epoch[161/300], Step [51/77], lr:5.25e-04 pred_PSNR: 26.25 pixel_loss: 0.0498 clip_loss: 0.0083 total_loss: 0.0539
+[2025/11/21 06:10:20] Rank:None, Epoch[161/300], Step [77/77], lr:5.23e-04 pred_PSNR: 26.28 pixel_loss: 0.0499 clip_loss: 0.0084 total_loss: 0.0541
+Time/epoch: 	Current:65.34 	Average:84.90
+[2025/11/21 06:10:59] Rank:None, Epoch[162/300], Step [1/77], lr:5.23e-04 pred_PSNR: 26.41 pixel_loss: 0.0484 clip_loss: 0.0072 total_loss: 0.0520
+[2025/11/21 06:11:18] Rank:None, Epoch[162/300], Step [51/77], lr:5.19e-04 pred_PSNR: 26.47 pixel_loss: 0.0487 clip_loss: 0.0083 total_loss: 0.0529
+[2025/11/21 06:11:28] Rank:None, Epoch[162/300], Step [77/77], lr:5.18e-04 pred_PSNR: 26.44 pixel_loss: 0.0490 clip_loss: 0.0083 total_loss: 0.0531
+Time/epoch: 	Current:67.88 	Average:84.80
+[2025/11/21 06:12:08] Rank:None, Epoch[163/300], Step [1/77], lr:5.17e-04 pred_PSNR: 26.39 pixel_loss: 0.0502 clip_loss: 0.0091 total_loss: 0.0547
+[2025/11/21 06:12:28] Rank:None, Epoch[163/300], Step [51/77], lr:5.14e-04 pred_PSNR: 26.33 pixel_loss: 0.0496 clip_loss: 0.0084 total_loss: 0.0538
+[2025/11/21 06:12:38] Rank:None, Epoch[163/300], Step [77/77], lr:5.12e-04 pred_PSNR: 26.39 pixel_loss: 0.0493 clip_loss: 0.0083 total_loss: 0.0535
+Time/epoch: 	Current:69.27 	Average:84.71
+[2025/11/21 06:13:17] Rank:None, Epoch[164/300], Step [1/77], lr:5.12e-04 pred_PSNR: 26.73 pixel_loss: 0.0461 clip_loss: 0.0076 total_loss: 0.0499
+[2025/11/21 06:13:37] Rank:None, Epoch[164/300], Step [51/77], lr:5.08e-04 pred_PSNR: 26.43 pixel_loss: 0.0488 clip_loss: 0.0082 total_loss: 0.0529
+[2025/11/21 06:13:47] Rank:None, Epoch[164/300], Step [77/77], lr:5.06e-04 pred_PSNR: 26.49 pixel_loss: 0.0487 clip_loss: 0.0083 total_loss: 0.0528
+Time/epoch: 	Current:69.41 	Average:84.61
+[2025/11/21 06:14:27] Rank:None, Epoch[165/300], Step [1/77], lr:5.06e-04 pred_PSNR: 26.58 pixel_loss: 0.0480 clip_loss: 0.0080 total_loss: 0.0521
+[2025/11/21 06:14:47] Rank:None, Epoch[165/300], Step [51/77], lr:5.02e-04 pred_PSNR: 26.61 pixel_loss: 0.0477 clip_loss: 0.0083 total_loss: 0.0518
+[2025/11/21 06:14:57] Rank:None, Epoch[165/300], Step [77/77], lr:5.00e-04 pred_PSNR: 26.57 pixel_loss: 0.0481 clip_loss: 0.0083 total_loss: 0.0523
+Time/epoch: 	Current:69.41 	Average:84.52
+[2025/11/21 06:15:36] Rank:None, Epoch[166/300], Step [1/77], lr:5.00e-04 pred_PSNR: 26.98 pixel_loss: 0.0488 clip_loss: 0.0076 total_loss: 0.0526
+[2025/11/21 06:15:56] Rank:None, Epoch[166/300], Step [51/77], lr:4.96e-04 pred_PSNR: 26.33 pixel_loss: 0.0492 clip_loss: 0.0082 total_loss: 0.0533
+[2025/11/21 06:16:06] Rank:None, Epoch[166/300], Step [77/77], lr:4.94e-04 pred_PSNR: 26.29 pixel_loss: 0.0494 clip_loss: 0.0083 total_loss: 0.0535
+Time/epoch: 	Current:68.74 	Average:84.43
+[2025/11/21 06:16:44] Rank:None, Epoch[167/300], Step [1/77], lr:4.94e-04 pred_PSNR: 26.08 pixel_loss: 0.0523 clip_loss: 0.0068 total_loss: 0.0557
+[2025/11/21 06:17:04] Rank:None, Epoch[167/300], Step [51/77], lr:4.90e-04 pred_PSNR: 26.32 pixel_loss: 0.0490 clip_loss: 0.0082 total_loss: 0.0531
+[2025/11/21 06:17:14] Rank:None, Epoch[167/300], Step [77/77], lr:4.88e-04 pred_PSNR: 26.39 pixel_loss: 0.0489 clip_loss: 0.0082 total_loss: 0.0530
+Time/epoch: 	Current:67.97 	Average:84.33
+[2025/11/21 06:17:52] Rank:None, Epoch[168/300], Step [1/77], lr:4.88e-04 pred_PSNR: 26.92 pixel_loss: 0.0441 clip_loss: 0.0104 total_loss: 0.0493
+[2025/11/21 06:18:12] Rank:None, Epoch[168/300], Step [51/77], lr:4.85e-04 pred_PSNR: 26.41 pixel_loss: 0.0489 clip_loss: 0.0081 total_loss: 0.0530
+[2025/11/21 06:18:22] Rank:None, Epoch[168/300], Step [77/77], lr:4.83e-04 pred_PSNR: 26.48 pixel_loss: 0.0487 clip_loss: 0.0083 total_loss: 0.0528
+Time/epoch: 	Current:67.74 	Average:84.23
+[2025/11/21 06:19:00] Rank:None, Epoch[169/300], Step [1/77], lr:4.83e-04 pred_PSNR: 27.17 pixel_loss: 0.0463 clip_loss: 0.0086 total_loss: 0.0506
+[2025/11/21 06:19:20] Rank:None, Epoch[169/300], Step [51/77], lr:4.79e-04 pred_PSNR: 26.54 pixel_loss: 0.0481 clip_loss: 0.0081 total_loss: 0.0522
+[2025/11/21 06:19:30] Rank:None, Epoch[169/300], Step [77/77], lr:4.77e-04 pred_PSNR: 26.4 pixel_loss: 0.0488 clip_loss: 0.0082 total_loss: 0.0529
+Time/epoch: 	Current:67.78 	Average:84.14
+[2025/11/21 06:20:08] Rank:None, Epoch[170/300], Step [1/77], lr:4.77e-04 pred_PSNR: 25.93 pixel_loss: 0.0520 clip_loss: 0.0091 total_loss: 0.0565
+[2025/11/21 06:20:28] Rank:None, Epoch[170/300], Step [51/77], lr:4.73e-04 pred_PSNR: 26.37 pixel_loss: 0.0490 clip_loss: 0.0081 total_loss: 0.0531
+[2025/11/21 06:20:38] Rank:None, Epoch[170/300], Step [77/77], lr:4.71e-04 pred_PSNR: 26.42 pixel_loss: 0.0488 clip_loss: 0.0081 total_loss: 0.0529
+Time/epoch: 	Current:68.16 	Average:84.04
+[2025/11/21 06:21:17] Rank:None, Eval at Step [1/96] , FPS 245.9, pred_seen_psnr: 28.08 | 
+[2025/11/21 06:21:20] Rank:None, Eval at Step [51/96] , FPS 359.1, pred_seen_psnr: 26.59 | 
+[2025/11/21 06:21:22] Rank:None, Eval at Step [96/96] , FPS 370.6, pred_seen_psnr: 26.21 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9916
+Average (Train):      0.9916 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 06:22:02] Rank:None, Eval at Step [1/96] , FPS 281.0, quant_seen_psnr: 28.08 | 
+[2025/11/21 06:22:04] Rank:None, Eval at Step [51/96] , FPS 389.5, quant_seen_psnr: 26.58 | 
+[2025/11/21 06:22:06] Rank:None, Eval at Step [96/96] , FPS 387.5, quant_seen_psnr: 26.21 | 
+Eval at epoch 170 for (640, 1280): pred_seen_psnr: 26.21 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 26.21 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 06:22:44] Rank:None, Epoch[171/300], Step [1/77], lr:4.71e-04 pred_PSNR: 27.04 pixel_loss: 0.0451 clip_loss: 0.0100 total_loss: 0.0501
+[2025/11/21 06:23:04] Rank:None, Epoch[171/300], Step [51/77], lr:4.67e-04 pred_PSNR: 26.74 pixel_loss: 0.0471 clip_loss: 0.0081 total_loss: 0.0512
+[2025/11/21 06:23:14] Rank:None, Epoch[171/300], Step [77/77], lr:4.65e-04 pred_PSNR: 26.68 pixel_loss: 0.0475 clip_loss: 0.0081 total_loss: 0.0516
+Time/epoch: 	Current:67.69 	Average:84.46
+[2025/11/21 06:23:50] Rank:None, Epoch[172/300], Step [1/77], lr:4.65e-04 pred_PSNR: 26.68 pixel_loss: 0.0461 clip_loss: 0.0092 total_loss: 0.0507
+[2025/11/21 06:24:10] Rank:None, Epoch[172/300], Step [51/77], lr:4.61e-04 pred_PSNR: 26.73 pixel_loss: 0.0472 clip_loss: 0.0082 total_loss: 0.0513
+[2025/11/21 06:24:20] Rank:None, Epoch[172/300], Step [77/77], lr:4.59e-04 pred_PSNR: 26.65 pixel_loss: 0.0477 clip_loss: 0.0081 total_loss: 0.0517
+Time/epoch: 	Current:65.77 	Average:84.36
+[2025/11/21 06:24:56] Rank:None, Epoch[173/300], Step [1/77], lr:4.59e-04 pred_PSNR: 26.66 pixel_loss: 0.0494 clip_loss: 0.0075 total_loss: 0.0532
+[2025/11/21 06:25:16] Rank:None, Epoch[173/300], Step [51/77], lr:4.56e-04 pred_PSNR: 26.61 pixel_loss: 0.0477 clip_loss: 0.0080 total_loss: 0.0517
+[2025/11/21 06:25:26] Rank:None, Epoch[173/300], Step [77/77], lr:4.54e-04 pred_PSNR: 26.61 pixel_loss: 0.0478 clip_loss: 0.0081 total_loss: 0.0518
+Time/epoch: 	Current:65.74 	Average:84.25
+[2025/11/21 06:26:02] Rank:None, Epoch[174/300], Step [1/77], lr:4.54e-04 pred_PSNR: 25.92 pixel_loss: 0.0514 clip_loss: 0.0073 total_loss: 0.0550
+[2025/11/21 06:26:22] Rank:None, Epoch[174/300], Step [51/77], lr:4.50e-04 pred_PSNR: 26.8 pixel_loss: 0.0467 clip_loss: 0.0080 total_loss: 0.0507
+[2025/11/21 06:26:32] Rank:None, Epoch[174/300], Step [77/77], lr:4.48e-04 pred_PSNR: 26.77 pixel_loss: 0.0469 clip_loss: 0.0081 total_loss: 0.0510
+Time/epoch: 	Current:66.02 	Average:84.14
+[2025/11/21 06:27:07] Rank:None, Epoch[175/300], Step [1/77], lr:4.48e-04 pred_PSNR: 27.15 pixel_loss: 0.0458 clip_loss: 0.0073 total_loss: 0.0494
+[2025/11/21 06:27:27] Rank:None, Epoch[175/300], Step [51/77], lr:4.44e-04 pred_PSNR: 26.59 pixel_loss: 0.0477 clip_loss: 0.0081 total_loss: 0.0517
+[2025/11/21 06:27:37] Rank:None, Epoch[175/300], Step [77/77], lr:4.42e-04 pred_PSNR: 26.64 pixel_loss: 0.0473 clip_loss: 0.0081 total_loss: 0.0513
+Time/epoch: 	Current:65.12 	Average:84.04
+[2025/11/21 06:28:13] Rank:None, Epoch[176/300], Step [1/77], lr:4.42e-04 pred_PSNR: 26.34 pixel_loss: 0.0473 clip_loss: 0.0074 total_loss: 0.0510
+[2025/11/21 06:28:33] Rank:None, Epoch[176/300], Step [51/77], lr:4.38e-04 pred_PSNR: 26.84 pixel_loss: 0.0466 clip_loss: 0.0079 total_loss: 0.0506
+[2025/11/21 06:28:43] Rank:None, Epoch[176/300], Step [77/77], lr:4.36e-04 pred_PSNR: 26.87 pixel_loss: 0.0464 clip_loss: 0.0080 total_loss: 0.0504
+Time/epoch: 	Current:65.74 	Average:83.93
+[2025/11/21 06:29:20] Rank:None, Epoch[177/300], Step [1/77], lr:4.36e-04 pred_PSNR: 26.62 pixel_loss: 0.0494 clip_loss: 0.0082 total_loss: 0.0535
+[2025/11/21 06:29:40] Rank:None, Epoch[177/300], Step [51/77], lr:4.32e-04 pred_PSNR: 27.0 pixel_loss: 0.0453 clip_loss: 0.0077 total_loss: 0.0491
+[2025/11/21 06:29:50] Rank:None, Epoch[177/300], Step [77/77], lr:4.30e-04 pred_PSNR: 26.97 pixel_loss: 0.0457 clip_loss: 0.0079 total_loss: 0.0497
+Time/epoch: 	Current:66.85 	Average:83.84
+[2025/11/21 06:30:26] Rank:None, Epoch[178/300], Step [1/77], lr:4.30e-04 pred_PSNR: 27.65 pixel_loss: 0.0422 clip_loss: 0.0071 total_loss: 0.0458
+[2025/11/21 06:30:46] Rank:None, Epoch[178/300], Step [51/77], lr:4.27e-04 pred_PSNR: 26.83 pixel_loss: 0.0464 clip_loss: 0.0079 total_loss: 0.0503
+[2025/11/21 06:30:56] Rank:None, Epoch[178/300], Step [77/77], lr:4.25e-04 pred_PSNR: 26.85 pixel_loss: 0.0462 clip_loss: 0.0080 total_loss: 0.0502
+Time/epoch: 	Current:65.96 	Average:83.74
+[2025/11/21 06:31:32] Rank:None, Epoch[179/300], Step [1/77], lr:4.25e-04 pred_PSNR: 26.68 pixel_loss: 0.0470 clip_loss: 0.0082 total_loss: 0.0512
+[2025/11/21 06:31:52] Rank:None, Epoch[179/300], Step [51/77], lr:4.21e-04 pred_PSNR: 27.07 pixel_loss: 0.0452 clip_loss: 0.0079 total_loss: 0.0492
+[2025/11/21 06:32:02] Rank:None, Epoch[179/300], Step [77/77], lr:4.19e-04 pred_PSNR: 26.98 pixel_loss: 0.0457 clip_loss: 0.0079 total_loss: 0.0496
+Time/epoch: 	Current:65.78 	Average:83.64
+[2025/11/21 06:32:38] Rank:None, Epoch[180/300], Step [1/77], lr:4.19e-04 pred_PSNR: 26.77 pixel_loss: 0.0461 clip_loss: 0.0073 total_loss: 0.0498
+[2025/11/21 06:32:58] Rank:None, Epoch[180/300], Step [51/77], lr:4.15e-04 pred_PSNR: 26.85 pixel_loss: 0.0460 clip_loss: 0.0080 total_loss: 0.0500
+[2025/11/21 06:33:08] Rank:None, Epoch[180/300], Step [77/77], lr:4.13e-04 pred_PSNR: 26.89 pixel_loss: 0.0460 clip_loss: 0.0080 total_loss: 0.0500
+Time/epoch: 	Current:65.45 	Average:83.54
+[2025/11/21 06:33:43] Rank:None, Eval at Step [1/96] , FPS 348.8, pred_seen_psnr: 28.2 | 
+[2025/11/21 06:33:45] Rank:None, Eval at Step [51/96] , FPS 365.6, pred_seen_psnr: 26.78 | 
+[2025/11/21 06:33:47] Rank:None, Eval at Step [96/96] , FPS 359.1, pred_seen_psnr: 26.73 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9917
+Average (Train):      0.9917 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 06:34:23] Rank:None, Eval at Step [1/96] , FPS 328.7, quant_seen_psnr: 28.2 | 
+[2025/11/21 06:34:25] Rank:None, Eval at Step [51/96] , FPS 323.9, quant_seen_psnr: 26.77 | 
+[2025/11/21 06:34:27] Rank:None, Eval at Step [96/96] , FPS 344.3, quant_seen_psnr: 26.73 | 
+Eval at epoch 180 for (640, 1280): pred_seen_psnr: 26.73 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 26.73 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 06:35:02] Rank:None, Epoch[181/300], Step [1/77], lr:4.13e-04 pred_PSNR: 25.98 pixel_loss: 0.0489 clip_loss: 0.0090 total_loss: 0.0534
+[2025/11/21 06:35:22] Rank:None, Epoch[181/300], Step [51/77], lr:4.09e-04 pred_PSNR: 26.87 pixel_loss: 0.0461 clip_loss: 0.0080 total_loss: 0.0501
+[2025/11/21 06:35:32] Rank:None, Epoch[181/300], Step [77/77], lr:4.08e-04 pred_PSNR: 26.93 pixel_loss: 0.0458 clip_loss: 0.0079 total_loss: 0.0498
+Time/epoch: 	Current:65.42 	Average:83.88
+[2025/11/21 06:36:08] Rank:None, Epoch[182/300], Step [1/77], lr:4.07e-04 pred_PSNR: 27.51 pixel_loss: 0.0425 clip_loss: 0.0073 total_loss: 0.0461
+[2025/11/21 06:36:28] Rank:None, Epoch[182/300], Step [51/77], lr:4.04e-04 pred_PSNR: 27.15 pixel_loss: 0.0447 clip_loss: 0.0078 total_loss: 0.0486
+[2025/11/21 06:36:38] Rank:None, Epoch[182/300], Step [77/77], lr:4.02e-04 pred_PSNR: 27.1 pixel_loss: 0.0450 clip_loss: 0.0079 total_loss: 0.0489
+Time/epoch: 	Current:65.56 	Average:83.78
+[2025/11/21 06:37:14] Rank:None, Epoch[183/300], Step [1/77], lr:4.02e-04 pred_PSNR: 27.2 pixel_loss: 0.0419 clip_loss: 0.0069 total_loss: 0.0453
+[2025/11/21 06:37:34] Rank:None, Epoch[183/300], Step [51/77], lr:3.98e-04 pred_PSNR: 27.2 pixel_loss: 0.0444 clip_loss: 0.0077 total_loss: 0.0483
+[2025/11/21 06:37:44] Rank:None, Epoch[183/300], Step [77/77], lr:3.96e-04 pred_PSNR: 27.16 pixel_loss: 0.0446 clip_loss: 0.0078 total_loss: 0.0485
+Time/epoch: 	Current:65.63 	Average:83.68
+[2025/11/21 06:38:20] Rank:None, Epoch[184/300], Step [1/77], lr:3.96e-04 pred_PSNR: 27.9 pixel_loss: 0.0420 clip_loss: 0.0072 total_loss: 0.0456
+[2025/11/21 06:38:40] Rank:None, Epoch[184/300], Step [51/77], lr:3.92e-04 pred_PSNR: 27.07 pixel_loss: 0.0449 clip_loss: 0.0078 total_loss: 0.0488
+[2025/11/21 06:38:50] Rank:None, Epoch[184/300], Step [77/77], lr:3.90e-04 pred_PSNR: 27.04 pixel_loss: 0.0452 clip_loss: 0.0079 total_loss: 0.0491
+Time/epoch: 	Current:65.85 	Average:83.58
+[2025/11/21 06:39:26] Rank:None, Epoch[185/300], Step [1/77], lr:3.90e-04 pred_PSNR: 27.31 pixel_loss: 0.0406 clip_loss: 0.0076 total_loss: 0.0444
+[2025/11/21 06:39:46] Rank:None, Epoch[185/300], Step [51/77], lr:3.87e-04 pred_PSNR: 26.91 pixel_loss: 0.0458 clip_loss: 0.0077 total_loss: 0.0496
+[2025/11/21 06:39:56] Rank:None, Epoch[185/300], Step [77/77], lr:3.85e-04 pred_PSNR: 26.91 pixel_loss: 0.0459 clip_loss: 0.0078 total_loss: 0.0498
+Time/epoch: 	Current:66.35 	Average:83.49
+[2025/11/21 06:40:33] Rank:None, Epoch[186/300], Step [1/77], lr:3.85e-04 pred_PSNR: 24.95 pixel_loss: 0.0572 clip_loss: 0.0076 total_loss: 0.0610
+[2025/11/21 06:40:53] Rank:None, Epoch[186/300], Step [51/77], lr:3.81e-04 pred_PSNR: 26.73 pixel_loss: 0.0471 clip_loss: 0.0080 total_loss: 0.0511
+[2025/11/21 06:41:03] Rank:None, Epoch[186/300], Step [77/77], lr:3.79e-04 pred_PSNR: 26.83 pixel_loss: 0.0464 clip_loss: 0.0079 total_loss: 0.0504
+Time/epoch: 	Current:66.68 	Average:83.40
+[2025/11/21 06:41:43] Rank:None, Epoch[187/300], Step [1/77], lr:3.79e-04 pred_PSNR: 26.9 pixel_loss: 0.0468 clip_loss: 0.0075 total_loss: 0.0505
+[2025/11/21 06:42:03] Rank:None, Epoch[187/300], Step [51/77], lr:3.75e-04 pred_PSNR: 27.08 pixel_loss: 0.0452 clip_loss: 0.0077 total_loss: 0.0490
+[2025/11/21 06:42:13] Rank:None, Epoch[187/300], Step [77/77], lr:3.73e-04 pred_PSNR: 27.04 pixel_loss: 0.0452 clip_loss: 0.0078 total_loss: 0.0491
+Time/epoch: 	Current:69.70 	Average:83.33
+[2025/11/21 06:42:49] Rank:None, Epoch[188/300], Step [1/77], lr:3.73e-04 pred_PSNR: 27.63 pixel_loss: 0.0450 clip_loss: 0.0075 total_loss: 0.0487
+[2025/11/21 06:43:09] Rank:None, Epoch[188/300], Step [51/77], lr:3.70e-04 pred_PSNR: 27.29 pixel_loss: 0.0440 clip_loss: 0.0078 total_loss: 0.0479
+[2025/11/21 06:43:19] Rank:None, Epoch[188/300], Step [77/77], lr:3.68e-04 pred_PSNR: 27.22 pixel_loss: 0.0444 clip_loss: 0.0078 total_loss: 0.0483
+Time/epoch: 	Current:66.04 	Average:83.24
+[2025/11/21 06:43:56] Rank:None, Epoch[189/300], Step [1/77], lr:3.68e-04 pred_PSNR: 27.69 pixel_loss: 0.0422 clip_loss: 0.0078 total_loss: 0.0461
+[2025/11/21 06:44:15] Rank:None, Epoch[189/300], Step [51/77], lr:3.64e-04 pred_PSNR: 27.26 pixel_loss: 0.0441 clip_loss: 0.0078 total_loss: 0.0480
+[2025/11/21 06:44:25] Rank:None, Epoch[189/300], Step [77/77], lr:3.62e-04 pred_PSNR: 27.21 pixel_loss: 0.0444 clip_loss: 0.0078 total_loss: 0.0483
+Time/epoch: 	Current:66.18 	Average:83.15
+[2025/11/21 06:45:02] Rank:None, Epoch[190/300], Step [1/77], lr:3.62e-04 pred_PSNR: 27.2 pixel_loss: 0.0430 clip_loss: 0.0081 total_loss: 0.0470
+[2025/11/21 06:45:22] Rank:None, Epoch[190/300], Step [51/77], lr:3.59e-04 pred_PSNR: 27.17 pixel_loss: 0.0444 clip_loss: 0.0077 total_loss: 0.0483
+[2025/11/21 06:45:32] Rank:None, Epoch[190/300], Step [77/77], lr:3.57e-04 pred_PSNR: 27.16 pixel_loss: 0.0445 clip_loss: 0.0078 total_loss: 0.0484
+Time/epoch: 	Current:66.74 	Average:83.06
+[2025/11/21 06:46:08] Rank:None, Eval at Step [1/96] , FPS 301.7, pred_seen_psnr: 28.65 | 
+[2025/11/21 06:46:11] Rank:None, Eval at Step [51/96] , FPS 354.3, pred_seen_psnr: 27.22 | 
+[2025/11/21 06:46:13] Rank:None, Eval at Step [96/96] , FPS 358.2, pred_seen_psnr: 27.08 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9920
+Average (Train):      0.9920 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 06:46:49] Rank:None, Eval at Step [1/96] , FPS 282.2, quant_seen_psnr: 28.63 | 
+[2025/11/21 06:46:51] Rank:None, Eval at Step [51/96] , FPS 326.3, quant_seen_psnr: 27.2 | 
+[2025/11/21 06:46:53] Rank:None, Eval at Step [96/96] , FPS 338.7, quant_seen_psnr: 27.07 | 
+Eval at epoch 190 for (640, 1280): pred_seen_psnr: 27.08 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.07 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 06:47:30] Rank:None, Epoch[191/300], Step [1/77], lr:3.57e-04 pred_PSNR: 26.72 pixel_loss: 0.0465 clip_loss: 0.0074 total_loss: 0.0502
+[2025/11/21 06:47:50] Rank:None, Epoch[191/300], Step [51/77], lr:3.53e-04 pred_PSNR: 27.26 pixel_loss: 0.0441 clip_loss: 0.0077 total_loss: 0.0480
+[2025/11/21 06:48:00] Rank:None, Epoch[191/300], Step [77/77], lr:3.51e-04 pred_PSNR: 27.23 pixel_loss: 0.0442 clip_loss: 0.0077 total_loss: 0.0480
+Time/epoch: 	Current:66.90 	Average:83.40
+[2025/11/21 06:48:39] Rank:None, Epoch[192/300], Step [1/77], lr:3.51e-04 pred_PSNR: 26.6 pixel_loss: 0.0452 clip_loss: 0.0078 total_loss: 0.0491
+[2025/11/21 06:48:58] Rank:None, Epoch[192/300], Step [51/77], lr:3.47e-04 pred_PSNR: 27.19 pixel_loss: 0.0441 clip_loss: 0.0076 total_loss: 0.0479
+[2025/11/21 06:49:08] Rank:None, Epoch[192/300], Step [77/77], lr:3.46e-04 pred_PSNR: 27.23 pixel_loss: 0.0440 clip_loss: 0.0077 total_loss: 0.0478
+Time/epoch: 	Current:67.82 	Average:83.32
+[2025/11/21 06:49:47] Rank:None, Epoch[193/300], Step [1/77], lr:3.45e-04 pred_PSNR: 27.59 pixel_loss: 0.0407 clip_loss: 0.0076 total_loss: 0.0445
+[2025/11/21 06:50:06] Rank:None, Epoch[193/300], Step [51/77], lr:3.42e-04 pred_PSNR: 27.33 pixel_loss: 0.0435 clip_loss: 0.0076 total_loss: 0.0473
+[2025/11/21 06:50:16] Rank:None, Epoch[193/300], Step [77/77], lr:3.40e-04 pred_PSNR: 27.31 pixel_loss: 0.0437 clip_loss: 0.0076 total_loss: 0.0475
+Time/epoch: 	Current:67.92 	Average:83.24
+[2025/11/21 06:50:55] Rank:None, Epoch[194/300], Step [1/77], lr:3.40e-04 pred_PSNR: 26.97 pixel_loss: 0.0463 clip_loss: 0.0070 total_loss: 0.0498
+[2025/11/21 06:51:14] Rank:None, Epoch[194/300], Step [51/77], lr:3.36e-04 pred_PSNR: 27.49 pixel_loss: 0.0428 clip_loss: 0.0076 total_loss: 0.0466
+[2025/11/21 06:51:25] Rank:None, Epoch[194/300], Step [77/77], lr:3.35e-04 pred_PSNR: 27.42 pixel_loss: 0.0431 clip_loss: 0.0076 total_loss: 0.0469
+Time/epoch: 	Current:68.04 	Average:83.16
+[2025/11/21 06:52:02] Rank:None, Epoch[195/300], Step [1/77], lr:3.34e-04 pred_PSNR: 27.35 pixel_loss: 0.0457 clip_loss: 0.0078 total_loss: 0.0496
+[2025/11/21 06:52:22] Rank:None, Epoch[195/300], Step [51/77], lr:3.31e-04 pred_PSNR: 27.42 pixel_loss: 0.0431 clip_loss: 0.0076 total_loss: 0.0470
+[2025/11/21 06:52:32] Rank:None, Epoch[195/300], Step [77/77], lr:3.29e-04 pred_PSNR: 27.41 pixel_loss: 0.0432 clip_loss: 0.0076 total_loss: 0.0470
+Time/epoch: 	Current:66.90 	Average:83.08
+[2025/11/21 06:53:09] Rank:None, Epoch[196/300], Step [1/77], lr:3.29e-04 pred_PSNR: 27.42 pixel_loss: 0.0420 clip_loss: 0.0066 total_loss: 0.0452
+[2025/11/21 06:53:29] Rank:None, Epoch[196/300], Step [51/77], lr:3.25e-04 pred_PSNR: 27.43 pixel_loss: 0.0430 clip_loss: 0.0076 total_loss: 0.0469
+[2025/11/21 06:53:39] Rank:None, Epoch[196/300], Step [77/77], lr:3.24e-04 pred_PSNR: 27.37 pixel_loss: 0.0433 clip_loss: 0.0077 total_loss: 0.0472
+Time/epoch: 	Current:66.93 	Average:83.00
+[2025/11/21 06:54:17] Rank:None, Epoch[197/300], Step [1/77], lr:3.24e-04 pred_PSNR: 27.97 pixel_loss: 0.0438 clip_loss: 0.0082 total_loss: 0.0479
+[2025/11/21 06:54:36] Rank:None, Epoch[197/300], Step [51/77], lr:3.20e-04 pred_PSNR: 27.37 pixel_loss: 0.0434 clip_loss: 0.0075 total_loss: 0.0471
+[2025/11/21 06:54:46] Rank:None, Epoch[197/300], Step [77/77], lr:3.18e-04 pred_PSNR: 27.33 pixel_loss: 0.0435 clip_loss: 0.0076 total_loss: 0.0473
+Time/epoch: 	Current:67.51 	Average:82.92
+[2025/11/21 06:55:24] Rank:None, Epoch[198/300], Step [1/77], lr:3.18e-04 pred_PSNR: 28.03 pixel_loss: 0.0419 clip_loss: 0.0065 total_loss: 0.0451
+[2025/11/21 06:55:44] Rank:None, Epoch[198/300], Step [51/77], lr:3.15e-04 pred_PSNR: 27.49 pixel_loss: 0.0428 clip_loss: 0.0076 total_loss: 0.0466
+[2025/11/21 06:55:54] Rank:None, Epoch[198/300], Step [77/77], lr:3.13e-04 pred_PSNR: 27.38 pixel_loss: 0.0433 clip_loss: 0.0076 total_loss: 0.0471
+Time/epoch: 	Current:67.62 	Average:82.84
+[2025/11/21 06:56:31] Rank:None, Epoch[199/300], Step [1/77], lr:3.13e-04 pred_PSNR: 27.77 pixel_loss: 0.0404 clip_loss: 0.0070 total_loss: 0.0440
+[2025/11/21 06:56:51] Rank:None, Epoch[199/300], Step [51/77], lr:3.09e-04 pred_PSNR: 27.51 pixel_loss: 0.0427 clip_loss: 0.0076 total_loss: 0.0465
+[2025/11/21 06:57:01] Rank:None, Epoch[199/300], Step [77/77], lr:3.07e-04 pred_PSNR: 27.47 pixel_loss: 0.0429 clip_loss: 0.0076 total_loss: 0.0467
+Time/epoch: 	Current:66.77 	Average:82.76
+[2025/11/21 06:57:39] Rank:None, Epoch[200/300], Step [1/77], lr:3.07e-04 pred_PSNR: 28.76 pixel_loss: 0.0398 clip_loss: 0.0071 total_loss: 0.0433
+[2025/11/21 06:57:59] Rank:None, Epoch[200/300], Step [51/77], lr:3.04e-04 pred_PSNR: 27.59 pixel_loss: 0.0424 clip_loss: 0.0074 total_loss: 0.0461
+[2025/11/21 06:58:09] Rank:None, Epoch[200/300], Step [77/77], lr:3.02e-04 pred_PSNR: 27.55 pixel_loss: 0.0425 clip_loss: 0.0076 total_loss: 0.0462
+Time/epoch: 	Current:67.73 	Average:82.69
+[2025/11/21 06:58:47] Rank:None, Eval at Step [1/96] , FPS 258.5, pred_seen_psnr: 28.78 | 
+[2025/11/21 06:58:49] Rank:None, Eval at Step [51/96] , FPS 341.9, pred_seen_psnr: 27.38 | 
+[2025/11/21 06:58:51] Rank:None, Eval at Step [96/96] , FPS 352.4, pred_seen_psnr: 27.19 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9921
+Average (Train):      0.9921 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 06:59:29] Rank:None, Eval at Step [1/96] , FPS 222.9, quant_seen_psnr: 28.78 | 
+[2025/11/21 06:59:31] Rank:None, Eval at Step [51/96] , FPS 366.4, quant_seen_psnr: 27.36 | 
+[2025/11/21 06:59:33] Rank:None, Eval at Step [96/96] , FPS 369.4, quant_seen_psnr: 27.18 | 
+Eval at epoch 200 for (640, 1280): pred_seen_psnr: 27.19 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.18 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 07:00:12] Rank:None, Epoch[201/300], Step [1/77], lr:3.02e-04 pred_PSNR: 28.11 pixel_loss: 0.0420 clip_loss: 0.0078 total_loss: 0.0458
+[2025/11/21 07:00:32] Rank:None, Epoch[201/300], Step [51/77], lr:2.98e-04 pred_PSNR: 27.54 pixel_loss: 0.0425 clip_loss: 0.0075 total_loss: 0.0463
+[2025/11/21 07:00:42] Rank:None, Epoch[201/300], Step [77/77], lr:2.97e-04 pred_PSNR: 27.51 pixel_loss: 0.0426 clip_loss: 0.0076 total_loss: 0.0464
+Time/epoch: 	Current:68.26 	Average:83.04
+[2025/11/21 07:01:19] Rank:None, Epoch[202/300], Step [1/77], lr:2.97e-04 pred_PSNR: 28.02 pixel_loss: 0.0392 clip_loss: 0.0067 total_loss: 0.0425
+[2025/11/21 07:01:39] Rank:None, Epoch[202/300], Step [51/77], lr:2.93e-04 pred_PSNR: 27.59 pixel_loss: 0.0421 clip_loss: 0.0075 total_loss: 0.0459
+[2025/11/21 07:01:49] Rank:None, Epoch[202/300], Step [77/77], lr:2.91e-04 pred_PSNR: 27.56 pixel_loss: 0.0424 clip_loss: 0.0075 total_loss: 0.0461
+Time/epoch: 	Current:67.57 	Average:82.96
+[2025/11/21 07:02:28] Rank:None, Epoch[203/300], Step [1/77], lr:2.91e-04 pred_PSNR: 27.44 pixel_loss: 0.0438 clip_loss: 0.0075 total_loss: 0.0475
+[2025/11/21 07:02:48] Rank:None, Epoch[203/300], Step [51/77], lr:2.88e-04 pred_PSNR: 27.57 pixel_loss: 0.0423 clip_loss: 0.0075 total_loss: 0.0461
+[2025/11/21 07:02:58] Rank:None, Epoch[203/300], Step [77/77], lr:2.86e-04 pred_PSNR: 27.54 pixel_loss: 0.0424 clip_loss: 0.0075 total_loss: 0.0462
+Time/epoch: 	Current:68.16 	Average:82.89
+[2025/11/21 07:03:34] Rank:None, Epoch[204/300], Step [1/77], lr:2.86e-04 pred_PSNR: 28.22 pixel_loss: 0.0368 clip_loss: 0.0085 total_loss: 0.0410
+[2025/11/21 07:03:54] Rank:None, Epoch[204/300], Step [51/77], lr:2.83e-04 pred_PSNR: 27.59 pixel_loss: 0.0419 clip_loss: 0.0074 total_loss: 0.0456
+[2025/11/21 07:04:04] Rank:None, Epoch[204/300], Step [77/77], lr:2.81e-04 pred_PSNR: 27.59 pixel_loss: 0.0421 clip_loss: 0.0075 total_loss: 0.0458
+Time/epoch: 	Current:66.44 	Average:82.81
+[2025/11/21 07:04:41] Rank:None, Epoch[205/300], Step [1/77], lr:2.81e-04 pred_PSNR: 28.1 pixel_loss: 0.0412 clip_loss: 0.0079 total_loss: 0.0452
+[2025/11/21 07:05:01] Rank:None, Epoch[205/300], Step [51/77], lr:2.77e-04 pred_PSNR: 27.64 pixel_loss: 0.0421 clip_loss: 0.0075 total_loss: 0.0459
+[2025/11/21 07:05:11] Rank:None, Epoch[205/300], Step [77/77], lr:2.76e-04 pred_PSNR: 27.58 pixel_loss: 0.0422 clip_loss: 0.0075 total_loss: 0.0459
+Time/epoch: 	Current:66.58 	Average:82.73
+[2025/11/21 07:05:47] Rank:None, Epoch[206/300], Step [1/77], lr:2.76e-04 pred_PSNR: 26.98 pixel_loss: 0.0464 clip_loss: 0.0084 total_loss: 0.0505
+[2025/11/21 07:06:07] Rank:None, Epoch[206/300], Step [51/77], lr:2.72e-04 pred_PSNR: 27.69 pixel_loss: 0.0416 clip_loss: 0.0074 total_loss: 0.0453
+[2025/11/21 07:06:17] Rank:None, Epoch[206/300], Step [77/77], lr:2.70e-04 pred_PSNR: 27.63 pixel_loss: 0.0419 clip_loss: 0.0075 total_loss: 0.0457
+Time/epoch: 	Current:66.01 	Average:82.65
+[2025/11/21 07:06:54] Rank:None, Epoch[207/300], Step [1/77], lr:2.70e-04 pred_PSNR: 27.59 pixel_loss: 0.0404 clip_loss: 0.0069 total_loss: 0.0438
+[2025/11/21 07:07:14] Rank:None, Epoch[207/300], Step [51/77], lr:2.67e-04 pred_PSNR: 27.63 pixel_loss: 0.0418 clip_loss: 0.0073 total_loss: 0.0455
+[2025/11/21 07:07:24] Rank:None, Epoch[207/300], Step [77/77], lr:2.65e-04 pred_PSNR: 27.53 pixel_loss: 0.0423 clip_loss: 0.0075 total_loss: 0.0461
+Time/epoch: 	Current:66.64 	Average:82.58
+[2025/11/21 07:08:00] Rank:None, Epoch[208/300], Step [1/77], lr:2.65e-04 pred_PSNR: 25.95 pixel_loss: 0.0516 clip_loss: 0.0081 total_loss: 0.0556
+[2025/11/21 07:08:20] Rank:None, Epoch[208/300], Step [51/77], lr:2.62e-04 pred_PSNR: 27.5 pixel_loss: 0.0425 clip_loss: 0.0074 total_loss: 0.0462
+[2025/11/21 07:08:30] Rank:None, Epoch[208/300], Step [77/77], lr:2.60e-04 pred_PSNR: 27.5 pixel_loss: 0.0427 clip_loss: 0.0075 total_loss: 0.0464
+Time/epoch: 	Current:66.12 	Average:82.50
+[2025/11/21 07:09:06] Rank:None, Epoch[209/300], Step [1/77], lr:2.60e-04 pred_PSNR: 27.65 pixel_loss: 0.0418 clip_loss: 0.0079 total_loss: 0.0458
+[2025/11/21 07:09:25] Rank:None, Epoch[209/300], Step [51/77], lr:2.57e-04 pred_PSNR: 27.55 pixel_loss: 0.0423 clip_loss: 0.0074 total_loss: 0.0460
+[2025/11/21 07:09:36] Rank:None, Epoch[209/300], Step [77/77], lr:2.55e-04 pred_PSNR: 27.55 pixel_loss: 0.0422 clip_loss: 0.0074 total_loss: 0.0460
+Time/epoch: 	Current:65.26 	Average:82.41
+[2025/11/21 07:10:15] Rank:None, Epoch[210/300], Step [1/77], lr:2.55e-04 pred_PSNR: 26.8 pixel_loss: 0.0441 clip_loss: 0.0065 total_loss: 0.0474
+[2025/11/21 07:10:35] Rank:None, Epoch[210/300], Step [51/77], lr:2.52e-04 pred_PSNR: 27.7 pixel_loss: 0.0416 clip_loss: 0.0074 total_loss: 0.0453
+[2025/11/21 07:10:45] Rank:None, Epoch[210/300], Step [77/77], lr:2.50e-04 pred_PSNR: 27.64 pixel_loss: 0.0419 clip_loss: 0.0074 total_loss: 0.0456
+Time/epoch: 	Current:69.11 	Average:82.35
+[2025/11/21 07:11:22] Rank:None, Eval at Step [1/96] , FPS 224.7, pred_seen_psnr: 28.72 | 
+[2025/11/21 07:11:24] Rank:None, Eval at Step [51/96] , FPS 355.8, pred_seen_psnr: 27.48 | 
+[2025/11/21 07:11:26] Rank:None, Eval at Step [96/96] , FPS 384.8, pred_seen_psnr: 27.33 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9923
+Average (Train):      0.9923 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 07:12:02] Rank:None, Eval at Step [1/96] , FPS 292.2, quant_seen_psnr: 28.71 | 
+[2025/11/21 07:12:04] Rank:None, Eval at Step [51/96] , FPS 360.1, quant_seen_psnr: 27.47 | 
+[2025/11/21 07:12:06] Rank:None, Eval at Step [96/96] , FPS 379.9, quant_seen_psnr: 27.32 | 
+Eval at epoch 210 for (640, 1280): pred_seen_psnr: 27.33 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.32 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 07:12:42] Rank:None, Epoch[211/300], Step [1/77], lr:2.50e-04 pred_PSNR: 28.07 pixel_loss: 0.0391 clip_loss: 0.0063 total_loss: 0.0422
+[2025/11/21 07:13:02] Rank:None, Epoch[211/300], Step [51/77], lr:2.47e-04 pred_PSNR: 27.53 pixel_loss: 0.0424 clip_loss: 0.0074 total_loss: 0.0461
+[2025/11/21 07:13:12] Rank:None, Epoch[211/300], Step [77/77], lr:2.45e-04 pred_PSNR: 27.52 pixel_loss: 0.0424 clip_loss: 0.0074 total_loss: 0.0461
+Time/epoch: 	Current:65.24 	Average:82.66
+[2025/11/21 07:13:48] Rank:None, Epoch[212/300], Step [1/77], lr:2.45e-04 pred_PSNR: 27.4 pixel_loss: 0.0420 clip_loss: 0.0066 total_loss: 0.0453
+[2025/11/21 07:14:08] Rank:None, Epoch[212/300], Step [51/77], lr:2.42e-04 pred_PSNR: 27.81 pixel_loss: 0.0411 clip_loss: 0.0074 total_loss: 0.0448
+[2025/11/21 07:14:18] Rank:None, Epoch[212/300], Step [77/77], lr:2.40e-04 pred_PSNR: 27.75 pixel_loss: 0.0413 clip_loss: 0.0074 total_loss: 0.0450
+Time/epoch: 	Current:66.34 	Average:82.58
+[2025/11/21 07:14:54] Rank:None, Epoch[213/300], Step [1/77], lr:2.40e-04 pred_PSNR: 27.6 pixel_loss: 0.0417 clip_loss: 0.0073 total_loss: 0.0454
+[2025/11/21 07:15:14] Rank:None, Epoch[213/300], Step [51/77], lr:2.37e-04 pred_PSNR: 27.83 pixel_loss: 0.0408 clip_loss: 0.0073 total_loss: 0.0444
+[2025/11/21 07:15:24] Rank:None, Epoch[213/300], Step [77/77], lr:2.35e-04 pred_PSNR: 27.83 pixel_loss: 0.0409 clip_loss: 0.0073 total_loss: 0.0446
+Time/epoch: 	Current:65.93 	Average:82.50
+[2025/11/21 07:16:00] Rank:None, Epoch[214/300], Step [1/77], lr:2.35e-04 pred_PSNR: 28.38 pixel_loss: 0.0358 clip_loss: 0.0062 total_loss: 0.0389
+[2025/11/21 07:16:20] Rank:None, Epoch[214/300], Step [51/77], lr:2.32e-04 pred_PSNR: 27.86 pixel_loss: 0.0405 clip_loss: 0.0072 total_loss: 0.0441
+[2025/11/21 07:16:30] Rank:None, Epoch[214/300], Step [77/77], lr:2.30e-04 pred_PSNR: 27.83 pixel_loss: 0.0409 clip_loss: 0.0073 total_loss: 0.0445
+Time/epoch: 	Current:65.88 	Average:82.43
+[2025/11/21 07:17:07] Rank:None, Epoch[215/300], Step [1/77], lr:2.30e-04 pred_PSNR: 28.03 pixel_loss: 0.0373 clip_loss: 0.0067 total_loss: 0.0407
+[2025/11/21 07:17:26] Rank:None, Epoch[215/300], Step [51/77], lr:2.27e-04 pred_PSNR: 27.9 pixel_loss: 0.0404 clip_loss: 0.0074 total_loss: 0.0441
+[2025/11/21 07:17:37] Rank:None, Epoch[215/300], Step [77/77], lr:2.25e-04 pred_PSNR: 27.81 pixel_loss: 0.0409 clip_loss: 0.0073 total_loss: 0.0446
+Time/epoch: 	Current:66.05 	Average:82.35
+[2025/11/21 07:18:12] Rank:None, Epoch[216/300], Step [1/77], lr:2.25e-04 pred_PSNR: 27.25 pixel_loss: 0.0425 clip_loss: 0.0066 total_loss: 0.0458
+[2025/11/21 07:18:32] Rank:None, Epoch[216/300], Step [51/77], lr:2.22e-04 pred_PSNR: 27.82 pixel_loss: 0.0407 clip_loss: 0.0073 total_loss: 0.0444
+[2025/11/21 07:18:42] Rank:None, Epoch[216/300], Step [77/77], lr:2.20e-04 pred_PSNR: 27.81 pixel_loss: 0.0410 clip_loss: 0.0073 total_loss: 0.0447
+Time/epoch: 	Current:65.69 	Average:82.28
+[2025/11/21 07:19:18] Rank:None, Epoch[217/300], Step [1/77], lr:2.20e-04 pred_PSNR: 27.47 pixel_loss: 0.0416 clip_loss: 0.0071 total_loss: 0.0451
+[2025/11/21 07:19:38] Rank:None, Epoch[217/300], Step [51/77], lr:2.17e-04 pred_PSNR: 27.9 pixel_loss: 0.0405 clip_loss: 0.0073 total_loss: 0.0441
+[2025/11/21 07:19:48] Rank:None, Epoch[217/300], Step [77/77], lr:2.16e-04 pred_PSNR: 27.85 pixel_loss: 0.0407 clip_loss: 0.0073 total_loss: 0.0444
+Time/epoch: 	Current:65.49 	Average:82.20
+[2025/11/21 07:20:24] Rank:None, Epoch[218/300], Step [1/77], lr:2.16e-04 pred_PSNR: 27.69 pixel_loss: 0.0416 clip_loss: 0.0071 total_loss: 0.0451
+[2025/11/21 07:20:44] Rank:None, Epoch[218/300], Step [51/77], lr:2.13e-04 pred_PSNR: 27.95 pixel_loss: 0.0404 clip_loss: 0.0073 total_loss: 0.0441
+[2025/11/21 07:20:54] Rank:None, Epoch[218/300], Step [77/77], lr:2.11e-04 pred_PSNR: 27.92 pixel_loss: 0.0404 clip_loss: 0.0073 total_loss: 0.0441
+Time/epoch: 	Current:66.01 	Average:82.13
+[2025/11/21 07:21:31] Rank:None, Epoch[219/300], Step [1/77], lr:2.11e-04 pred_PSNR: 27.23 pixel_loss: 0.0442 clip_loss: 0.0064 total_loss: 0.0474
+[2025/11/21 07:21:50] Rank:None, Epoch[219/300], Step [51/77], lr:2.08e-04 pred_PSNR: 27.89 pixel_loss: 0.0404 clip_loss: 0.0071 total_loss: 0.0439
+[2025/11/21 07:22:01] Rank:None, Epoch[219/300], Step [77/77], lr:2.06e-04 pred_PSNR: 27.94 pixel_loss: 0.0403 clip_loss: 0.0073 total_loss: 0.0439
+Time/epoch: 	Current:66.30 	Average:82.05
+[2025/11/21 07:22:40] Rank:None, Epoch[220/300], Step [1/77], lr:2.06e-04 pred_PSNR: 28.15 pixel_loss: 0.0383 clip_loss: 0.0067 total_loss: 0.0417
+[2025/11/21 07:23:00] Rank:None, Epoch[220/300], Step [51/77], lr:2.03e-04 pred_PSNR: 27.91 pixel_loss: 0.0405 clip_loss: 0.0072 total_loss: 0.0441
+[2025/11/21 07:23:10] Rank:None, Epoch[220/300], Step [77/77], lr:2.01e-04 pred_PSNR: 27.93 pixel_loss: 0.0403 clip_loss: 0.0072 total_loss: 0.0439
+Time/epoch: 	Current:68.94 	Average:81.99
+[2025/11/21 07:23:48] Rank:None, Eval at Step [1/96] , FPS 291.6, pred_seen_psnr: 28.94 | 
+[2025/11/21 07:23:51] Rank:None, Eval at Step [51/96] , FPS 370.9, pred_seen_psnr: 27.73 | 
+[2025/11/21 07:23:53] Rank:None, Eval at Step [96/96] , FPS 369.6, pred_seen_psnr: 27.58 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9924
+Average (Train):      0.9924 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 07:24:31] Rank:None, Eval at Step [1/96] , FPS 290.9, quant_seen_psnr: 28.93 | 
+[2025/11/21 07:24:33] Rank:None, Eval at Step [51/96] , FPS 377.7, quant_seen_psnr: 27.72 | 
+[2025/11/21 07:24:35] Rank:None, Eval at Step [96/96] , FPS 384.5, quant_seen_psnr: 27.57 | 
+Eval at epoch 220 for (640, 1280): pred_seen_psnr: 27.58 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.57 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 07:25:13] Rank:None, Epoch[221/300], Step [1/77], lr:2.01e-04 pred_PSNR: 28.0 pixel_loss: 0.0409 clip_loss: 0.0083 total_loss: 0.0451
+[2025/11/21 07:25:33] Rank:None, Epoch[221/300], Step [51/77], lr:1.98e-04 pred_PSNR: 27.87 pixel_loss: 0.0406 clip_loss: 0.0072 total_loss: 0.0442
+[2025/11/21 07:25:43] Rank:None, Epoch[221/300], Step [77/77], lr:1.97e-04 pred_PSNR: 27.89 pixel_loss: 0.0405 clip_loss: 0.0072 total_loss: 0.0441
+Time/epoch: 	Current:67.28 	Average:82.32
+[2025/11/21 07:26:21] Rank:None, Epoch[222/300], Step [1/77], lr:1.97e-04 pred_PSNR: 27.83 pixel_loss: 0.0393 clip_loss: 0.0063 total_loss: 0.0425
+[2025/11/21 07:26:41] Rank:None, Epoch[222/300], Step [51/77], lr:1.94e-04 pred_PSNR: 27.89 pixel_loss: 0.0404 clip_loss: 0.0073 total_loss: 0.0441
+[2025/11/21 07:26:51] Rank:None, Epoch[222/300], Step [77/77], lr:1.92e-04 pred_PSNR: 27.93 pixel_loss: 0.0403 clip_loss: 0.0072 total_loss: 0.0439
+Time/epoch: 	Current:68.13 	Average:82.25
+[2025/11/21 07:27:29] Rank:None, Epoch[223/300], Step [1/77], lr:1.92e-04 pred_PSNR: 27.89 pixel_loss: 0.0408 clip_loss: 0.0067 total_loss: 0.0442
+[2025/11/21 07:27:49] Rank:None, Epoch[223/300], Step [51/77], lr:1.89e-04 pred_PSNR: 27.94 pixel_loss: 0.0401 clip_loss: 0.0071 total_loss: 0.0436
+[2025/11/21 07:27:59] Rank:None, Epoch[223/300], Step [77/77], lr:1.88e-04 pred_PSNR: 27.92 pixel_loss: 0.0404 clip_loss: 0.0072 total_loss: 0.0440
+Time/epoch: 	Current:67.79 	Average:82.19
+[2025/11/21 07:28:37] Rank:None, Epoch[224/300], Step [1/77], lr:1.88e-04 pred_PSNR: 27.89 pixel_loss: 0.0414 clip_loss: 0.0073 total_loss: 0.0450
+[2025/11/21 07:28:56] Rank:None, Epoch[224/300], Step [51/77], lr:1.85e-04 pred_PSNR: 27.95 pixel_loss: 0.0403 clip_loss: 0.0072 total_loss: 0.0439
+[2025/11/21 07:29:06] Rank:None, Epoch[224/300], Step [77/77], lr:1.83e-04 pred_PSNR: 27.89 pixel_loss: 0.0405 clip_loss: 0.0072 total_loss: 0.0441
+Time/epoch: 	Current:67.44 	Average:82.12
+[2025/11/21 07:29:45] Rank:None, Epoch[225/300], Step [1/77], lr:1.83e-04 pred_PSNR: 28.31 pixel_loss: 0.0366 clip_loss: 0.0064 total_loss: 0.0398
+[2025/11/21 07:30:04] Rank:None, Epoch[225/300], Step [51/77], lr:1.80e-04 pred_PSNR: 27.95 pixel_loss: 0.0400 clip_loss: 0.0071 total_loss: 0.0436
+[2025/11/21 07:30:15] Rank:None, Epoch[225/300], Step [77/77], lr:1.79e-04 pred_PSNR: 28.01 pixel_loss: 0.0399 clip_loss: 0.0072 total_loss: 0.0435
+Time/epoch: 	Current:67.94 	Average:82.06
+[2025/11/21 07:30:53] Rank:None, Epoch[226/300], Step [1/77], lr:1.79e-04 pred_PSNR: 28.38 pixel_loss: 0.0388 clip_loss: 0.0078 total_loss: 0.0427
+[2025/11/21 07:31:13] Rank:None, Epoch[226/300], Step [51/77], lr:1.76e-04 pred_PSNR: 28.06 pixel_loss: 0.0397 clip_loss: 0.0073 total_loss: 0.0433
+[2025/11/21 07:31:23] Rank:None, Epoch[226/300], Step [77/77], lr:1.74e-04 pred_PSNR: 28.03 pixel_loss: 0.0398 clip_loss: 0.0072 total_loss: 0.0434
+Time/epoch: 	Current:68.49 	Average:82.00
+[2025/11/21 07:32:01] Rank:None, Epoch[227/300], Step [1/77], lr:1.74e-04 pred_PSNR: 28.52 pixel_loss: 0.0391 clip_loss: 0.0085 total_loss: 0.0433
+[2025/11/21 07:32:21] Rank:None, Epoch[227/300], Step [51/77], lr:1.71e-04 pred_PSNR: 27.95 pixel_loss: 0.0401 clip_loss: 0.0071 total_loss: 0.0436
+[2025/11/21 07:32:31] Rank:None, Epoch[227/300], Step [77/77], lr:1.70e-04 pred_PSNR: 27.97 pixel_loss: 0.0400 clip_loss: 0.0072 total_loss: 0.0436
+Time/epoch: 	Current:67.83 	Average:81.94
+[2025/11/21 07:33:11] Rank:None, Epoch[228/300], Step [1/77], lr:1.70e-04 pred_PSNR: 28.59 pixel_loss: 0.0390 clip_loss: 0.0082 total_loss: 0.0430
+[2025/11/21 07:33:30] Rank:None, Epoch[228/300], Step [51/77], lr:1.67e-04 pred_PSNR: 28.09 pixel_loss: 0.0394 clip_loss: 0.0070 total_loss: 0.0429
+[2025/11/21 07:33:40] Rank:None, Epoch[228/300], Step [77/77], lr:1.65e-04 pred_PSNR: 28.06 pixel_loss: 0.0397 clip_loss: 0.0072 total_loss: 0.0432
+Time/epoch: 	Current:69.08 	Average:81.88
+[2025/11/21 07:34:20] Rank:None, Epoch[229/300], Step [1/77], lr:1.65e-04 pred_PSNR: 27.44 pixel_loss: 0.0408 clip_loss: 0.0064 total_loss: 0.0440
+[2025/11/21 07:34:40] Rank:None, Epoch[229/300], Step [51/77], lr:1.63e-04 pred_PSNR: 28.03 pixel_loss: 0.0397 clip_loss: 0.0071 total_loss: 0.0433
+[2025/11/21 07:34:50] Rank:None, Epoch[229/300], Step [77/77], lr:1.61e-04 pred_PSNR: 28.08 pixel_loss: 0.0395 clip_loss: 0.0071 total_loss: 0.0431
+Time/epoch: 	Current:69.56 	Average:81.83
+[2025/11/21 07:35:29] Rank:None, Epoch[230/300], Step [1/77], lr:1.61e-04 pred_PSNR: 28.59 pixel_loss: 0.0368 clip_loss: 0.0077 total_loss: 0.0407
+[2025/11/21 07:35:49] Rank:None, Epoch[230/300], Step [51/77], lr:1.58e-04 pred_PSNR: 28.08 pixel_loss: 0.0395 clip_loss: 0.0069 total_loss: 0.0429
+[2025/11/21 07:35:59] Rank:None, Epoch[230/300], Step [77/77], lr:1.57e-04 pred_PSNR: 28.08 pixel_loss: 0.0395 clip_loss: 0.0071 total_loss: 0.0431
+Time/epoch: 	Current:69.01 	Average:81.78
+[2025/11/21 07:36:38] Rank:None, Eval at Step [1/96] , FPS 187.6, pred_seen_psnr: 29.11 | 
+[2025/11/21 07:36:40] Rank:None, Eval at Step [51/96] , FPS 338.3, pred_seen_psnr: 27.9 | 
+[2025/11/21 07:36:42] Rank:None, Eval at Step [96/96] , FPS 360.5, pred_seen_psnr: 27.74 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9925
+Average (Train):      0.9925 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 07:37:19] Rank:None, Eval at Step [1/96] , FPS 177.9, quant_seen_psnr: 29.11 | 
+[2025/11/21 07:37:21] Rank:None, Eval at Step [51/96] , FPS 386.9, quant_seen_psnr: 27.88 | 
+[2025/11/21 07:37:23] Rank:None, Eval at Step [96/96] , FPS 379.4, quant_seen_psnr: 27.73 | 
+Eval at epoch 230 for (640, 1280): pred_seen_psnr: 27.74 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.73 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 07:38:00] Rank:None, Epoch[231/300], Step [1/77], lr:1.57e-04 pred_PSNR: 28.4 pixel_loss: 0.0384 clip_loss: 0.0082 total_loss: 0.0425
+[2025/11/21 07:38:20] Rank:None, Epoch[231/300], Step [51/77], lr:1.54e-04 pred_PSNR: 28.04 pixel_loss: 0.0396 clip_loss: 0.0071 total_loss: 0.0432
+[2025/11/21 07:38:30] Rank:None, Epoch[231/300], Step [77/77], lr:1.53e-04 pred_PSNR: 28.03 pixel_loss: 0.0397 clip_loss: 0.0071 total_loss: 0.0433
+Time/epoch: 	Current:66.85 	Average:82.07
+[2025/11/21 07:39:10] Rank:None, Epoch[232/300], Step [1/77], lr:1.53e-04 pred_PSNR: 26.77 pixel_loss: 0.0454 clip_loss: 0.0066 total_loss: 0.0487
+[2025/11/21 07:39:30] Rank:None, Epoch[232/300], Step [51/77], lr:1.50e-04 pred_PSNR: 28.09 pixel_loss: 0.0395 clip_loss: 0.0070 total_loss: 0.0430
+[2025/11/21 07:39:40] Rank:None, Epoch[232/300], Step [77/77], lr:1.49e-04 pred_PSNR: 28.07 pixel_loss: 0.0396 clip_loss: 0.0071 total_loss: 0.0431
+Time/epoch: 	Current:69.44 	Average:82.02
+[2025/11/21 07:40:18] Rank:None, Epoch[233/300], Step [1/77], lr:1.49e-04 pred_PSNR: 28.17 pixel_loss: 0.0387 clip_loss: 0.0066 total_loss: 0.0420
+[2025/11/21 07:40:38] Rank:None, Epoch[233/300], Step [51/77], lr:1.46e-04 pred_PSNR: 28.11 pixel_loss: 0.0393 clip_loss: 0.0070 total_loss: 0.0428
+[2025/11/21 07:40:48] Rank:None, Epoch[233/300], Step [77/77], lr:1.44e-04 pred_PSNR: 28.13 pixel_loss: 0.0393 clip_loss: 0.0071 total_loss: 0.0428
+Time/epoch: 	Current:67.98 	Average:81.96
+[2025/11/21 07:41:26] Rank:None, Epoch[234/300], Step [1/77], lr:1.44e-04 pred_PSNR: 27.97 pixel_loss: 0.0410 clip_loss: 0.0073 total_loss: 0.0447
+[2025/11/21 07:41:46] Rank:None, Epoch[234/300], Step [51/77], lr:1.42e-04 pred_PSNR: 28.21 pixel_loss: 0.0390 clip_loss: 0.0071 total_loss: 0.0425
+[2025/11/21 07:41:56] Rank:None, Epoch[234/300], Step [77/77], lr:1.40e-04 pred_PSNR: 28.15 pixel_loss: 0.0392 clip_loss: 0.0071 total_loss: 0.0427
+Time/epoch: 	Current:67.93 	Average:81.90
+[2025/11/21 07:42:33] Rank:None, Epoch[235/300], Step [1/77], lr:1.40e-04 pred_PSNR: 26.88 pixel_loss: 0.0430 clip_loss: 0.0061 total_loss: 0.0461
+[2025/11/21 07:42:53] Rank:None, Epoch[235/300], Step [51/77], lr:1.38e-04 pred_PSNR: 28.24 pixel_loss: 0.0387 clip_loss: 0.0070 total_loss: 0.0422
+[2025/11/21 07:43:03] Rank:None, Epoch[235/300], Step [77/77], lr:1.36e-04 pred_PSNR: 28.14 pixel_loss: 0.0392 clip_loss: 0.0071 total_loss: 0.0427
+Time/epoch: 	Current:67.23 	Average:81.84
+[2025/11/21 07:43:42] Rank:None, Epoch[236/300], Step [1/77], lr:1.36e-04 pred_PSNR: 27.33 pixel_loss: 0.0417 clip_loss: 0.0068 total_loss: 0.0451
+[2025/11/21 07:44:01] Rank:None, Epoch[236/300], Step [51/77], lr:1.34e-04 pred_PSNR: 28.14 pixel_loss: 0.0392 clip_loss: 0.0070 total_loss: 0.0427
+[2025/11/21 07:44:12] Rank:None, Epoch[236/300], Step [77/77], lr:1.32e-04 pred_PSNR: 28.13 pixel_loss: 0.0393 clip_loss: 0.0071 total_loss: 0.0428
+Time/epoch: 	Current:68.12 	Average:81.78
+[2025/11/21 07:44:50] Rank:None, Epoch[237/300], Step [1/77], lr:1.32e-04 pred_PSNR: 28.54 pixel_loss: 0.0366 clip_loss: 0.0076 total_loss: 0.0403
+[2025/11/21 07:45:10] Rank:None, Epoch[237/300], Step [51/77], lr:1.30e-04 pred_PSNR: 28.2 pixel_loss: 0.0388 clip_loss: 0.0070 total_loss: 0.0423
+[2025/11/21 07:45:20] Rank:None, Epoch[237/300], Step [77/77], lr:1.28e-04 pred_PSNR: 28.14 pixel_loss: 0.0392 clip_loss: 0.0071 total_loss: 0.0427
+Time/epoch: 	Current:68.52 	Average:81.73
+[2025/11/21 07:45:59] Rank:None, Epoch[238/300], Step [1/77], lr:1.28e-04 pred_PSNR: 28.26 pixel_loss: 0.0368 clip_loss: 0.0064 total_loss: 0.0401
+[2025/11/21 07:46:18] Rank:None, Epoch[238/300], Step [51/77], lr:1.26e-04 pred_PSNR: 28.23 pixel_loss: 0.0388 clip_loss: 0.0070 total_loss: 0.0423
+[2025/11/21 07:46:29] Rank:None, Epoch[238/300], Step [77/77], lr:1.25e-04 pred_PSNR: 28.14 pixel_loss: 0.0392 clip_loss: 0.0070 total_loss: 0.0427
+Time/epoch: 	Current:68.19 	Average:81.67
+[2025/11/21 07:47:07] Rank:None, Epoch[239/300], Step [1/77], lr:1.25e-04 pred_PSNR: 27.15 pixel_loss: 0.0436 clip_loss: 0.0074 total_loss: 0.0473
+[2025/11/21 07:47:26] Rank:None, Epoch[239/300], Step [51/77], lr:1.22e-04 pred_PSNR: 28.15 pixel_loss: 0.0390 clip_loss: 0.0071 total_loss: 0.0426
+[2025/11/21 07:47:36] Rank:None, Epoch[239/300], Step [77/77], lr:1.21e-04 pred_PSNR: 28.17 pixel_loss: 0.0390 clip_loss: 0.0070 total_loss: 0.0425
+Time/epoch: 	Current:67.68 	Average:81.61
+[2025/11/21 07:48:15] Rank:None, Epoch[240/300], Step [1/77], lr:1.21e-04 pred_PSNR: 27.15 pixel_loss: 0.0435 clip_loss: 0.0074 total_loss: 0.0472
+[2025/11/21 07:48:35] Rank:None, Epoch[240/300], Step [51/77], lr:1.18e-04 pred_PSNR: 28.19 pixel_loss: 0.0387 clip_loss: 0.0070 total_loss: 0.0422
+[2025/11/21 07:48:45] Rank:None, Epoch[240/300], Step [77/77], lr:1.17e-04 pred_PSNR: 28.19 pixel_loss: 0.0389 clip_loss: 0.0070 total_loss: 0.0425
+Time/epoch: 	Current:68.61 	Average:81.56
+[2025/11/21 07:49:23] Rank:None, Eval at Step [1/96] , FPS 310.3, pred_seen_psnr: 29.19 | 
+[2025/11/21 07:49:26] Rank:None, Eval at Step [51/96] , FPS 357.1, pred_seen_psnr: 28.0 | 
+[2025/11/21 07:49:28] Rank:None, Eval at Step [96/96] , FPS 359.6, pred_seen_psnr: 27.84 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9925
+Average (Train):      0.9925 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 07:50:05] Rank:None, Eval at Step [1/96] , FPS 327.3, quant_seen_psnr: 29.17 | 
+[2025/11/21 07:50:07] Rank:None, Eval at Step [51/96] , FPS 375.6, quant_seen_psnr: 27.99 | 
+[2025/11/21 07:50:09] Rank:None, Eval at Step [96/96] , FPS 386.6, quant_seen_psnr: 27.83 | 
+Eval at epoch 240 for (640, 1280): pred_seen_psnr: 27.84 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.83 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 07:50:47] Rank:None, Epoch[241/300], Step [1/77], lr:1.17e-04 pred_PSNR: 28.31 pixel_loss: 0.0359 clip_loss: 0.0083 total_loss: 0.0401
+[2025/11/21 07:51:06] Rank:None, Epoch[241/300], Step [51/77], lr:1.15e-04 pred_PSNR: 28.2 pixel_loss: 0.0391 clip_loss: 0.0070 total_loss: 0.0426
+[2025/11/21 07:51:17] Rank:None, Epoch[241/300], Step [77/77], lr:1.13e-04 pred_PSNR: 28.19 pixel_loss: 0.0389 clip_loss: 0.0070 total_loss: 0.0424
+Time/epoch: 	Current:67.03 	Average:81.85
+[2025/11/21 07:51:55] Rank:None, Epoch[242/300], Step [1/77], lr:1.13e-04 pred_PSNR: 28.38 pixel_loss: 0.0377 clip_loss: 0.0076 total_loss: 0.0415
+[2025/11/21 07:52:15] Rank:None, Epoch[242/300], Step [51/77], lr:1.11e-04 pred_PSNR: 28.19 pixel_loss: 0.0389 clip_loss: 0.0070 total_loss: 0.0424
+[2025/11/21 07:52:25] Rank:None, Epoch[242/300], Step [77/77], lr:1.10e-04 pred_PSNR: 28.22 pixel_loss: 0.0388 clip_loss: 0.0070 total_loss: 0.0423
+Time/epoch: 	Current:67.98 	Average:81.79
+[2025/11/21 07:53:03] Rank:None, Epoch[243/300], Step [1/77], lr:1.10e-04 pred_PSNR: 28.65 pixel_loss: 0.0378 clip_loss: 0.0086 total_loss: 0.0421
+[2025/11/21 07:53:23] Rank:None, Epoch[243/300], Step [51/77], lr:1.07e-04 pred_PSNR: 28.24 pixel_loss: 0.0386 clip_loss: 0.0070 total_loss: 0.0421
+[2025/11/21 07:53:33] Rank:None, Epoch[243/300], Step [77/77], lr:1.06e-04 pred_PSNR: 28.24 pixel_loss: 0.0387 clip_loss: 0.0070 total_loss: 0.0422
+Time/epoch: 	Current:68.10 	Average:81.74
+[2025/11/21 07:54:11] Rank:None, Epoch[244/300], Step [1/77], lr:1.06e-04 pred_PSNR: 28.36 pixel_loss: 0.0357 clip_loss: 0.0082 total_loss: 0.0398
+[2025/11/21 07:54:31] Rank:None, Epoch[244/300], Step [51/77], lr:1.04e-04 pred_PSNR: 28.28 pixel_loss: 0.0385 clip_loss: 0.0070 total_loss: 0.0419
+[2025/11/21 07:54:41] Rank:None, Epoch[244/300], Step [77/77], lr:1.02e-04 pred_PSNR: 28.22 pixel_loss: 0.0388 clip_loss: 0.0070 total_loss: 0.0422
+Time/epoch: 	Current:67.97 	Average:81.68
+[2025/11/21 07:55:21] Rank:None, Epoch[245/300], Step [1/77], lr:1.02e-04 pred_PSNR: 27.79 pixel_loss: 0.0402 clip_loss: 0.0075 total_loss: 0.0440
+[2025/11/21 07:55:41] Rank:None, Epoch[245/300], Step [51/77], lr:1.00e-04 pred_PSNR: 28.26 pixel_loss: 0.0386 clip_loss: 0.0069 total_loss: 0.0420
+[2025/11/21 07:55:51] Rank:None, Epoch[245/300], Step [77/77], lr:9.90e-05 pred_PSNR: 28.24 pixel_loss: 0.0387 clip_loss: 0.0070 total_loss: 0.0422
+Time/epoch: 	Current:70.09 	Average:81.63
+[2025/11/21 07:56:32] Rank:None, Epoch[246/300], Step [1/77], lr:9.89e-05 pred_PSNR: 29.05 pixel_loss: 0.0362 clip_loss: 0.0077 total_loss: 0.0400
+[2025/11/21 07:56:52] Rank:None, Epoch[246/300], Step [51/77], lr:9.67e-05 pred_PSNR: 28.31 pixel_loss: 0.0382 clip_loss: 0.0069 total_loss: 0.0416
+[2025/11/21 07:57:02] Rank:None, Epoch[246/300], Step [77/77], lr:9.55e-05 pred_PSNR: 28.26 pixel_loss: 0.0386 clip_loss: 0.0070 total_loss: 0.0421
+Time/epoch: 	Current:70.59 	Average:81.59
+[2025/11/21 07:57:40] Rank:None, Epoch[247/300], Step [1/77], lr:9.55e-05 pred_PSNR: 26.75 pixel_loss: 0.0457 clip_loss: 0.0068 total_loss: 0.0491
+[2025/11/21 07:58:00] Rank:None, Epoch[247/300], Step [51/77], lr:9.33e-05 pred_PSNR: 28.15 pixel_loss: 0.0389 clip_loss: 0.0069 total_loss: 0.0424
+[2025/11/21 07:58:10] Rank:None, Epoch[247/300], Step [77/77], lr:9.21e-05 pred_PSNR: 28.27 pixel_loss: 0.0385 clip_loss: 0.0069 total_loss: 0.0420
+Time/epoch: 	Current:68.06 	Average:81.54
+[2025/11/21 07:58:51] Rank:None, Epoch[248/300], Step [1/77], lr:9.21e-05 pred_PSNR: 28.63 pixel_loss: 0.0356 clip_loss: 0.0065 total_loss: 0.0388
+[2025/11/21 07:59:11] Rank:None, Epoch[248/300], Step [51/77], lr:8.99e-05 pred_PSNR: 28.28 pixel_loss: 0.0384 clip_loss: 0.0070 total_loss: 0.0419
+[2025/11/21 07:59:21] Rank:None, Epoch[248/300], Step [77/77], lr:8.88e-05 pred_PSNR: 28.28 pixel_loss: 0.0385 clip_loss: 0.0069 total_loss: 0.0419
+Time/epoch: 	Current:70.41 	Average:81.49
+[2025/11/21 08:00:01] Rank:None, Epoch[249/300], Step [1/77], lr:8.88e-05 pred_PSNR: 28.21 pixel_loss: 0.0393 clip_loss: 0.0071 total_loss: 0.0428
+[2025/11/21 08:00:21] Rank:None, Epoch[249/300], Step [51/77], lr:8.66e-05 pred_PSNR: 28.31 pixel_loss: 0.0384 clip_loss: 0.0070 total_loss: 0.0419
+[2025/11/21 08:00:31] Rank:None, Epoch[249/300], Step [77/77], lr:8.55e-05 pred_PSNR: 28.28 pixel_loss: 0.0384 clip_loss: 0.0069 total_loss: 0.0419
+Time/epoch: 	Current:69.97 	Average:81.45
+[2025/11/21 08:01:07] Rank:None, Epoch[250/300], Step [1/77], lr:8.55e-05 pred_PSNR: 28.43 pixel_loss: 0.0369 clip_loss: 0.0070 total_loss: 0.0404
+[2025/11/21 08:01:27] Rank:None, Epoch[250/300], Step [51/77], lr:8.34e-05 pred_PSNR: 28.25 pixel_loss: 0.0386 clip_loss: 0.0069 total_loss: 0.0420
+[2025/11/21 08:01:37] Rank:None, Epoch[250/300], Step [77/77], lr:8.23e-05 pred_PSNR: 28.28 pixel_loss: 0.0385 clip_loss: 0.0069 total_loss: 0.0419
+Time/epoch: 	Current:65.86 	Average:81.38
+[2025/11/21 08:02:12] Rank:None, Eval at Step [1/96] , FPS 286.0, pred_seen_psnr: 29.24 | 
+[2025/11/21 08:02:15] Rank:None, Eval at Step [51/96] , FPS 374.1, pred_seen_psnr: 28.09 | 
+[2025/11/21 08:02:17] Rank:None, Eval at Step [96/96] , FPS 382.5, pred_seen_psnr: 27.93 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9926
+Average (Train):      0.9926 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 08:02:52] Rank:None, Eval at Step [1/96] , FPS 340.8, quant_seen_psnr: 29.22 | 
+[2025/11/21 08:02:54] Rank:None, Eval at Step [51/96] , FPS 360.2, quant_seen_psnr: 28.08 | 
+[2025/11/21 08:02:56] Rank:None, Eval at Step [96/96] , FPS 367.1, quant_seen_psnr: 27.91 | 
+Eval at epoch 250 for (640, 1280): pred_seen_psnr: 27.93 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.91 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 08:03:31] Rank:None, Epoch[251/300], Step [1/77], lr:8.23e-05 pred_PSNR: 28.4 pixel_loss: 0.0359 clip_loss: 0.0060 total_loss: 0.0389
+[2025/11/21 08:03:51] Rank:None, Epoch[251/300], Step [51/77], lr:8.02e-05 pred_PSNR: 28.34 pixel_loss: 0.0381 clip_loss: 0.0069 total_loss: 0.0416
+[2025/11/21 08:04:01] Rank:None, Epoch[251/300], Step [77/77], lr:7.91e-05 pred_PSNR: 28.29 pixel_loss: 0.0384 clip_loss: 0.0069 total_loss: 0.0418
+Time/epoch: 	Current:65.02 	Average:81.63
+[2025/11/21 08:04:38] Rank:None, Epoch[252/300], Step [1/77], lr:7.91e-05 pred_PSNR: 28.59 pixel_loss: 0.0346 clip_loss: 0.0065 total_loss: 0.0379
+[2025/11/21 08:04:57] Rank:None, Epoch[252/300], Step [51/77], lr:7.71e-05 pred_PSNR: 28.26 pixel_loss: 0.0384 clip_loss: 0.0068 total_loss: 0.0418
+[2025/11/21 08:05:08] Rank:None, Epoch[252/300], Step [77/77], lr:7.60e-05 pred_PSNR: 28.29 pixel_loss: 0.0384 clip_loss: 0.0069 total_loss: 0.0419
+Time/epoch: 	Current:66.43 	Average:81.57
+[2025/11/21 08:05:44] Rank:None, Epoch[253/300], Step [1/77], lr:7.60e-05 pred_PSNR: 28.94 pixel_loss: 0.0357 clip_loss: 0.0070 total_loss: 0.0392
+[2025/11/21 08:06:03] Rank:None, Epoch[253/300], Step [51/77], lr:7.40e-05 pred_PSNR: 28.33 pixel_loss: 0.0382 clip_loss: 0.0068 total_loss: 0.0416
+[2025/11/21 08:06:14] Rank:None, Epoch[253/300], Step [77/77], lr:7.30e-05 pred_PSNR: 28.31 pixel_loss: 0.0383 clip_loss: 0.0069 total_loss: 0.0418
+Time/epoch: 	Current:65.81 	Average:81.51
+[2025/11/21 08:06:50] Rank:None, Epoch[254/300], Step [1/77], lr:7.29e-05 pred_PSNR: 28.54 pixel_loss: 0.0379 clip_loss: 0.0065 total_loss: 0.0411
+[2025/11/21 08:07:10] Rank:None, Epoch[254/300], Step [51/77], lr:7.10e-05 pred_PSNR: 28.27 pixel_loss: 0.0383 clip_loss: 0.0069 total_loss: 0.0417
+[2025/11/21 08:07:20] Rank:None, Epoch[254/300], Step [77/77], lr:7.00e-05 pred_PSNR: 28.31 pixel_loss: 0.0383 clip_loss: 0.0069 total_loss: 0.0417
+Time/epoch: 	Current:66.27 	Average:81.45
+[2025/11/21 08:07:56] Rank:None, Epoch[255/300], Step [1/77], lr:6.99e-05 pred_PSNR: 27.67 pixel_loss: 0.0415 clip_loss: 0.0083 total_loss: 0.0456
+[2025/11/21 08:08:16] Rank:None, Epoch[255/300], Step [51/77], lr:6.80e-05 pred_PSNR: 28.38 pixel_loss: 0.0379 clip_loss: 0.0069 total_loss: 0.0413
+[2025/11/21 08:08:26] Rank:None, Epoch[255/300], Step [77/77], lr:6.70e-05 pred_PSNR: 28.32 pixel_loss: 0.0383 clip_loss: 0.0069 total_loss: 0.0417
+Time/epoch: 	Current:65.92 	Average:81.39
+[2025/11/21 08:09:02] Rank:None, Epoch[256/300], Step [1/77], lr:6.70e-05 pred_PSNR: 28.88 pixel_loss: 0.0385 clip_loss: 0.0071 total_loss: 0.0420
+[2025/11/21 08:09:22] Rank:None, Epoch[256/300], Step [51/77], lr:6.51e-05 pred_PSNR: 28.36 pixel_loss: 0.0381 clip_loss: 0.0068 total_loss: 0.0415
+[2025/11/21 08:09:32] Rank:None, Epoch[256/300], Step [77/77], lr:6.41e-05 pred_PSNR: 28.32 pixel_loss: 0.0382 clip_loss: 0.0069 total_loss: 0.0417
+Time/epoch: 	Current:66.11 	Average:81.33
+[2025/11/21 08:10:08] Rank:None, Epoch[257/300], Step [1/77], lr:6.41e-05 pred_PSNR: 28.19 pixel_loss: 0.0373 clip_loss: 0.0061 total_loss: 0.0404
+[2025/11/21 08:10:28] Rank:None, Epoch[257/300], Step [51/77], lr:6.23e-05 pred_PSNR: 28.39 pixel_loss: 0.0377 clip_loss: 0.0068 total_loss: 0.0411
+[2025/11/21 08:10:38] Rank:None, Epoch[257/300], Step [77/77], lr:6.13e-05 pred_PSNR: 28.33 pixel_loss: 0.0382 clip_loss: 0.0069 total_loss: 0.0416
+Time/epoch: 	Current:65.69 	Average:81.27
+[2025/11/21 08:11:14] Rank:None, Epoch[258/300], Step [1/77], lr:6.13e-05 pred_PSNR: 28.35 pixel_loss: 0.0387 clip_loss: 0.0071 total_loss: 0.0422
+[2025/11/21 08:11:34] Rank:None, Epoch[258/300], Step [51/77], lr:5.95e-05 pred_PSNR: 28.32 pixel_loss: 0.0383 clip_loss: 0.0068 total_loss: 0.0417
+[2025/11/21 08:11:44] Rank:None, Epoch[258/300], Step [77/77], lr:5.86e-05 pred_PSNR: 28.33 pixel_loss: 0.0382 clip_loss: 0.0069 total_loss: 0.0416
+Time/epoch: 	Current:66.00 	Average:81.21
+[2025/11/21 08:12:20] Rank:None, Epoch[259/300], Step [1/77], lr:5.85e-05 pred_PSNR: 28.69 pixel_loss: 0.0375 clip_loss: 0.0058 total_loss: 0.0404
+[2025/11/21 08:12:40] Rank:None, Epoch[259/300], Step [51/77], lr:5.68e-05 pred_PSNR: 28.3 pixel_loss: 0.0382 clip_loss: 0.0068 total_loss: 0.0416
+[2025/11/21 08:12:50] Rank:None, Epoch[259/300], Step [77/77], lr:5.59e-05 pred_PSNR: 28.34 pixel_loss: 0.0382 clip_loss: 0.0069 total_loss: 0.0416
+Time/epoch: 	Current:65.65 	Average:81.15
+[2025/11/21 08:13:26] Rank:None, Epoch[260/300], Step [1/77], lr:5.58e-05 pred_PSNR: 28.8 pixel_loss: 0.0345 clip_loss: 0.0068 total_loss: 0.0379
+[2025/11/21 08:13:46] Rank:None, Epoch[260/300], Step [51/77], lr:5.41e-05 pred_PSNR: 28.4 pixel_loss: 0.0379 clip_loss: 0.0069 total_loss: 0.0414
+[2025/11/21 08:13:56] Rank:None, Epoch[260/300], Step [77/77], lr:5.32e-05 pred_PSNR: 28.34 pixel_loss: 0.0381 clip_loss: 0.0068 total_loss: 0.0415
+Time/epoch: 	Current:66.01 	Average:81.10
+[2025/11/21 08:14:32] Rank:None, Eval at Step [1/96] , FPS 234.3, pred_seen_psnr: 29.29 | 
+[2025/11/21 08:14:34] Rank:None, Eval at Step [51/96] , FPS 327.5, pred_seen_psnr: 28.12 | 
+[2025/11/21 08:14:36] Rank:None, Eval at Step [96/96] , FPS 325.5, pred_seen_psnr: 27.96 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9926
+Average (Train):      0.9926 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 08:15:11] Rank:None, Eval at Step [1/96] , FPS 196.9, quant_seen_psnr: 29.27 | 
+[2025/11/21 08:15:14] Rank:None, Eval at Step [51/96] , FPS 361.1, quant_seen_psnr: 28.11 | 
+[2025/11/21 08:15:15] Rank:None, Eval at Step [96/96] , FPS 357.7, quant_seen_psnr: 27.95 | 
+Eval at epoch 260 for (640, 1280): pred_seen_psnr: 27.96 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.95 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 08:15:51] Rank:None, Epoch[261/300], Step [1/77], lr:5.32e-05 pred_PSNR: 27.55 pixel_loss: 0.0401 clip_loss: 0.0069 total_loss: 0.0435
+[2025/11/21 08:16:11] Rank:None, Epoch[261/300], Step [51/77], lr:5.15e-05 pred_PSNR: 28.46 pixel_loss: 0.0376 clip_loss: 0.0068 total_loss: 0.0410
+[2025/11/21 08:16:21] Rank:None, Epoch[261/300], Step [77/77], lr:5.06e-05 pred_PSNR: 28.35 pixel_loss: 0.0381 clip_loss: 0.0068 total_loss: 0.0415
+Time/epoch: 	Current:65.04 	Average:81.34
+[2025/11/21 08:16:57] Rank:None, Epoch[262/300], Step [1/77], lr:5.06e-05 pred_PSNR: 29.03 pixel_loss: 0.0367 clip_loss: 0.0079 total_loss: 0.0406
+[2025/11/21 08:17:17] Rank:None, Epoch[262/300], Step [51/77], lr:4.90e-05 pred_PSNR: 28.44 pixel_loss: 0.0377 clip_loss: 0.0069 total_loss: 0.0411
+[2025/11/21 08:17:27] Rank:None, Epoch[262/300], Step [77/77], lr:4.81e-05 pred_PSNR: 28.35 pixel_loss: 0.0381 clip_loss: 0.0068 total_loss: 0.0415
+Time/epoch: 	Current:65.97 	Average:81.28
+[2025/11/21 08:18:02] Rank:None, Epoch[263/300], Step [1/77], lr:4.81e-05 pred_PSNR: 27.87 pixel_loss: 0.0391 clip_loss: 0.0075 total_loss: 0.0429
+[2025/11/21 08:18:22] Rank:None, Epoch[263/300], Step [51/77], lr:4.65e-05 pred_PSNR: 28.32 pixel_loss: 0.0383 clip_loss: 0.0069 total_loss: 0.0417
+[2025/11/21 08:18:32] Rank:None, Epoch[263/300], Step [77/77], lr:4.57e-05 pred_PSNR: 28.36 pixel_loss: 0.0380 clip_loss: 0.0068 total_loss: 0.0414
+Time/epoch: 	Current:65.26 	Average:81.22
+[2025/11/21 08:19:09] Rank:None, Epoch[264/300], Step [1/77], lr:4.56e-05 pred_PSNR: 28.78 pixel_loss: 0.0374 clip_loss: 0.0075 total_loss: 0.0411
+[2025/11/21 08:19:29] Rank:None, Epoch[264/300], Step [51/77], lr:4.41e-05 pred_PSNR: 28.38 pixel_loss: 0.0380 clip_loss: 0.0069 total_loss: 0.0415
+[2025/11/21 08:19:39] Rank:None, Epoch[264/300], Step [77/77], lr:4.33e-05 pred_PSNR: 28.36 pixel_loss: 0.0380 clip_loss: 0.0068 total_loss: 0.0414
+Time/epoch: 	Current:66.76 	Average:81.17
+[2025/11/21 08:20:15] Rank:None, Epoch[265/300], Step [1/77], lr:4.32e-05 pred_PSNR: 28.82 pixel_loss: 0.0373 clip_loss: 0.0075 total_loss: 0.0410
+[2025/11/21 08:20:35] Rank:None, Epoch[265/300], Step [51/77], lr:4.17e-05 pred_PSNR: 28.41 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+[2025/11/21 08:20:45] Rank:None, Epoch[265/300], Step [77/77], lr:4.09e-05 pred_PSNR: 28.37 pixel_loss: 0.0380 clip_loss: 0.0068 total_loss: 0.0414
+Time/epoch: 	Current:65.62 	Average:81.11
+[2025/11/21 08:21:24] Rank:None, Epoch[266/300], Step [1/77], lr:4.09e-05 pred_PSNR: 28.64 pixel_loss: 0.0375 clip_loss: 0.0076 total_loss: 0.0413
+[2025/11/21 08:21:44] Rank:None, Epoch[266/300], Step [51/77], lr:3.94e-05 pred_PSNR: 28.42 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0411
+[2025/11/21 08:21:54] Rank:None, Epoch[266/300], Step [77/77], lr:3.86e-05 pred_PSNR: 28.37 pixel_loss: 0.0380 clip_loss: 0.0068 total_loss: 0.0414
+Time/epoch: 	Current:68.56 	Average:81.06
+[2025/11/21 08:22:32] Rank:None, Epoch[267/300], Step [1/77], lr:3.86e-05 pred_PSNR: 28.92 pixel_loss: 0.0360 clip_loss: 0.0068 total_loss: 0.0394
+[2025/11/21 08:22:52] Rank:None, Epoch[267/300], Step [51/77], lr:3.72e-05 pred_PSNR: 28.36 pixel_loss: 0.0379 clip_loss: 0.0069 total_loss: 0.0413
+[2025/11/21 08:23:02] Rank:None, Epoch[267/300], Step [77/77], lr:3.64e-05 pred_PSNR: 28.38 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+Time/epoch: 	Current:68.44 	Average:81.02
+[2025/11/21 08:23:38] Rank:None, Epoch[268/300], Step [1/77], lr:3.64e-05 pred_PSNR: 28.68 pixel_loss: 0.0353 clip_loss: 0.0068 total_loss: 0.0387
+[2025/11/21 08:23:58] Rank:None, Epoch[268/300], Step [51/77], lr:3.50e-05 pred_PSNR: 28.41 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+[2025/11/21 08:24:08] Rank:None, Epoch[268/300], Step [77/77], lr:3.43e-05 pred_PSNR: 28.38 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+Time/epoch: 	Current:65.66 	Average:80.96
+[2025/11/21 08:24:44] Rank:None, Epoch[269/300], Step [1/77], lr:3.43e-05 pred_PSNR: 27.56 pixel_loss: 0.0407 clip_loss: 0.0060 total_loss: 0.0437
+[2025/11/21 08:25:04] Rank:None, Epoch[269/300], Step [51/77], lr:3.29e-05 pred_PSNR: 28.45 pixel_loss: 0.0376 clip_loss: 0.0067 total_loss: 0.0409
+[2025/11/21 08:25:14] Rank:None, Epoch[269/300], Step [77/77], lr:3.22e-05 pred_PSNR: 28.38 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+Time/epoch: 	Current:66.36 	Average:80.91
+[2025/11/21 08:25:52] Rank:None, Epoch[270/300], Step [1/77], lr:3.22e-05 pred_PSNR: 27.4 pixel_loss: 0.0416 clip_loss: 0.0065 total_loss: 0.0448
+[2025/11/21 08:26:12] Rank:None, Epoch[270/300], Step [51/77], lr:3.09e-05 pred_PSNR: 28.4 pixel_loss: 0.0377 clip_loss: 0.0068 total_loss: 0.0411
+[2025/11/21 08:26:22] Rank:None, Epoch[270/300], Step [77/77], lr:3.02e-05 pred_PSNR: 28.38 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+Time/epoch: 	Current:67.71 	Average:80.86
+[2025/11/21 08:27:00] Rank:None, Eval at Step [1/96] , FPS 332.7, pred_seen_psnr: 29.32 | 
+[2025/11/21 08:27:03] Rank:None, Eval at Step [51/96] , FPS 339.1, pred_seen_psnr: 28.16 | 
+[2025/11/21 08:27:05] Rank:None, Eval at Step [96/96] , FPS 344.6, pred_seen_psnr: 28.0 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9927
+Average (Train):      0.9927 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 08:27:40] Rank:None, Eval at Step [1/96] , FPS 354.2, quant_seen_psnr: 29.31 | 
+[2025/11/21 08:27:43] Rank:None, Eval at Step [51/96] , FPS 365.2, quant_seen_psnr: 28.15 | 
+[2025/11/21 08:27:44] Rank:None, Eval at Step [96/96] , FPS 387.8, quant_seen_psnr: 27.99 | 
+Eval at epoch 270 for (640, 1280): pred_seen_psnr: 28.0 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 27.99 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 08:28:20] Rank:None, Epoch[271/300], Step [1/77], lr:3.02e-05 pred_PSNR: 27.89 pixel_loss: 0.0414 clip_loss: 0.0093 total_loss: 0.0461
+[2025/11/21 08:28:40] Rank:None, Epoch[271/300], Step [51/77], lr:2.89e-05 pred_PSNR: 28.35 pixel_loss: 0.0379 clip_loss: 0.0067 total_loss: 0.0413
+[2025/11/21 08:28:50] Rank:None, Epoch[271/300], Step [77/77], lr:2.82e-05 pred_PSNR: 28.39 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+Time/epoch: 	Current:65.53 	Average:81.11
+[2025/11/21 08:29:27] Rank:None, Epoch[272/300], Step [1/77], lr:2.82e-05 pred_PSNR: 28.15 pixel_loss: 0.0381 clip_loss: 0.0070 total_loss: 0.0416
+[2025/11/21 08:29:47] Rank:None, Epoch[272/300], Step [51/77], lr:2.70e-05 pred_PSNR: 28.49 pixel_loss: 0.0373 clip_loss: 0.0068 total_loss: 0.0407
+[2025/11/21 08:29:57] Rank:None, Epoch[272/300], Step [77/77], lr:2.63e-05 pred_PSNR: 28.39 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:66.12 	Average:81.05
+[2025/11/21 08:30:33] Rank:None, Epoch[273/300], Step [1/77], lr:2.63e-05 pred_PSNR: 28.16 pixel_loss: 0.0396 clip_loss: 0.0076 total_loss: 0.0435
+[2025/11/21 08:30:52] Rank:None, Epoch[273/300], Step [51/77], lr:2.51e-05 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0068 total_loss: 0.0411
+[2025/11/21 08:31:03] Rank:None, Epoch[273/300], Step [77/77], lr:2.45e-05 pred_PSNR: 28.39 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:65.78 	Average:81.00
+[2025/11/21 08:31:38] Rank:None, Epoch[274/300], Step [1/77], lr:2.45e-05 pred_PSNR: 27.99 pixel_loss: 0.0409 clip_loss: 0.0064 total_loss: 0.0441
+[2025/11/21 08:31:58] Rank:None, Epoch[274/300], Step [51/77], lr:2.33e-05 pred_PSNR: 28.45 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+[2025/11/21 08:32:08] Rank:None, Epoch[274/300], Step [77/77], lr:2.27e-05 pred_PSNR: 28.4 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:65.63 	Average:80.94
+[2025/11/21 08:32:44] Rank:None, Epoch[275/300], Step [1/77], lr:2.27e-05 pred_PSNR: 28.76 pixel_loss: 0.0344 clip_loss: 0.0061 total_loss: 0.0374
+[2025/11/21 08:33:04] Rank:None, Epoch[275/300], Step [51/77], lr:2.16e-05 pred_PSNR: 28.38 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+[2025/11/21 08:33:14] Rank:None, Epoch[275/300], Step [77/77], lr:2.10e-05 pred_PSNR: 28.4 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:65.37 	Average:80.88
+[2025/11/21 08:33:50] Rank:None, Epoch[276/300], Step [1/77], lr:2.10e-05 pred_PSNR: 28.85 pixel_loss: 0.0360 clip_loss: 0.0066 total_loss: 0.0393
+[2025/11/21 08:34:10] Rank:None, Epoch[276/300], Step [51/77], lr:1.99e-05 pred_PSNR: 28.39 pixel_loss: 0.0379 clip_loss: 0.0068 total_loss: 0.0413
+[2025/11/21 08:34:20] Rank:None, Epoch[276/300], Step [77/77], lr:1.94e-05 pred_PSNR: 28.4 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:65.90 	Average:80.83
+[2025/11/21 08:34:56] Rank:None, Epoch[277/300], Step [1/77], lr:1.94e-05 pred_PSNR: 28.01 pixel_loss: 0.0418 clip_loss: 0.0067 total_loss: 0.0451
+[2025/11/21 08:35:16] Rank:None, Epoch[277/300], Step [51/77], lr:1.83e-05 pred_PSNR: 28.5 pixel_loss: 0.0373 clip_loss: 0.0067 total_loss: 0.0407
+[2025/11/21 08:35:26] Rank:None, Epoch[277/300], Step [77/77], lr:1.78e-05 pred_PSNR: 28.4 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+Time/epoch: 	Current:65.78 	Average:80.78
+[2025/11/21 08:36:02] Rank:None, Epoch[278/300], Step [1/77], lr:1.78e-05 pred_PSNR: 28.12 pixel_loss: 0.0384 clip_loss: 0.0065 total_loss: 0.0417
+[2025/11/21 08:36:22] Rank:None, Epoch[278/300], Step [51/77], lr:1.68e-05 pred_PSNR: 28.39 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+[2025/11/21 08:36:32] Rank:None, Epoch[278/300], Step [77/77], lr:1.63e-05 pred_PSNR: 28.41 pixel_loss: 0.0378 clip_loss: 0.0067 total_loss: 0.0412
+Time/epoch: 	Current:65.92 	Average:80.72
+[2025/11/21 08:37:08] Rank:None, Epoch[279/300], Step [1/77], lr:1.63e-05 pred_PSNR: 28.69 pixel_loss: 0.0373 clip_loss: 0.0063 total_loss: 0.0405
+[2025/11/21 08:37:28] Rank:None, Epoch[279/300], Step [51/77], lr:1.53e-05 pred_PSNR: 28.47 pixel_loss: 0.0375 clip_loss: 0.0068 total_loss: 0.0409
+[2025/11/21 08:37:38] Rank:None, Epoch[279/300], Step [77/77], lr:1.49e-05 pred_PSNR: 28.41 pixel_loss: 0.0378 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:66.18 	Average:80.67
+[2025/11/21 08:38:14] Rank:None, Epoch[280/300], Step [1/77], lr:1.49e-05 pred_PSNR: 28.72 pixel_loss: 0.0366 clip_loss: 0.0068 total_loss: 0.0400
+[2025/11/21 08:38:34] Rank:None, Epoch[280/300], Step [51/77], lr:1.40e-05 pred_PSNR: 28.46 pixel_loss: 0.0376 clip_loss: 0.0068 total_loss: 0.0410
+[2025/11/21 08:38:44] Rank:None, Epoch[280/300], Step [77/77], lr:1.35e-05 pred_PSNR: 28.41 pixel_loss: 0.0378 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:65.64 	Average:80.62
+[2025/11/21 08:39:20] Rank:None, Eval at Step [1/96] , FPS 329.4, pred_seen_psnr: 29.33 | 
+[2025/11/21 08:39:22] Rank:None, Eval at Step [51/96] , FPS 350.4, pred_seen_psnr: 28.18 | 
+[2025/11/21 08:39:24] Rank:None, Eval at Step [96/96] , FPS 357.8, pred_seen_psnr: 28.02 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9927
+Average (Train):      0.9927 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 08:40:00] Rank:None, Eval at Step [1/96] , FPS 328.2, quant_seen_psnr: 29.32 | 
+[2025/11/21 08:40:02] Rank:None, Eval at Step [51/96] , FPS 341.5, quant_seen_psnr: 28.16 | 
+[2025/11/21 08:40:04] Rank:None, Eval at Step [96/96] , FPS 338.7, quant_seen_psnr: 28.0 | 
+Eval at epoch 280 for (640, 1280): pred_seen_psnr: 28.02 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 28.0 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 08:40:40] Rank:None, Epoch[281/300], Step [1/77], lr:1.35e-05 pred_PSNR: 28.76 pixel_loss: 0.0378 clip_loss: 0.0069 total_loss: 0.0412
+[2025/11/21 08:41:00] Rank:None, Epoch[281/300], Step [51/77], lr:1.26e-05 pred_PSNR: 28.39 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+[2025/11/21 08:41:10] Rank:None, Epoch[281/300], Step [77/77], lr:1.22e-05 pred_PSNR: 28.41 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:65.16 	Average:80.85
+[2025/11/21 08:41:46] Rank:None, Epoch[282/300], Step [1/77], lr:1.22e-05 pred_PSNR: 28.04 pixel_loss: 0.0382 clip_loss: 0.0062 total_loss: 0.0412
+[2025/11/21 08:42:05] Rank:None, Epoch[282/300], Step [51/77], lr:1.14e-05 pred_PSNR: 28.5 pixel_loss: 0.0375 clip_loss: 0.0067 total_loss: 0.0409
+[2025/11/21 08:42:16] Rank:None, Epoch[282/300], Step [77/77], lr:1.09e-05 pred_PSNR: 28.41 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:65.67 	Average:80.80
+[2025/11/21 08:42:52] Rank:None, Epoch[283/300], Step [1/77], lr:1.09e-05 pred_PSNR: 28.0 pixel_loss: 0.0374 clip_loss: 0.0065 total_loss: 0.0407
+[2025/11/21 08:43:12] Rank:None, Epoch[283/300], Step [51/77], lr:1.02e-05 pred_PSNR: 28.41 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 08:43:22] Rank:None, Epoch[283/300], Step [77/77], lr:9.76e-06 pred_PSNR: 28.41 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:66.18 	Average:80.75
+[2025/11/21 08:43:58] Rank:None, Epoch[284/300], Step [1/77], lr:9.75e-06 pred_PSNR: 27.57 pixel_loss: 0.0422 clip_loss: 0.0065 total_loss: 0.0454
+[2025/11/21 08:44:18] Rank:None, Epoch[284/300], Step [51/77], lr:9.02e-06 pred_PSNR: 28.39 pixel_loss: 0.0381 clip_loss: 0.0068 total_loss: 0.0415
+[2025/11/21 08:44:28] Rank:None, Epoch[284/300], Step [77/77], lr:8.65e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:66.40 	Average:80.70
+[2025/11/21 08:45:05] Rank:None, Epoch[285/300], Step [1/77], lr:8.64e-06 pred_PSNR: 28.94 pixel_loss: 0.0328 clip_loss: 0.0052 total_loss: 0.0353
+[2025/11/21 08:45:24] Rank:None, Epoch[285/300], Step [51/77], lr:7.95e-06 pred_PSNR: 28.42 pixel_loss: 0.0375 clip_loss: 0.0067 total_loss: 0.0409
+[2025/11/21 08:45:34] Rank:None, Epoch[285/300], Step [77/77], lr:7.61e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:65.96 	Average:80.64
+[2025/11/21 08:46:12] Rank:None, Epoch[286/300], Step [1/77], lr:7.60e-06 pred_PSNR: 28.25 pixel_loss: 0.0389 clip_loss: 0.0062 total_loss: 0.0419
+[2025/11/21 08:46:32] Rank:None, Epoch[286/300], Step [51/77], lr:6.95e-06 pred_PSNR: 28.4 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 08:46:42] Rank:None, Epoch[286/300], Step [77/77], lr:6.63e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:67.50 	Average:80.60
+[2025/11/21 08:47:19] Rank:None, Epoch[287/300], Step [1/77], lr:6.62e-06 pred_PSNR: 27.96 pixel_loss: 0.0392 clip_loss: 0.0065 total_loss: 0.0424
+[2025/11/21 08:47:39] Rank:None, Epoch[287/300], Step [51/77], lr:6.02e-06 pred_PSNR: 28.35 pixel_loss: 0.0379 clip_loss: 0.0066 total_loss: 0.0412
+[2025/11/21 08:47:49] Rank:None, Epoch[287/300], Step [77/77], lr:5.72e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:67.07 	Average:80.55
+[2025/11/21 08:48:27] Rank:None, Epoch[288/300], Step [1/77], lr:5.71e-06 pred_PSNR: 27.44 pixel_loss: 0.0402 clip_loss: 0.0061 total_loss: 0.0432
+[2025/11/21 08:48:47] Rank:None, Epoch[288/300], Step [51/77], lr:5.15e-06 pred_PSNR: 28.44 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+[2025/11/21 08:48:57] Rank:None, Epoch[288/300], Step [77/77], lr:4.88e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0411
+Time/epoch: 	Current:67.95 	Average:80.51
+[2025/11/21 08:49:35] Rank:None, Epoch[289/300], Step [1/77], lr:4.87e-06 pred_PSNR: 27.62 pixel_loss: 0.0409 clip_loss: 0.0065 total_loss: 0.0442
+[2025/11/21 08:49:55] Rank:None, Epoch[289/300], Step [51/77], lr:4.35e-06 pred_PSNR: 28.42 pixel_loss: 0.0378 clip_loss: 0.0068 total_loss: 0.0412
+[2025/11/21 08:50:05] Rank:None, Epoch[289/300], Step [77/77], lr:4.10e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:67.21 	Average:80.46
+[2025/11/21 08:50:41] Rank:None, Epoch[290/300], Step [1/77], lr:4.09e-06 pred_PSNR: 26.78 pixel_loss: 0.0437 clip_loss: 0.0061 total_loss: 0.0468
+[2025/11/21 08:51:01] Rank:None, Epoch[290/300], Step [51/77], lr:3.62e-06 pred_PSNR: 28.42 pixel_loss: 0.0375 clip_loss: 0.0067 total_loss: 0.0409
+[2025/11/21 08:51:11] Rank:None, Epoch[290/300], Step [77/77], lr:3.39e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.21 	Average:80.41
+[2025/11/21 08:51:48] Rank:None, Eval at Step [1/96] , FPS 154.8, pred_seen_psnr: 29.34 | 
+[2025/11/21 08:51:50] Rank:None, Eval at Step [51/96] , FPS 391.1, pred_seen_psnr: 28.18 | 
+[2025/11/21 08:51:52] Rank:None, Eval at Step [96/96] , FPS 410.3, pred_seen_psnr: 28.02 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9927
+Average (Train):      0.9927 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 08:52:29] Rank:None, Eval at Step [1/96] , FPS 344.5, quant_seen_psnr: 29.32 | 
+[2025/11/21 08:52:31] Rank:None, Eval at Step [51/96] , FPS 363.1, quant_seen_psnr: 28.17 | 
+[2025/11/21 08:52:33] Rank:None, Eval at Step [96/96] , FPS 372.5, quant_seen_psnr: 28.01 | 
+Eval at epoch 290 for (640, 1280): pred_seen_psnr: 28.02 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 28.01 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 08:53:10] Rank:None, Epoch[291/300], Step [1/77], lr:3.38e-06 pred_PSNR: 28.6 pixel_loss: 0.0364 clip_loss: 0.0057 total_loss: 0.0392
+[2025/11/21 08:53:29] Rank:None, Epoch[291/300], Step [51/77], lr:2.96e-06 pred_PSNR: 28.37 pixel_loss: 0.0380 clip_loss: 0.0067 total_loss: 0.0414
+[2025/11/21 08:53:39] Rank:None, Epoch[291/300], Step [77/77], lr:2.75e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.23 	Average:80.65
+[2025/11/21 08:54:16] Rank:None, Epoch[292/300], Step [1/77], lr:2.74e-06 pred_PSNR: 28.76 pixel_loss: 0.0370 clip_loss: 0.0073 total_loss: 0.0407
+[2025/11/21 08:54:36] Rank:None, Epoch[292/300], Step [51/77], lr:2.36e-06 pred_PSNR: 28.41 pixel_loss: 0.0375 clip_loss: 0.0067 total_loss: 0.0408
+[2025/11/21 08:54:46] Rank:None, Epoch[292/300], Step [77/77], lr:2.17e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.59 	Average:80.60
+[2025/11/21 08:55:24] Rank:None, Epoch[293/300], Step [1/77], lr:2.16e-06 pred_PSNR: 28.79 pixel_loss: 0.0359 clip_loss: 0.0067 total_loss: 0.0393
+[2025/11/21 08:55:43] Rank:None, Epoch[293/300], Step [51/77], lr:1.83e-06 pred_PSNR: 28.39 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 08:55:54] Rank:None, Epoch[293/300], Step [77/77], lr:1.66e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:67.31 	Average:80.56
+[2025/11/21 08:56:34] Rank:None, Epoch[294/300], Step [1/77], lr:1.66e-06 pred_PSNR: 28.64 pixel_loss: 0.0367 clip_loss: 0.0074 total_loss: 0.0404
+[2025/11/21 08:56:54] Rank:None, Epoch[294/300], Step [51/77], lr:1.36e-06 pred_PSNR: 28.45 pixel_loss: 0.0375 clip_loss: 0.0067 total_loss: 0.0409
+[2025/11/21 08:57:04] Rank:None, Epoch[294/300], Step [77/77], lr:1.22e-06 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:70.61 	Average:80.52
+[2025/11/21 08:57:41] Rank:None, Epoch[295/300], Step [1/77], lr:1.22e-06 pred_PSNR: 27.96 pixel_loss: 0.0393 clip_loss: 0.0061 total_loss: 0.0423
+[2025/11/21 08:58:01] Rank:None, Epoch[295/300], Step [51/77], lr:9.69e-07 pred_PSNR: 28.46 pixel_loss: 0.0376 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 08:58:11] Rank:None, Epoch[295/300], Step [77/77], lr:8.50e-07 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.61 	Average:80.48
+[2025/11/21 08:58:47] Rank:None, Epoch[296/300], Step [1/77], lr:8.46e-07 pred_PSNR: 28.96 pixel_loss: 0.0343 clip_loss: 0.0064 total_loss: 0.0375
+[2025/11/21 08:59:07] Rank:None, Epoch[296/300], Step [51/77], lr:6.41e-07 pred_PSNR: 28.42 pixel_loss: 0.0376 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 08:59:17] Rank:None, Epoch[296/300], Step [77/77], lr:5.45e-07 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.10 	Average:80.43
+[2025/11/21 08:59:53] Rank:None, Eval at Step [1/96] , FPS 286.1, pred_seen_psnr: 29.34 | 
+[2025/11/21 08:59:56] Rank:None, Eval at Step [51/96] , FPS 380.7, pred_seen_psnr: 28.18 | 
+[2025/11/21 08:59:58] Rank:None, Eval at Step [96/96] , FPS 388.6, pred_seen_psnr: 28.02 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9927
+Average (Train):      0.9927 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 09:00:35] Rank:None, Eval at Step [1/96] , FPS 372.6, quant_seen_psnr: 29.32 | 
+[2025/11/21 09:00:37] Rank:None, Eval at Step [51/96] , FPS 378.1, quant_seen_psnr: 28.17 | 
+[2025/11/21 09:00:39] Rank:None, Eval at Step [96/96] , FPS 379.6, quant_seen_psnr: 28.01 | 
+Eval at epoch 296 for (640, 1280): pred_seen_psnr: 28.02 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 28.01 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 09:01:16] Rank:None, Epoch[297/300], Step [1/77], lr:5.41e-07 pred_PSNR: 28.61 pixel_loss: 0.0351 clip_loss: 0.0068 total_loss: 0.0384
+[2025/11/21 09:01:36] Rank:None, Epoch[297/300], Step [51/77], lr:3.80e-07 pred_PSNR: 28.41 pixel_loss: 0.0376 clip_loss: 0.0067 total_loss: 0.0410
+[2025/11/21 09:01:46] Rank:None, Epoch[297/300], Step [77/77], lr:3.07e-07 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.43 	Average:80.66
+[2025/11/21 09:02:23] Rank:None, Epoch[298/300], Step [1/77], lr:3.05e-07 pred_PSNR: 27.44 pixel_loss: 0.0415 clip_loss: 0.0072 total_loss: 0.0451
+[2025/11/21 09:02:42] Rank:None, Epoch[298/300], Step [51/77], lr:1.87e-07 pred_PSNR: 28.39 pixel_loss: 0.0379 clip_loss: 0.0067 total_loss: 0.0413
+[2025/11/21 09:02:53] Rank:None, Epoch[298/300], Step [77/77], lr:1.37e-07 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410
+Time/epoch: 	Current:66.46 	Average:80.61
+[2025/11/21 09:03:29] Rank:None, Eval at Step [1/96] , FPS 214.0, pred_seen_psnr: 29.34 | 
+[2025/11/21 09:03:31] Rank:None, Eval at Step [51/96] , FPS 357.4, pred_seen_psnr: 28.18 | 
+[2025/11/21 09:03:33] Rank:None, Eval at Step [96/96] , FPS 395.9, pred_seen_psnr: 28.02 | 
+
+=== CLIP Similarity Results ===
+Average (All):        0.9927
+Average (Train):      0.9927 (192 frames)
+Average (Validation): 0.0000 (0 frames)
+Per-frame CLIP results saved to: output/output/hnerv_image_based/k400_train0/4_5_5__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e300_b2_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_Fusion6_Size1.5_ENC_convnext_5,4,4,2,2_DEC_pshuffel_5,4,4,2,2__distgelu1_1/clip_similarity_per_frame.csv
+
+[2025/11/21 09:04:09] Rank:None, Eval at Step [1/96] , FPS 330.0, quant_seen_psnr: 29.32 | 
+[2025/11/21 09:04:11] Rank:None, Eval at Step [51/96] , FPS 332.7, quant_seen_psnr: 28.17 | 
+[2025/11/21 09:04:13] Rank:None, Eval at Step [96/96] , FPS 365.5, quant_seen_psnr: 28.01 | 
+Eval at epoch 298 for (640, 1280): pred_seen_psnr: 28.02 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 28.01 | quant_unseen_psnr: 0.0 | 
+[2025/11/21 09:04:49] Rank:None, Epoch[299/300], Step [1/77], lr:1.35e-07 pred_PSNR: 28.42 pixel_loss: 0.0402 clip_loss: 0.0067 total_loss: 0.0435
+[2025/11/21 09:05:08] Rank:None, Epoch[299/300], Step [51/77], lr:6.17e-08 pred_PSNR: 28.42 pixel_loss: 0.0376 clip_loss: 0.0068 total_loss: 0.0410
+[2025/11/21 09:05:19] Rank:None, Epoch[299/300], Step [77/77], lr:3.47e-08 pred_PSNR: 28.42 pixel_loss: 0.0377 clip_loss: 0.0067 total_loss: 0.0410

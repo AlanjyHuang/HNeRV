@@ -10,25 +10,52 @@ This project extends the HNeRV (Hybrid Neural Representation for Videos) archite
 
 ### Input → Output
 ```
-(x, y, t) coordinates → RGB Image (3 channels) + Multi-Patch CLIP Embeddings
+Coordinates (x, y, t) OR RGB Images → RGB Reconstruction + Multi-Patch CLIP Embeddings
 ```
 
-### Network Structure
+### Two Training Modes
+
+#### 1. NeRV (Coordinate-Based INR) - Recommended for Research
 ```
-Spatial-Temporal Coordinates (x, y, t)
-          ↓
-    Positional Encoding (160 dims)
-          ↓
-    Encoder (ConvNeXt)
-          ↓
-    Decoder Network (produces spatial features)
-          ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
-          └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
+Time Coordinate t (1 scalar) 
+    ↓
+Positional Encoding (160 dims: sin/cos of multiple frequencies)
+    ↓
+Encoder (Identity - no processing)
+    ↓
+Decoder Network (generates frame from time code)
+    ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
+    └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
 ```
+**To use:** Add `--embed pe_1.25_80` to training command
+
+**Advantages:**
+- True implicit neural representation (continuous function: time → image)
+- Can interpolate between frames (e.g., t=0.5 generates intermediate frame)
+- Learns temporal structure and smooth transitions
+- Smaller input (1 number vs 2.4M pixels)
+
+#### 2. HNeRV (Image-Based) - Recommended for Faster Convergence
+```
+RGB Image (640 × 1280 × 3)
+    ↓
+Encoder (ConvNeXt - compresses image)
+    ↓
+Decoder Network (reconstructs from compressed features)
+    ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
+    └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
+```
+**To use:** Don't specify `--embed` flag (default)
+
+**Advantages:**
+- Faster training and convergence
+- Higher PSNR (better image quality)
+- More reliable CLIP learning
+- Like a video autoencoder with semantic prediction
 
 ### Per-Patch CLIP Prediction
 
-The model predicts **multiple CLIP embeddings per frame**, one for each spatial patch:
+**Both modes** predict multiple CLIP embeddings per frame, one for each spatial patch:
 
 - **Patch Size**: 448×448 pixels with stride 224 (50% overlap)
 - **Patches per Frame**: ~8 patches (2 rows × 4 columns for 640×1280 images)
@@ -38,6 +65,7 @@ The model predicts **multiple CLIP embeddings per frame**, one for each spatial 
 ### CLIP Prediction Head
 ```python
 # Per-patch prediction using spatial convolutions
+# Works for BOTH NeRV and HNeRV modes
 nn.Sequential(
     nn.Conv2d(ngf, ngf * 2, 1, 1, 0),    # 1×1 conv to expand features
     nn.ReLU(inplace=True),
@@ -51,6 +79,11 @@ nn.Sequential(
 - ✅ **Better Coverage**: Overlapping patches ensure full frame coverage
 - ✅ **Independent Supervision**: Each patch embedding is directly supervised
 - ✅ **Preserves Spatial Structure**: Feature map maintains spatial relationships
+
+**Input vs Output:**
+- ❌ **NOT using CLIP as input** - We don't concatenate CLIP to coordinates/images
+- ✅ **Predicting CLIP as output** - Model learns to generate CLIP embeddings
+- ✅ **Pure architecture**: Clean input (coordinates OR images), dual output (RGB + CLIP)
 
 ## Key Features
 
@@ -126,11 +159,13 @@ pip install git+https://github.com/openai/CLIP.git
 
 ## Usage
 
-### Training with Per-Patch CLIP Prediction (Recommended)
+### Quick Start: Two Training Modes Side-by-Side
 
-**80/20 Train/Validation Split:**
+Run both modes in parallel to compare (uses 8 GPUs total):
+
+**Mode 1: HNeRV (Image-Based) - GPUs 0-3:**
 ```bash
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python train_nerv_clip.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train_nerv_clip.py \
   --data_path data/Kitchen \
   --data_split 4_5_5 \
   --enc_strds 5 4 4 2 2 \
@@ -149,46 +184,112 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python train_nerv_clip.py \
   --lr 0.001 \
   --quant_model_bit 8 \
   --quant_embed_bit 6 \
-  --outf output/1120/Kitchen \
+  --outf output/hnerv_image_based \
   --predict_clip \
   --clip_loss_weight 0.5 \
   --pixel_loss_warmup_epochs 50 \
   --distributed
 ```
 
-**Key Configuration:**
-- `--data_split 4_5_5`: 80% training (4 out of 5 frames), 20% validation (1 out of 5)
-- `--predict_clip`: Enable per-patch CLIP prediction
-- `--clip_loss_weight 0.5`: Balance between pixel and semantic loss
-- `--pixel_loss_warmup_epochs 50`: Train 50 epochs with pixel-only before adding CLIP loss
-- `-b 2`: Batch size per GPU (automatically divided by number of GPUs)
-- `--distributed`: Multi-GPU training with 8× A100 GPUs
-
-**For Different Splits:**
+**Mode 2: NeRV (Coordinate-Based INR) - GPUs 4-7:**
 ```bash
-# 90/10 split (training/validation)
---data_split 9_10_10
+CUDA_VISIBLE_DEVICES=4,5,6,7 python train_nerv_clip.py \
+  --data_path data/Kitchen \
+  --data_split 4_5_5 \
+  --embed pe_1.25_80 \
+  --fc_hw 9_16 \
+  --ks 0_3_3 \
+  --reduce 1.5 \
+  --lower_width 12 \
+  --num_blks 1_1 \
+  --modelsize 1.5 \
+  --act gelu \
+  --epochs 300 \
+  -b 2 \
+  --lr 0.001 \
+  --quant_model_bit 8 \
+  --quant_embed_bit 6 \
+  --outf output/nerv_coordinate_based \
+  --predict_clip \
+  --clip_loss_weight 0.5 \
+  --pixel_loss_warmup_epochs 50 \
+  --distributed
+```
 
-# 70/30 split
---data_split 7_10_10
+**Key Differences:**
+- **HNeRV**: Uses ConvNeXt encoder, processes RGB images
+- **NeRV**: Uses `--embed pe_1.25_80`, processes time coordinates only
+- **Both**: Predict per-patch CLIP embeddings, 80/20 train/val split
 
-# Full training (no validation)
---data_split 1_1_1
+### Single GPU Training
+
+**HNeRV (Faster, More Stable):**
+```bash
+CUDA_VISIBLE_DEVICES=0 python train_nerv_clip.py \
+  --data_path data/Kitchen \
+  --data_split 4_5_5 \
+  --enc_strds 5 4 4 2 2 \
+  --dec_strds 5 4 4 2 2 \
+  --conv_type convnext pshuffel \
+  --fc_hw 9_16 \
+  --enc_dim 64_16 \
+  --ks 0_1_5 \
+  --reduce 1.2 \
+  --lower_width 12 \
+  --num_blks 1_1 \
+  --modelsize 1.5 \
+  --act gelu \
+  --epochs 300 \
+  -b 2 \
+  --lr 0.001 \
+  --outf output/hnerv \
+  --predict_clip \
+  --clip_loss_weight 0.5 \
+  --pixel_loss_warmup_epochs 50
+```
+
+**NeRV (True INR):**
+```bash
+CUDA_VISIBLE_DEVICES=0 python train_nerv_clip.py \
+  --data_path data/Kitchen \
+  --data_split 4_5_5 \
+  --embed pe_1.25_80 \
+  --fc_hw 9_16 \
+  --ks 0_3_3 \
+  --reduce 1.5 \
+  --lower_width 12 \
+  --num_blks 1_1 \
+  --modelsize 1.5 \
+  --act gelu \
+  --epochs 300 \
+  -b 2 \
+  --lr 0.001 \
+  --outf output/nerv \
+  --predict_clip \
+  --clip_loss_weight 0.5 \
+  --pixel_loss_warmup_epochs 50
 ```
 
 ### Key Arguments
 
 | Argument | Description | Default | Recommended |
 |----------|-------------|---------|-------------|
+| `--embed` | Positional encoding for NeRV mode | '' (HNeRV) | 'pe_1.25_80' (NeRV) |
 | `--predict_clip` | Enable per-patch CLIP prediction | False | True |
 | `--clip_dim` | CLIP embedding dimension | 512 | 512 |
 | `--clip_loss_weight` | Weight for CLIP loss (λ) | 0.1 | 0.5 |
 | `--pixel_loss_warmup_epochs` | Epochs before adding CLIP loss | 50 | 50 |
 | `--data_split` | Train/val split (X_Y_Z format) | 1_1_1 | 4_5_5 (80/20) |
+| `--enc_strds` | Encoder strides (HNeRV only) | - | 5 4 4 2 2 |
+| `--dec_strds` | Decoder strides | - | 5 4 4 2 2 (HNeRV), 5 3 2 2 2 (NeRV) |
 
 **Data Split Format:** `X_Y_Z`
 - For every Z frames: first X used for training, frames X to Y-1 skipped, frames Y+ used for validation
 - Example `4_5_5`: Every 5 frames → first 4 train, last 1 validation = 80/20 split
+
+**Mode Selection:**
+- **No `--embed`**: HNeRV mode (image-based)
+- **`--embed pe_1.25_80`**: NeRV mode (coordinate-based INR)
 
 ### Training Baseline (No CLIP)
 
