@@ -73,9 +73,16 @@ def calculate_ssim(img1, img2):
     return calculate_ssim_torch(img1_t, img2_t)
 
 
-def evaluate_all_patches(model, dataset, device, split_name='all'):
+def evaluate_patches(model, dataset, indices, device, split_name='all'):
     """
-    Evaluate all patches and return per-patch metrics
+    Evaluate patches at given indices and return per-patch metrics
+    
+    Args:
+        model: The model to evaluate
+        dataset: The PatchVideoDataSet
+        indices: List of indices to evaluate
+        device: torch device
+        split_name: Name of the split ('train' or 'val')
     
     Returns:
         results: List of dicts with frame_idx, patch_idx, psnr, ssim, split
@@ -83,10 +90,10 @@ def evaluate_all_patches(model, dataset, device, split_name='all'):
     model.eval()
     results = []
     
-    print(f"\nEvaluating {split_name} set: {len(dataset)} patches")
+    print(f"\nEvaluating {split_name} set: {len(indices)} patches")
     
     with torch.no_grad():
-        for idx in tqdm(range(len(dataset)), desc=f"Eval {split_name}"):
+        for idx in tqdm(indices, desc=f"Eval {split_name}"):
             # Get data
             patch_coords, target_patch, clip_target, frame_idx, patch_idx = dataset[idx]
             
@@ -168,32 +175,37 @@ def main():
     # Initialize CLIP manager
     clip_manager = CLIPManager(device=device)
     
-    # Create datasets for train and val
+    # Create full dataset
     print("\n" + "="*80)
-    print("Creating datasets...")
+    print("Creating dataset...")
     print("="*80)
     
-    train_dataset = PatchVideoDataSet(
-        args.data_path,
-        args.vid, 
-        args.crop_list,
-        args.data_split,
-        clip_manager,
-        is_train=True
-    )
+    full_dataset = PatchVideoDataSet(args)
     
-    val_dataset = PatchVideoDataSet(
-        args.data_path,
-        args.vid,
-        args.crop_list, 
-        args.data_split,
-        clip_manager,
-        is_train=False
-    )
+    # Split into train and val based on data_split
+    split_parts = [int(x) for x in args.data_split.split('_')]
+    valid_train_frames = split_parts[0]
+    total_train_frames = split_parts[1]
+    total_frames = split_parts[2]
     
-    print(f"\nTrain set: {len(train_dataset)} patches ({train_dataset.num_frames} frames × 8 patches)")
-    print(f"Val set: {len(val_dataset)} patches ({val_dataset.num_frames} frames × 8 patches)")
-    print(f"Total: {len(train_dataset) + len(val_dataset)} patches")
+    # Calculate actual splits
+    train_frames = total_train_frames
+    val_frames = total_frames - total_train_frames
+    
+    # Get indices for train and val
+    train_indices = []
+    val_indices = []
+    
+    for idx in range(len(full_dataset)):
+        frame_idx = idx // full_dataset.num_patches  # 8 patches per frame
+        if frame_idx < train_frames:
+            train_indices.append(idx)
+        else:
+            val_indices.append(idx)
+    
+    print(f"\nTrain set: {len(train_indices)} patches ({train_frames} frames × 8 patches)")
+    print(f"Val set: {len(val_indices)} patches ({val_frames} frames × 8 patches)")
+    print(f"Total: {len(full_dataset)} patches")
     
     # Build model
     print("\n" + "="*80)
@@ -234,13 +246,13 @@ def main():
     print("\n" + "="*80)
     print("EVALUATING TRAIN SET")
     print("="*80)
-    train_results = evaluate_all_patches(model, train_dataset, device, split_name='train')
+    train_results = evaluate_patches(model, full_dataset, train_indices, device, split_name='train')
     
     # Evaluate val set
     print("\n" + "="*80)
     print("EVALUATING VAL SET")
     print("="*80)
-    val_results = evaluate_all_patches(model, val_dataset, device, split_name='val')
+    val_results = evaluate_patches(model, full_dataset, val_indices, device, split_name='val')
     
     # Combine results
     all_results = train_results + val_results
