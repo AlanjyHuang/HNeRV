@@ -159,6 +159,7 @@ def main():
     parser.add_argument('--conv_type', type=str, nargs='+', default=['convnext', 'pshuffel'], help='Conv types')
     parser.add_argument('--norm', type=str, default='none', help='Norm layer')
     parser.add_argument('--act', type=str, default='gelu', help='Activation')
+    parser.add_argument('--out_bias', type=str, default='tanh', help='Output activation')
     parser.add_argument('--clip_dim', type=int, default=512, help='CLIP dimension')
     
     # Output
