@@ -208,6 +208,18 @@ def train(local_rank, args):
         model.train()
         epoch_start_time = datetime.now()
         
+        # Check if this is the warmup transition epoch
+        if epoch == args.pixel_loss_warmup_epochs:
+            print("\n" + "="*80)
+            print(f"🔥 WARMUP COMPLETE! Starting CLIP loss training at epoch {epoch+1}")
+            print(f"   CLIP loss weight: {args.clip_loss_weight}")
+            print("="*80 + "\n")
+            with open('{}/rank0.txt'.format(args.outf), 'a') as f:
+                f.write(f"\n{'='*80}\n")
+                f.write(f"WARMUP COMPLETE! Starting CLIP loss training at epoch {epoch+1}\n")
+                f.write(f"CLIP loss weight: {args.clip_loss_weight}\n")
+                f.write(f"{'='*80}\n\n")
+        
         pred_psnr_list = []
         pixel_loss_list = []
         clip_loss_list = []
@@ -242,12 +254,14 @@ def train(local_rank, args):
             
             # Compute CLIP loss (cosine similarity)
             clip_loss = torch.tensor(0.0).to(device)
+            clip_loss_active = False
             if epoch >= args.pixel_loss_warmup_epochs:
                 # Compute cosine similarity loss
                 # clip_out: [batch, 512], clip_embed_gt: [batch, 512]
                 # Both are already normalized
                 clip_sim = F.cosine_similarity(clip_out, clip_embed_gt, dim=-1)
                 clip_loss = (1 - clip_sim).mean()
+                clip_loss_active = True
             
             # Hybrid loss
             total_loss = pixel_loss + args.clip_loss_weight * clip_loss
@@ -300,9 +314,12 @@ def train(local_rank, args):
                 avg_clip_loss = sum(clip_loss_list) / len(clip_loss_list)
                 avg_total_loss = sum(total_loss_list) / len(total_loss_list)
                 
-                print_str = '[{}] Epoch[{}/{}], Step[{}/{}], lr:{:.2e}, PSNR:{}, pixel_loss:{:.4f}, clip_loss:{:.4f}, total_loss:{:.4f}'.format(
+                # Add warmup status indicator
+                warmup_status = "WARMUP" if epoch < args.pixel_loss_warmup_epochs else "CLIP_ACTIVE"
+                
+                print_str = '[{}] Epoch[{}/{}], Step[{}/{}], lr:{:.2e}, PSNR:{}, pixel_loss:{:.4f}, clip_loss:{:.4f}, total_loss:{:.4f} [{}]'.format(
                     datetime.now().strftime("%Y/%m/%d %H:%M:%S"), epoch+1, args.epochs, i+1, len(train_dataloader),
-                    lr, RoundTensor(pred_psnr, 2), avg_pixel_loss, avg_clip_loss, avg_total_loss
+                    lr, RoundTensor(pred_psnr, 2), avg_pixel_loss, avg_clip_loss, avg_total_loss, warmup_status
                 )
                 print(print_str, flush=True)
                 with open('{}/rank0.txt'.format(args.outf), 'a') as f:
