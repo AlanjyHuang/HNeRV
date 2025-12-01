@@ -94,15 +94,20 @@ def evaluate_patches(model, dataset, indices, device, split_name='all'):
     
     with torch.no_grad():
         for idx in tqdm(indices, desc=f"Eval {split_name}"):
-            # Get data
-            patch_coords, target_patch, clip_target, frame_idx, patch_idx = dataset[idx]
+            # Get data - dataset returns a dictionary
+            sample = dataset[idx]
+            input_coords = sample['input_coords']  # [3] - (t, x, y)
+            target_patch = sample['img']  # [3, H, W]
+            clip_target = sample['clip_embed']  # [512]
+            frame_idx = sample['frame_idx']
+            patch_idx = sample['patch_idx']
             
-            # Move to device
-            patch_coords = patch_coords.unsqueeze(0).to(device)  # [1, N, 3]
+            # Move to device and add batch dimension
+            input_coords = input_coords.unsqueeze(0).to(device)  # [1, 3]
             target_patch = target_patch.unsqueeze(0).to(device)  # [1, 3, H, W]
             
             # Forward pass
-            rgb_output, clip_output = model(patch_coords)
+            rgb_output, clip_output = model(input_coords)
             
             # Resize if needed
             if rgb_output.shape[-2:] != target_patch.shape[-2:]:
