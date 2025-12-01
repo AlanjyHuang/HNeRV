@@ -106,8 +106,8 @@ def evaluate_patches(model, dataset, indices, device, split_name='all'):
             input_coords = input_coords.unsqueeze(0).to(device)  # [1, 3]
             target_patch = target_patch.unsqueeze(0).to(device)  # [1, 3, H, W]
             
-            # Forward pass
-            rgb_output, clip_output = model(input_coords)
+            # Forward pass - model returns (rgb_out, clip_out, embed_list, dec_time)
+            rgb_output, clip_output, _, _ = model(input_coords)
             
             # Resize if needed
             if rgb_output.shape[-2:] != target_patch.shape[-2:]:
