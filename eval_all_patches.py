@@ -145,6 +145,7 @@ def main():
     parser.add_argument('--data_split', type=str, default='6_6_10', 
                         help='Train/val split (valid_train/total_train/total_data)')
     parser.add_argument('--crop_list', type=str, default='640_1280', help='Video crop size')
+    parser.add_argument('--resize_list', type=str, default='-1', help='Video resize size')
     
     # Model parameters
     parser.add_argument('--embed', type=str, default='pe_1.25_80', help='Positional encoding')
