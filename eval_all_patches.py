@@ -154,7 +154,7 @@ def main():
     parser.add_argument('--clip_dim', type=int, default=512, help='CLIP dimension')
     
     # Output
-    parser.add_argument('--outf', type=str, default='output/eval_all_patches', help='Output folder')
+    parser.add_argument('--out', type=str, default='output/eval_all_patches', help='Output folder')
     
     args = parser.parse_args()
     
