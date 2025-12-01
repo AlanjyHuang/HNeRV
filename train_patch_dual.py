@@ -233,6 +233,10 @@ def train(local_rank, args):
             # Model outputs: rgb_out, clip_out, embed_list, dec_time
             rgb_out, clip_out, embed_list, dec_time = model(input_coords)
             
+            # Resize RGB output to match patch size if needed
+            if rgb_out.shape[-2:] != patch_img.shape[-2:]:
+                rgb_out = F.interpolate(rgb_out, size=patch_img.shape[-2:], mode='bilinear', align_corners=False)
+            
             # Compute pixel loss
             pixel_loss = loss_fn(rgb_out, patch_img, args.loss)
             
@@ -430,6 +434,10 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
         
         # Forward pass
         rgb_out, clip_out, _, _ = model(input_coords)
+        
+        # Resize RGB output to match patch size if needed
+        if rgb_out.shape[-2:] != patch_img.shape[-2:]:
+            rgb_out = F.interpolate(rgb_out, size=patch_img.shape[-2:], mode='bilinear', align_corners=False)
         
         # Store results
         for b in range(rgb_out.shape[0]):
