@@ -39,7 +39,7 @@ if [ ! -f "$CHECKPOINT" ]; then
 fi
 
 # Run evaluation
-CUDA_VISIBLE_DEVICES=7 python eval_all_patches.py \
+CUDA_VISIBLE_DEVICES=7 python3 eval_all_patches.py \
     --weight $CHECKPOINT \
     --data_path data/Kitchen \
     --vid Kitchen \
