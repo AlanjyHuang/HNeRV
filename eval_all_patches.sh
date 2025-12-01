@@ -39,15 +39,17 @@ if [ ! -f "$CHECKPOINT" ]; then
 fi
 
 # Run evaluation
+# Note: Match these parameters to your trained model!
+# For Kitchen_patch_comparable: fc_dim=96, dec_strds=5 2 2, data_split=9_10_10
 CUDA_VISIBLE_DEVICES=7 python3 eval_all_patches.py \
     --weight $CHECKPOINT \
     --data_path data/Kitchen \
     --vid Kitchen \
     --embed pe_1.25_80 \
-    --fc_dim 192 \
+    --fc_dim 96 \
     --fc_hw 9_16 \
-    --dec_strds 5 3 2 2 2 \
-    --data_split 6_6_10 \
+    --dec_strds 5 2 2 \
+    --data_split 9_10_10 \
     --clip_dim 512 \
     --outf output/eval_all_patches
 
