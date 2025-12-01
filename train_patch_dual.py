@@ -447,7 +447,15 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
         patch_indices = sample['patch_idx'].cpu().numpy()
         
         if i > 10 and args.debug:
-            break
+            # In debug mode, break early but warn if no val frames seen
+            frames_seen = set(sample['frame_idx'].cpu().numpy())
+            val_frames_seen = frames_seen.intersection(args.val_frame_list)
+            if not val_frames_seen:
+                print(f"  [DEBUG] Processed {i+1} batches but no validation frames yet. Continuing a bit more...")
+                if i > 50:  # Hard limit
+                    break
+            else:
+                break
         
         # Forward pass
         rgb_out, clip_out, _, _ = model(input_coords)
@@ -544,6 +552,19 @@ def evaluate(model, full_dataset, full_dataloader, device, args, dump_vis=False,
         'train_patch_clip_sim_std': np.std(all_train_patch_clip_sim) if all_train_patch_clip_sim else 0,
         'val_patch_clip_sim_std': np.std(all_val_patch_clip_sim) if all_val_patch_clip_sim else 0,
     }
+    
+    # Debug info
+    if args.debug:
+        print(f"\n[DEBUG] Evaluation summary:")
+        print(f"  Total frames processed: {len(all_results)}")
+        print(f"  Train frames found: {len(train_psnr_list)} (expected: {len(args.train_frame_list)})")
+        print(f"  Val frames found: {len(val_psnr_list)} (expected: {len(args.val_frame_list)})")
+        if len(val_psnr_list) == 0:
+            print(f"  ⚠️  WARNING: No validation frames were evaluated!")
+            print(f"  First few expected val frames: {args.val_frame_list[:5]}")
+            print(f"  Frames actually processed: {sorted(all_results.keys())[:10]}")
+            print(f"  → Debug mode only processes first 10 batches, may not reach val frames")
+            print(f"  → Run without --debug or increase debug limit to evaluate val frames\n")
     
     # Log to tensorboard with comprehensive metrics
     if writer is not None and epoch is not None:
