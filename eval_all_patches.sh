@@ -40,7 +40,7 @@ fi
 
 # Run evaluation
 # Note: Match these parameters to your trained model!
-# For Kitchen_patch_comparable: fc_dim=96, dec_strds=5 2 2, data_split=9_10_10
+# For Kitchen_patch_comparable: fc_dim=96, dec_strds=5 2 2, reduce=1.5, lower_width=12, data_split=9_10_10
 CUDA_VISIBLE_DEVICES=7 python3 eval_all_patches.py \
     --weight $CHECKPOINT \
     --data_path data/Kitchen \
@@ -49,6 +49,8 @@ CUDA_VISIBLE_DEVICES=7 python3 eval_all_patches.py \
     --fc_dim 96 \
     --fc_hw 9_16 \
     --dec_strds 5 2 2 \
+    --reduce 1.5 \
+    --lower_width 12 \
     --data_split 9_10_10 \
     --clip_dim 512 \
     --out output/eval_all_patches
