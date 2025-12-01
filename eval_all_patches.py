@@ -163,7 +163,7 @@ def main():
     print(f"Using device: {device}")
     
     # Create output directory
-    os.makedirs(args.outf, exist_ok=True)
+    os.makedirs(args.out, exist_ok=True)
     
     # Initialize CLIP manager
     clip_manager = CLIPManager(device=device)
@@ -249,7 +249,7 @@ def main():
     df = pd.DataFrame(all_results)
     
     # Save detailed results
-    csv_path = os.path.join(args.outf, 'all_patches_detailed.csv')
+    csv_path = os.path.join(args.out, 'all_patches_detailed.csv')
     df.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
     
@@ -308,7 +308,7 @@ def main():
     }
     
     summary_df = pd.DataFrame([summary])
-    summary_path = os.path.join(args.outf, 'summary_stats.csv')
+    summary_path = os.path.join(args.out, 'summary_stats.csv')
     summary_df.to_csv(summary_path, index=False)
     print(f"\nSummary statistics saved to: {summary_path}")
     
@@ -336,7 +336,7 @@ def main():
         })
     
     frame_df = pd.DataFrame(frame_stats)
-    frame_path = os.path.join(args.outf, 'per_frame_stats.csv')
+    frame_path = os.path.join(args.out, 'per_frame_stats.csv')
     frame_df.to_csv(frame_path, index=False)
     print(f"Per-frame statistics saved to: {frame_path}")
     
@@ -359,7 +359,7 @@ def main():
     print("\n" + "="*80)
     print("EVALUATION COMPLETE")
     print("="*80)
-    print(f"\nResults saved to: {args.outf}/")
+    print(f"\nResults saved to: {args.out}/")
     print(f"  - all_patches_detailed.csv: Per-patch metrics for all patches")
     print(f"  - per_frame_stats.csv: Aggregated stats per frame")
     print(f"  - summary_stats.csv: Overall summary statistics")

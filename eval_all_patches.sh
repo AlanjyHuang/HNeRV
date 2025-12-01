@@ -51,7 +51,7 @@ CUDA_VISIBLE_DEVICES=7 python3 eval_all_patches.py \
     --dec_strds 5 2 2 \
     --data_split 9_10_10 \
     --clip_dim 512 \
-    --outf output/eval_all_patches
+    --out output/eval_all_patches
 
 echo ""
 echo "=========================================="
