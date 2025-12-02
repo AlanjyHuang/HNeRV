@@ -105,6 +105,7 @@ def evaluate_patches(model, dataset, indices, device, split_name='all'):
             # Move to device and add batch dimension
             input_coords = input_coords.unsqueeze(0).to(device)  # [1, 3]
             target_patch = target_patch.unsqueeze(0).to(device)  # [1, 3, H, W]
+            clip_target = clip_target.unsqueeze(0).to(device) if clip_target is not None else None  # [1, 512]
             
             # Forward pass - model returns (rgb_out, clip_out, embed_list, dec_time)
             rgb_output, clip_output, _, _ = model(input_coords)
@@ -118,13 +119,21 @@ def evaluate_patches(model, dataset, indices, device, split_name='all'):
                     align_corners=False
                 )
             
-            # Convert to numpy for metrics
+            # Convert to numpy for RGB metrics
             pred_patch = rgb_output[0].cpu().numpy()  # [3, H, W]
             target_np = target_patch[0].cpu().numpy()  # [3, H, W]
             
-            # Calculate metrics
+            # Calculate RGB metrics
             patch_psnr = calculate_psnr(target_np, pred_patch)
             patch_ssim = calculate_ssim(target_np, pred_patch)
+            
+            # Calculate CLIP similarity
+            clip_similarity = 0.0
+            if clip_target is not None:
+                # Cosine similarity between predicted and target CLIP embeddings
+                clip_pred = clip_output[0]  # [512]
+                clip_tgt = clip_target[0]  # [512]
+                clip_similarity = F.cosine_similarity(clip_pred.unsqueeze(0), clip_tgt.unsqueeze(0)).item()
             
             # Store results
             results.append({
@@ -132,6 +141,7 @@ def evaluate_patches(model, dataset, indices, device, split_name='all'):
                 'patch_idx': patch_idx,
                 'psnr': patch_psnr,
                 'ssim': patch_ssim,
+                'clip_similarity': clip_similarity,
                 'split': split_name
             })
     
@@ -190,25 +200,32 @@ def main():
     full_dataset = PatchVideoDataSet(args)
     
     # Split into train and val based on data_split
+    # Format: valid_train/total_train/total_data
+    # Example: 9_10_10 means frames 0-8 train (9 frames), frame 9 val (1 frame), repeat pattern every 10 frames
     split_parts = [int(x) for x in args.data_split.split('_')]
     valid_train_frames = split_parts[0]
     total_train_frames = split_parts[1]
-    total_frames = split_parts[2]
+    total_data_length = split_parts[2]
     
-    # Calculate actual splits
-    train_frames = total_train_frames
-    val_frames = total_frames - total_train_frames
+    # Get total number of frames in dataset
+    total_frames_in_dataset = len(full_dataset) // full_dataset.num_patches
     
-    # Get indices for train and val
+    # Get indices for train and val using modulo pattern
     train_indices = []
     val_indices = []
     
     for idx in range(len(full_dataset)):
         frame_idx = idx // full_dataset.num_patches  # 8 patches per frame
-        if frame_idx < train_frames:
+        
+        # Apply the split pattern
+        if (frame_idx % total_data_length) < valid_train_frames:
             train_indices.append(idx)
-        else:
+        elif (frame_idx % total_data_length) >= total_train_frames:
             val_indices.append(idx)
+        # Frames between valid_train and total_train are unused
+    
+    train_frames = len(train_indices) // full_dataset.num_patches
+    val_frames = len(val_indices) // full_dataset.num_patches
     
     print(f"\nTrain set: {len(train_indices)} patches ({train_frames} frames × 8 patches)")
     print(f"Val set: {len(val_indices)} patches ({val_frames} frames × 8 patches)")
@@ -267,6 +284,7 @@ def main():
     print("\nOVERALL:")
     print(f"  Mean PSNR: {df['psnr'].mean():.2f} dB")
     print(f"  Mean SSIM: {df['ssim'].mean():.4f}")
+    print(f"  Mean CLIP Similarity: {df['clip_similarity'].mean():.4f}")
     
     # Train stats
     train_df = df[df['split'] == 'train']
@@ -276,6 +294,8 @@ def main():
     print(f"  Std PSNR: {train_df['psnr'].std():.2f} dB")
     print(f"  Mean SSIM: {train_df['ssim'].mean():.4f}")
     print(f"  Std SSIM: {train_df['ssim'].std():.4f}")
+    print(f"  Mean CLIP Similarity: {train_df['clip_similarity'].mean():.4f}")
+    print(f"  Std CLIP Similarity: {train_df['clip_similarity'].std():.4f}")
     
     # Val stats
     val_df = df[df['split'] == 'val']
@@ -285,14 +305,17 @@ def main():
     print(f"  Std PSNR: {val_df['psnr'].std():.2f} dB")
     print(f"  Mean SSIM: {val_df['ssim'].mean():.4f}")
     print(f"  Std SSIM: {val_df['ssim'].std():.4f}")
+    print(f"  Mean CLIP Similarity: {val_df['clip_similarity'].mean():.4f}")
+    print(f"  Std CLIP Similarity: {val_df['clip_similarity'].std():.4f}")
     
     # Per-patch position stats
     print("\nPER-PATCH POSITION (averaged across all frames):")
-    print("-" * 60)
+    print("-" * 80)
     for patch_idx in range(8):
         patch_df = df[df['patch_idx'] == patch_idx]
         print(f"  Patch {patch_idx}: PSNR={patch_df['psnr'].mean():.2f} dB, "
-              f"SSIM={patch_df['ssim'].mean():.4f} "
+              f"SSIM={patch_df['ssim'].mean():.4f}, "
+              f"CLIP={patch_df['clip_similarity'].mean():.4f} "
               f"(train: {len(patch_df[patch_df['split']=='train'])}, "
               f"val: {len(patch_df[patch_df['split']=='val'])})")
     
@@ -300,14 +323,19 @@ def main():
     summary = {
         'overall_psnr': df['psnr'].mean(),
         'overall_ssim': df['ssim'].mean(),
+        'overall_clip_similarity': df['clip_similarity'].mean(),
         'train_psnr': train_df['psnr'].mean(),
         'train_ssim': train_df['ssim'].mean(),
+        'train_clip_similarity': train_df['clip_similarity'].mean(),
         'train_psnr_std': train_df['psnr'].std(),
         'train_ssim_std': train_df['ssim'].std(),
+        'train_clip_similarity_std': train_df['clip_similarity'].std(),
         'val_psnr': val_df['psnr'].mean(),
         'val_ssim': val_df['ssim'].mean(),
+        'val_clip_similarity': val_df['clip_similarity'].mean(),
         'val_psnr_std': val_df['psnr'].std(),
         'val_ssim_std': val_df['ssim'].std(),
+        'val_clip_similarity_std': val_df['clip_similarity'].std(),
         'train_patches': len(train_df),
         'val_patches': len(val_df),
     }
@@ -338,6 +366,10 @@ def main():
             'min_ssim': frame_df['ssim'].min(),
             'max_ssim': frame_df['ssim'].max(),
             'std_ssim': frame_df['ssim'].std(),
+            'mean_clip_similarity': frame_df['clip_similarity'].mean(),
+            'min_clip_similarity': frame_df['clip_similarity'].min(),
+            'max_clip_similarity': frame_df['clip_similarity'].max(),
+            'std_clip_similarity': frame_df['clip_similarity'].std(),
         })
     
     frame_df = pd.DataFrame(frame_stats)
@@ -354,12 +386,14 @@ def main():
     print("\nTrain frames:")
     for _, row in train_frames.iterrows():
         print(f"  Frame {row['frame_idx']:3d}: PSNR={row['mean_psnr']:.2f}±{row['std_psnr']:.2f} dB, "
-              f"SSIM={row['mean_ssim']:.4f}±{row['std_ssim']:.4f}")
+              f"SSIM={row['mean_ssim']:.4f}±{row['std_ssim']:.4f}, "
+              f"CLIP={row['mean_clip_similarity']:.4f}±{row['std_clip_similarity']:.4f}")
     
     print("\nVal frames:")
     for _, row in val_frames.iterrows():
         print(f"  Frame {row['frame_idx']:3d}: PSNR={row['mean_psnr']:.2f}±{row['std_psnr']:.2f} dB, "
-              f"SSIM={row['mean_ssim']:.4f}±{row['std_ssim']:.4f}")
+              f"SSIM={row['mean_ssim']:.4f}±{row['std_ssim']:.4f}, "
+              f"CLIP={row['mean_clip_similarity']:.4f}±{row['std_clip_similarity']:.4f}")
     
     print("\n" + "="*80)
     print("EVALUATION COMPLETE")
