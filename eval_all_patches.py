@@ -201,7 +201,10 @@ def main():
     
     # Split into train and val based on data_split
     # Format: valid_train/total_train/total_data
-    # Example: 9_10_10 means frames 0-8 train (9 frames), frame 9 val (1 frame), repeat pattern every 10 frames
+    # Example: 9_10_10 means:
+    #   - Frames 0-8, 10-18, 20-28, ... are train (positions 0-8 in each group of 10)
+    #   - Frames 9, 19, 29, ... are val (position 9 in each group of 10)
+    #   - Positions >= total_train are validation
     split_parts = [int(x) for x in args.data_split.split('_')]
     valid_train_frames = split_parts[0]
     total_train_frames = split_parts[1]
@@ -210,17 +213,23 @@ def main():
     # Get total number of frames in dataset
     total_frames_in_dataset = len(full_dataset) // full_dataset.num_patches
     
+    print(f"Split pattern: {args.data_split}")
+    print(f"  - Positions 0-{valid_train_frames-1} in each group of {total_data_length}: TRAIN")
+    print(f"  - Positions {total_train_frames}-{total_data_length-1} in each group of {total_data_length}: VAL")
+    print(f"Total frames in dataset: {total_frames_in_dataset}")
+    
     # Get indices for train and val using modulo pattern
     train_indices = []
     val_indices = []
     
     for idx in range(len(full_dataset)):
         frame_idx = idx // full_dataset.num_patches  # 8 patches per frame
+        position_in_group = frame_idx % total_data_length
         
         # Apply the split pattern
-        if (frame_idx % total_data_length) < valid_train_frames:
+        if position_in_group < valid_train_frames:
             train_indices.append(idx)
-        elif (frame_idx % total_data_length) >= total_train_frames:
+        elif position_in_group >= total_train_frames:
             val_indices.append(idx)
         # Frames between valid_train and total_train are unused
     
