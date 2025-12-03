@@ -320,13 +320,16 @@ def main():
     # Model parameters
     parser.add_argument('--model_path', type=str, required=True,
                        help='Path to model checkpoint')
-    parser.add_argument('--data', type=str, required=True,
+    parser.add_argument('--data_path', type=str, required=True,
                        help='Path to video data directory')
     parser.add_argument('--vid', type=str, required=True,
                        help='Video name')
     
     # Model architecture
     parser.add_argument('--fc_dim', type=int, default=96)
+    parser.add_argument('--fc_hw', type=str, default='9_16', help='FC output size (h,w)')
+    parser.add_argument('--ks', type=str, default='0_3_3', help='kernel sizes')
+    parser.add_argument('--num_blks', type=str, default='1_1', help='number of blocks')
     parser.add_argument('--enc_strds', nargs='+', type=int, default=[5, 2, 2])
     parser.add_argument('--dec_strds', nargs='+', type=int, default=[5, 2, 2])
     parser.add_argument('--reduce', type=float, default=1.5)
@@ -335,11 +338,16 @@ def main():
     parser.add_argument('--norm', type=str, default='none')
     parser.add_argument('--act', type=str, default='gelu')
     parser.add_argument('--embed', type=str, default='pe_1.25_80')
+    parser.add_argument('--clip_dim', type=int, default=512, help='CLIP embedding dimension')
+    parser.add_argument('--out_bias', type=str, default='tanh', help='Output bias')
     
     # Data parameters
     parser.add_argument('--data_split', type=str, default='6_6_10',
                        help='Data split pattern (train_train_total)')
-    parser.add_argument('--crop_size', nargs='+', type=int, default=[640, 1280])
+    parser.add_argument('--crop_list', type=str, default='640_1280',
+                       help='Crop size as string (e.g., 640_1280)')
+    parser.add_argument('--resize_list', type=str, default='-1',
+                       help='Resize parameters')
     parser.add_argument('--patch_grid', nargs='+', type=int, default=[2, 4])
     
     # Test parameters
