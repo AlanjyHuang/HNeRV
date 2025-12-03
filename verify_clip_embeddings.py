@@ -366,7 +366,7 @@ def main():
     clip_manager = CLIPManager(device=device)
     
     # Load dataset
-    print(f"\nLoading dataset from {args.data}/{args.vid}...")
+    print(f"\nLoading dataset from {args.data_path}/{args.vid}...")
     dataset = PatchVideoDataSet(args)
     print(f"Dataset size: {len(dataset)} patches")
     
