@@ -12,8 +12,7 @@ from tqdm import tqdm
 import json
 
 # Import your model and data utilities
-from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet
-from train_patch_dual import CLIPManager
+from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet, CLIPManager
 
 
 def compute_embedding_statistics(embeddings):
