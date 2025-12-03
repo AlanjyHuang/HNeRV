@@ -12,8 +12,7 @@ from tqdm import tqdm
 import json
 
 # Import your model and data utilities
-from model_patch_dual import DualHeadHNeRV
-from hnerv_utils import PatchVideoDataSet
+from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet
 from train_patch_dual import CLIPManager
 
 
