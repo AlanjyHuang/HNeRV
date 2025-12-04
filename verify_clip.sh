@@ -7,7 +7,7 @@ CUDA_VISIBLE_DEVICES=7 python verify_clip_embeddings.py \
     --model_path output/output/Kitchen_patch_dual_full/Kitchen/6_6_10_pe_1.25_80_FC9_16_KS0_3_3_RED1.2_low32_blk1_1_e300_b1_lr0.001_cosine_0.1_1_0.1_Fusion6_CLIP0.1_warmup50_DEC_pshuffel_5,3,2,2,2_gelu/epoch300.pth \
     --data_path data/Kitchen \
     --vid Kitchen \
-    --fc_dim 96 \
+    --fc_dim 256 \
     --fc_hw 9_16 \
     --ks 0_3_3 \
     --num_blks 1_1 \
