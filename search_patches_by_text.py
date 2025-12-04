@@ -43,8 +43,11 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     with torch.no_grad():
         text_embedding = clip_manager.model.encode_text(text_tokens)
     text_embedding = F.normalize(text_embedding, dim=-1)
+    # Convert to float32 to match model output
+    text_embedding = text_embedding.float()
     
     print(f"Text embedding shape: {text_embedding.shape}")
+    print(f"Text embedding dtype: {text_embedding.dtype}")
     
     # Search through all patches
     model.eval()
