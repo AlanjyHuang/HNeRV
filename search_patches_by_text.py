@@ -17,7 +17,7 @@ import clip
 from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet, CLIPManager
 
 
-def search_patches_by_text(model, dataset, clip_manager, text_query, device, top_k=10, use_ground_truth=False):
+def search_patches_by_text(model, dataset, clip_manager, text_query, device, top_k=10, use_ground_truth=False, data_split='9_10_10'):
     """
     Search for patches matching a text query.
     
@@ -29,6 +29,7 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
         device: torch device
         top_k: Number of top results to return
         use_ground_truth: If True, use ground truth CLIP embeddings instead of model's
+        data_split: Data split pattern (e.g., '9_10_10')
     
     Returns:
         List of tuples: (similarity_score, frame_idx, patch_idx, rgb_image, clip_embedding)
@@ -36,6 +37,11 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     print(f"\nSearching for: '{text_query}'")
     print(f"Mode: {'Ground Truth CLIP' if use_ground_truth else 'Model CLIP'}")
     print("="*60)
+    
+    # Parse data split
+    split_parts = [int(x) for x in data_split.split('_')]
+    valid_train = split_parts[0]
+    total_data_length = split_parts[2]
     
     # Ensure CLIP model is loaded
     clip_manager._ensure_model_loaded()
@@ -64,6 +70,8 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
             if use_ground_truth:
                 # Use ground truth CLIP embedding from dataset
                 clip_embed = F.normalize(data['clip_embed'].to(device), dim=-1)
+                # Convert to float32 to match text embedding
+                clip_embed = clip_embed.float()
                 
                 # Still need to get RGB from model
                 coords = data['input_coords'].unsqueeze(0).to(device)
@@ -81,6 +89,10 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
             frame_idx = idx // dataset.num_patches
             patch_idx = idx % dataset.num_patches
             
+            # Determine if train or val
+            position_in_group = frame_idx % total_data_length
+            is_train = position_in_group < valid_train
+            
             # Compute patch position in grid
             patch_row = patch_idx // dataset.num_patches_w
             patch_col = patch_idx % dataset.num_patches_w
@@ -95,6 +107,7 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
                 'patch_idx': patch_idx,
                 'patch_row': patch_row,
                 'patch_col': patch_col,
+                'is_train': is_train,
                 'rgb_image': rgb_image,
                 'clip_embedding': clip_embed.cpu()
             })
@@ -106,7 +119,7 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     return results[:top_k]
 
 
-def compare_embeddings(model, dataset, clip_manager, text_query, device, top_k=10):
+def compare_embeddings(model, dataset, clip_manager, text_query, device, top_k=10, data_split='9_10_10'):
     """
     Compare model embeddings vs ground truth CLIP embeddings for the same query.
     Shows diagnostic information about embedding alignment.
@@ -118,43 +131,47 @@ def compare_embeddings(model, dataset, clip_manager, text_query, device, top_k=1
     # Search using ground truth
     print("\n--- Searching with Ground Truth CLIP Embeddings ---")
     gt_results = search_patches_by_text(
-        model, dataset, clip_manager, text_query, device, top_k, use_ground_truth=True
+        model, dataset, clip_manager, text_query, device, top_k, 
+        use_ground_truth=True, data_split=data_split
     )
     
     # Search using model
     print("\n--- Searching with Model CLIP Embeddings ---")
     model_results = search_patches_by_text(
-        model, dataset, clip_manager, text_query, device, top_k, use_ground_truth=False
+        model, dataset, clip_manager, text_query, device, top_k, 
+        use_ground_truth=False, data_split=data_split
     )
     
     # Compare results
-    print("\n" + "="*80)
+    print("\n" + "="*90)
     print("COMPARISON")
-    print("="*80)
+    print("="*90)
     
     print("\nGround Truth CLIP Results (Real CLIP model):")
-    print("-"*80)
-    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<12} {'Position':<15}")
-    print("-"*80)
+    print("-"*90)
+    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<8} {'Position':<12} {'Split':<8}")
+    print("-"*90)
     for idx, result in enumerate(gt_results[:10]):
         rank = idx + 1
         sim = result['similarity']
         frame = result['frame_idx']
         patch = result['patch_idx']
-        position = f"({result['patch_row']}, {result['patch_col']})"
-        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<12} {position:<15}")
+        position = f"({result['patch_row']},{result['patch_col']})"
+        split = "Train" if result.get('is_train', True) else "Val"
+        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<8} {position:<12} {split:<8}")
     
     print("\nModel CLIP Results (Your trained model):")
-    print("-"*80)
-    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<12} {'Position':<15}")
-    print("-"*80)
+    print("-"*90)
+    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<8} {'Position':<12} {'Split':<8}")
+    print("-"*90)
     for idx, result in enumerate(model_results[:10]):
         rank = idx + 1
         sim = result['similarity']
         frame = result['frame_idx']
         patch = result['patch_idx']
-        position = f"({result['patch_row']}, {result['patch_col']})"
-        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<12} {position:<15}")
+        position = f"({result['patch_row']},{result['patch_col']})"
+        split = "Train" if result.get('is_train', True) else "Val"
+        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<8} {position:<12} {split:<8}")
     
     # Analysis
     print("\n" + "="*80)
@@ -265,22 +282,23 @@ def print_results_table(results, text_query):
     """
     Print results in a formatted table.
     """
-    print("\n" + "="*80)
+    print("\n" + "="*90)
     print(f"Top {len(results)} Results for: '{text_query}'")
-    print("="*80)
-    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<12} {'Position':<15}")
-    print("-"*80)
+    print("="*90)
+    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<8} {'Position':<12} {'Split':<8}")
+    print("-"*90)
     
     for idx, result in enumerate(results):
         rank = idx + 1
         sim = result['similarity']
         frame = result['frame_idx']
         patch = result['patch_idx']
-        position = f"({result['patch_row']}, {result['patch_col']})"
+        position = f"({result['patch_row']},{result['patch_col']})"
+        split = "Train" if result.get('is_train', True) else "Val"
         
-        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<12} {position:<15}")
+        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<8} {position:<12} {split:<8}")
     
-    print("="*80)
+    print("="*90)
 
 
 def interactive_search_mode(model, dataset, clip_manager, device, args):
@@ -326,7 +344,8 @@ def interactive_search_mode(model, dataset, clip_manager, device, args):
         if run_comparison:
             # Run diagnostic comparison
             gt_results, model_results = compare_embeddings(
-                model, dataset, clip_manager, text_query, device, top_k=args.top_k
+                model, dataset, clip_manager, text_query, device, 
+                top_k=args.top_k, data_split=args.data_split
             )
             
             # Visualize ground truth results
@@ -340,7 +359,8 @@ def interactive_search_mode(model, dataset, clip_manager, device, args):
             # Regular search
             results = search_patches_by_text(
                 model, dataset, clip_manager, text_query, device, 
-                top_k=args.top_k, use_ground_truth=use_ground_truth
+                top_k=args.top_k, use_ground_truth=use_ground_truth,
+                data_split=args.data_split
             )
             
             # Print results table
