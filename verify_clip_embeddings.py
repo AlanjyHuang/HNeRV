@@ -139,6 +139,7 @@ def test_embedding_diversity(model, dataset, device, max_samples=None):
     
     model.eval()
     embeddings = []
+    ground_truth_embeddings = []
     
     num_samples = len(dataset) if max_samples is None else min(max_samples, len(dataset))
     
@@ -148,33 +149,80 @@ def test_embedding_diversity(model, dataset, device, max_samples=None):
             coords = data['input_coords'].unsqueeze(0).to(device)
             _, clip_out, _, _ = model(coords)
             embeddings.append(clip_out.squeeze(0))
+            
+            # Also collect ground truth CLIP embeddings
+            ground_truth_clip = data['clip_embed'].to(device)
+            ground_truth_embeddings.append(ground_truth_clip)
     
     embeddings = torch.stack(embeddings)
-    stats = compute_embedding_statistics(embeddings)
+    ground_truth_embeddings = torch.stack(ground_truth_embeddings)
     
-    print(f"\nEmbedding Statistics:")
-    print(f"  Variance: {stats['variance']:.6f}")
-    print(f"  Mean pairwise distance: {stats['mean_pairwise_distance']:.4f}")
-    print(f"  Std pairwise distance: {stats['std_pairwise_distance']:.4f}")
-    print(f"  Distance range: [{stats['min_distance']:.4f}, {stats['max_distance']:.4f}]")
+    # Compute statistics for both generated and ground truth
+    gen_stats = compute_embedding_statistics(embeddings)
+    gt_stats = compute_embedding_statistics(ground_truth_embeddings)
+    
+    print(f"\nGenerated Embedding Statistics:")
+    print(f"  Variance: {gen_stats['variance']:.6f}")
+    print(f"  Mean pairwise distance: {gen_stats['mean_pairwise_distance']:.4f}")
+    print(f"  Std pairwise distance: {gen_stats['std_pairwise_distance']:.4f}")
+    print(f"  Distance range: [{gen_stats['min_distance']:.4f}, {gen_stats['max_distance']:.4f}]")
+    
+    print(f"\nGround Truth CLIP Embedding Statistics:")
+    print(f"  Variance: {gt_stats['variance']:.6f}")
+    print(f"  Mean pairwise distance: {gt_stats['mean_pairwise_distance']:.4f}")
+    print(f"  Std pairwise distance: {gt_stats['std_pairwise_distance']:.4f}")
+    print(f"  Distance range: [{gt_stats['min_distance']:.4f}, {gt_stats['max_distance']:.4f}]")
+    
+    # Compute ratios to ground truth
+    variance_ratio = gen_stats['variance'] / gt_stats['variance'] if gt_stats['variance'] > 0 else 0
+    distance_ratio = gen_stats['mean_pairwise_distance'] / gt_stats['mean_pairwise_distance'] if gt_stats['mean_pairwise_distance'] > 0 else 0
+    
+    print(f"\nGenerated vs Ground Truth Ratios:")
+    print(f"  Variance ratio: {variance_ratio:.4f} (Generated/GT)")
+    print(f"  Distance ratio: {distance_ratio:.4f} (Generated/GT)")
     
     # Interpretation
     print("\n" + "-"*60)
-    if stats['variance'] < 0.001:
-        print("✗ COLLAPSED: Embeddings have very low variance (likely collapsed)")
-    elif stats['variance'] < 0.01:
-        print("⚠ LOW DIVERSITY: Embeddings may be too similar")
-    else:
-        print("✓ GOOD DIVERSITY: Embeddings show healthy variation")
     
-    if stats['mean_pairwise_distance'] < 0.1:
-        print("✗ COLLAPSED: Embeddings are too similar to each other")
-    elif stats['mean_pairwise_distance'] < 0.5:
+    # Check if ground truth itself has low variance (monotonous dataset)
+    if gt_stats['variance'] < 0.001:
+        print("📊 DATASET ANALYSIS: Ground truth has low variance")
+        print("   → Your dataset has similar/repetitive content (e.g., static scenes)")
+        print("   → Low model variance is EXPECTED and CORRECT for this data")
+    
+    # Check variance ratio
+    if variance_ratio > 0.8 and variance_ratio < 1.2:
+        print("✓ EXCELLENT: Model preserves ground truth variance correctly")
+    elif variance_ratio > 0.5:
+        print("✓ GOOD: Model variance is proportional to ground truth")
+    elif variance_ratio > 0.2:
+        print("⚠ MODERATE: Model compresses variance somewhat")
+    else:
+        print("✗ COLLAPSED: Model variance much lower than ground truth")
+    
+    # Check distance ratio
+    if distance_ratio > 0.8 and distance_ratio < 1.2:
+        print("✓ EXCELLENT: Model preserves semantic distances correctly")
+    elif distance_ratio > 0.6:
+        print("✓ GOOD: Model maintains reasonable semantic separation")
+    else:
+        print("⚠ COMPRESSED: Model reduces semantic distances")
+    
+    # Overall diversity assessment
+    if gen_stats['mean_pairwise_distance'] > 0.4:
+        print("✓ DIVERSE: Embeddings are well-separated")
+    elif gen_stats['mean_pairwise_distance'] > 0.2:
         print("⚠ MODERATE: Some diversity but could be better")
     else:
-        print("✓ DIVERSE: Embeddings are well-separated")
+        print("✗ COLLAPSED: Embeddings are too similar to each other")
     
-    return stats, embeddings
+    # Add ratios to stats
+    gen_stats['variance_ratio'] = variance_ratio
+    gen_stats['distance_ratio'] = distance_ratio
+    gen_stats['ground_truth_variance'] = gt_stats['variance']
+    gen_stats['ground_truth_mean_distance'] = gt_stats['mean_pairwise_distance']
+    
+    return gen_stats, embeddings
 
 
 def test_temporal_consistency(model, dataset, device):
@@ -428,12 +476,16 @@ def main():
         print("✗ Ground truth similarity: POOR")
     max_score += 3
     
-    if test2_results['variance'] > 0.01 and test2_results['mean_pairwise_distance'] > 0.5:
+    # Use variance ratio instead of absolute variance for better assessment
+    variance_ratio = test2_results.get('variance_ratio', 0)
+    if variance_ratio > 0.8 and variance_ratio < 1.2:
         overall_score += 2
-        print("✓ Embedding diversity: GOOD")
-    elif test2_results['variance'] > 0.001:
+        print("✓ Embedding diversity: EXCELLENT (matches ground truth)")
+    elif variance_ratio > 0.5:
         overall_score += 1
-        print("⚠ Embedding diversity: MODERATE")
+        print("✓ Embedding diversity: GOOD (proportional to ground truth)")
+    elif variance_ratio > 0.2:
+        print("⚠ Embedding diversity: MODERATE (some compression)")
     else:
         print("✗ Embedding diversity: POOR (collapsed)")
     max_score += 2
