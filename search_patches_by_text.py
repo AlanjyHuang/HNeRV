@@ -24,7 +24,7 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     Args:
         model: Trained DualHeadHNeRV model
         dataset: PatchVideoDataSet
-        clip_manager: CLIPManager for text encoding
+        clip_manager: CLIPManager for CLIP model access
         text_query: Text description (e.g., "a silver refrigerator")
         device: torch device
         top_k: Number of top results to return
@@ -35,8 +35,13 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     print(f"\nSearching for: '{text_query}'")
     print("="*60)
     
-    # Encode text query to CLIP embedding
-    text_embedding = clip_manager.encode_text(text_query).to(device)
+    # Ensure CLIP model is loaded
+    clip_manager._ensure_model_loaded()
+    
+    # Encode text query to CLIP embedding using CLIP model directly
+    text_tokens = clip.tokenize([text_query]).to(device)
+    with torch.no_grad():
+        text_embedding = clip_manager.model.encode_text(text_tokens)
     text_embedding = F.normalize(text_embedding, dim=-1)
     
     print(f"Text embedding shape: {text_embedding.shape}")
