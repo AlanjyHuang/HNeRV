@@ -30,30 +30,26 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     # Load checkpoint
     checkpoint = torch.load(checkpoint_path, map_location='cpu')
     
+    # Create args object for model initialization
+    class Args:
+        pass
+    
+    args = Args()
+    args.embed = 'pe_1.25_80'
+    args.ks = '0_3_3'
+    args.fc_dim = 256
+    args.fc_hw = '9_16'
+    args.num_blks = '1_1'
+    args.norm = 'none'
+    args.act = 'gelu'
+    args.reduce = 1.5
+    args.lower_width = 12
+    args.dec_strds = [5, 2, 2]
+    args.conv_type = ['convnext', 'pshuffel']
+    args.clip_dim = 512
+    
     # Initialize model
-    model = DualHeadHNeRV(
-        embed_length=[num_frames, 1.25, 80],  # [num_frames, pe_base, pe_level]
-        stem_dim_num=96,
-        fc_hw=(9, 16),
-        expansion=1.5,
-        num_blks=1,
-        norm='none',
-        act='gelu',
-        bias=True,
-        reduction=1.5,
-        conv_type=['convnext', 'pshuffel'],
-        stride_list=[5, 2, 2],
-        encoder_stride_list=[5, 3, 2, 2, 2],
-        lower_width=12,
-        fc_dim=256,
-        single_res=True,
-        ks=0,
-        num_blks_dec=1,
-        out_bias=0.5,
-        sigmoid=True,
-        clip_dim=512,
-        use_clip=True
-    )
+    model = DualHeadHNeRV(args)
     
     model.load_state_dict(checkpoint['state_dict'], strict=False)
     model.eval()
