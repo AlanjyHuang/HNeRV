@@ -37,7 +37,7 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     args = Args()
     args.embed = 'pe_1.25_80'
     args.ks = '0_3_3'
-    args.fc_dim = 256
+    args.fc_dim = 96  # Correct fc_dim from checkpoint
     args.fc_hw = '9_16'
     args.num_blks = '1_1'
     args.norm = 'none'
