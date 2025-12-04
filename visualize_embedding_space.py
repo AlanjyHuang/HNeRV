@@ -32,9 +32,9 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     
     # Initialize model
     model = DualHeadHNeRV(
-        embed_length=num_frames,
+        embed_length=[num_frames, 1.25, 80],  # [num_frames, pe_base, pe_level]
         stem_dim_num=96,
-        fc_hw_dim=(9, 16),
+        fc_hw=(9, 16),
         expansion=1.5,
         num_blks=1,
         norm='none',
