@@ -17,7 +17,7 @@ import clip
 from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet, CLIPManager
 
 
-def search_patches_by_text(model, dataset, clip_manager, text_query, device, top_k=10):
+def search_patches_by_text(model, dataset, clip_manager, text_query, device, top_k=10, use_ground_truth=False):
     """
     Search for patches matching a text query.
     
@@ -28,11 +28,13 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
         text_query: Text description (e.g., "a silver refrigerator")
         device: torch device
         top_k: Number of top results to return
+        use_ground_truth: If True, use ground truth CLIP embeddings instead of model's
     
     Returns:
         List of tuples: (similarity_score, frame_idx, patch_idx, rgb_image, clip_embedding)
     """
     print(f"\nSearching for: '{text_query}'")
+    print(f"Mode: {'Ground Truth CLIP' if use_ground_truth else 'Model CLIP'}")
     print("="*60)
     
     # Ensure CLIP model is loaded
@@ -59,15 +61,21 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
         for idx in tqdm(range(len(dataset)), desc="Searching patches"):
             data = dataset[idx]
             
-            # Get model's CLIP embedding for this patch
-            coords = data['input_coords'].unsqueeze(0).to(device)
-            rgb_out, clip_out, _, _ = model(coords)
-            
-            # Normalize CLIP embedding
-            clip_out = F.normalize(clip_out, dim=-1)
+            if use_ground_truth:
+                # Use ground truth CLIP embedding from dataset
+                clip_embed = F.normalize(data['clip_embed'].to(device), dim=-1)
+                
+                # Still need to get RGB from model
+                coords = data['input_coords'].unsqueeze(0).to(device)
+                rgb_out, _, _, _ = model(coords)
+            else:
+                # Use model's CLIP embedding
+                coords = data['input_coords'].unsqueeze(0).to(device)
+                rgb_out, clip_out, _, _ = model(coords)
+                clip_embed = F.normalize(clip_out.squeeze(0), dim=-1)
             
             # Compute similarity with text query
-            similarity = (clip_out @ text_embedding.T).item()
+            similarity = (clip_embed @ text_embedding.T.squeeze(0)).item()
             
             # Extract frame and patch info
             frame_idx = idx // dataset.num_patches
@@ -88,7 +96,7 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
                 'patch_row': patch_row,
                 'patch_col': patch_col,
                 'rgb_image': rgb_image,
-                'clip_embedding': clip_out.squeeze(0).cpu()
+                'clip_embedding': clip_embed.cpu()
             })
     
     # Sort by similarity (highest first)
@@ -96,6 +104,92 @@ def search_patches_by_text(model, dataset, clip_manager, text_query, device, top
     
     # Return top k results
     return results[:top_k]
+
+
+def compare_embeddings(model, dataset, clip_manager, text_query, device, top_k=10):
+    """
+    Compare model embeddings vs ground truth CLIP embeddings for the same query.
+    Shows diagnostic information about embedding alignment.
+    """
+    print("\n" + "="*80)
+    print("DIAGNOSTIC: Model vs Ground Truth CLIP Embeddings")
+    print("="*80)
+    
+    # Search using ground truth
+    print("\n--- Searching with Ground Truth CLIP Embeddings ---")
+    gt_results = search_patches_by_text(
+        model, dataset, clip_manager, text_query, device, top_k, use_ground_truth=True
+    )
+    
+    # Search using model
+    print("\n--- Searching with Model CLIP Embeddings ---")
+    model_results = search_patches_by_text(
+        model, dataset, clip_manager, text_query, device, top_k, use_ground_truth=False
+    )
+    
+    # Compare results
+    print("\n" + "="*80)
+    print("COMPARISON")
+    print("="*80)
+    
+    print("\nGround Truth CLIP Results (Real CLIP model):")
+    print("-"*80)
+    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<12} {'Position':<15}")
+    print("-"*80)
+    for idx, result in enumerate(gt_results[:10]):
+        rank = idx + 1
+        sim = result['similarity']
+        frame = result['frame_idx']
+        patch = result['patch_idx']
+        position = f"({result['patch_row']}, {result['patch_col']})"
+        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<12} {position:<15}")
+    
+    print("\nModel CLIP Results (Your trained model):")
+    print("-"*80)
+    print(f"{'Rank':<6} {'Similarity':<12} {'Frame':<8} {'Patch':<12} {'Position':<15}")
+    print("-"*80)
+    for idx, result in enumerate(model_results[:10]):
+        rank = idx + 1
+        sim = result['similarity']
+        frame = result['frame_idx']
+        patch = result['patch_idx']
+        position = f"({result['patch_row']}, {result['patch_col']})"
+        print(f"{rank:<6} {sim:<12.4f} {frame:<8} {patch:<12} {position:<15}")
+    
+    # Analysis
+    print("\n" + "="*80)
+    print("ANALYSIS")
+    print("="*80)
+    
+    gt_avg_sim = np.mean([r['similarity'] for r in gt_results])
+    model_avg_sim = np.mean([r['similarity'] for r in model_results])
+    
+    print(f"\nAverage Top-{top_k} Similarity:")
+    print(f"  Ground Truth: {gt_avg_sim:.4f}")
+    print(f"  Model:        {model_avg_sim:.4f}")
+    print(f"  Difference:   {gt_avg_sim - model_avg_sim:+.4f}")
+    
+    print("\nInterpretation:")
+    if gt_avg_sim < 0.3:
+        print("  ❌ Ground Truth similarity is LOW (<0.3)")
+        print("     → Your dataset probably doesn't contain this object/concept")
+        print("     → Try different search terms that match your video content")
+    elif gt_avg_sim > 0.6:
+        print("  ✅ Ground Truth similarity is HIGH (>0.6)")
+        print("     → Your dataset DOES contain matching content")
+        if model_avg_sim < gt_avg_sim - 0.2:
+            print("  ❌ But Model similarity is much LOWER")
+            print("     → Model's CLIP embeddings are NOT aligned with text space")
+            print("     → Need to retrain with higher CLIP loss weight or text guidance")
+        else:
+            print("  ✅ Model similarity is also good!")
+            print("     → Model has learned proper text-image alignment")
+    else:
+        print("  ⚠️  Ground Truth similarity is MODERATE (0.3-0.6)")
+        print("     → Dataset might have weak/partial matches")
+        print("     → Try more specific or different search terms")
+    
+    return gt_results, model_results
 
 
 def visualize_results(results, text_query, output_dir='search_results'):
@@ -196,12 +290,14 @@ def interactive_search_mode(model, dataset, clip_manager, device, args):
     print("\n" + "="*80)
     print("Interactive Text-to-Patch Search")
     print("="*80)
-    print("Enter text queries to search for patches. Type 'quit' or 'exit' to stop.")
-    print("Examples:")
+    print("Enter text queries to search for patches. Special commands:")
+    print("  - 'quit' or 'exit': Stop")
+    print("  - 'compare <query>': Run diagnostic comparison (model vs ground truth)")
+    print("  - 'gt <query>': Search using ground truth CLIP only")
+    print("\nExamples:")
     print("  - 'a silver refrigerator'")
-    print("  - 'wooden cabinet'")
-    print("  - 'white wall'")
-    print("  - 'kitchen countertop'")
+    print("  - 'compare wooden cabinet'")
+    print("  - 'gt white wall'")
     print("="*80)
     
     while True:
@@ -216,20 +312,48 @@ def interactive_search_mode(model, dataset, clip_manager, device, args):
             print("Please enter a valid query.")
             continue
         
-        # Search for patches
-        results = search_patches_by_text(
-            model, dataset, clip_manager, text_query, device, top_k=args.top_k
-        )
+        # Check for special commands
+        use_ground_truth = False
+        run_comparison = False
         
-        # Print results table
-        print_results_table(results, text_query)
+        if text_query.lower().startswith('compare '):
+            run_comparison = True
+            text_query = text_query[8:].strip()
+        elif text_query.lower().startswith('gt '):
+            use_ground_truth = True
+            text_query = text_query[3:].strip()
         
-        # Visualize results
-        visualize_results(results, text_query, output_dir=args.output_dir)
-        
-        # Save individual patches
-        if args.save_individual:
-            save_individual_patches(results, text_query, output_dir=args.output_dir)
+        if run_comparison:
+            # Run diagnostic comparison
+            gt_results, model_results = compare_embeddings(
+                model, dataset, clip_manager, text_query, device, top_k=args.top_k
+            )
+            
+            # Visualize ground truth results
+            visualize_results(gt_results, text_query + " (Ground Truth)", 
+                            output_dir=args.output_dir)
+            
+            # Visualize model results
+            visualize_results(model_results, text_query + " (Model)", 
+                            output_dir=args.output_dir)
+        else:
+            # Regular search
+            results = search_patches_by_text(
+                model, dataset, clip_manager, text_query, device, 
+                top_k=args.top_k, use_ground_truth=use_ground_truth
+            )
+            
+            # Print results table
+            mode_suffix = " (Ground Truth)" if use_ground_truth else ""
+            print_results_table(results, text_query + mode_suffix)
+            
+            # Visualize results
+            visualize_results(results, text_query + mode_suffix, output_dir=args.output_dir)
+            
+            # Save individual patches
+            if args.save_individual:
+                save_individual_patches(results, text_query + mode_suffix, 
+                                      output_dir=args.output_dir)
 
 
 def main():
