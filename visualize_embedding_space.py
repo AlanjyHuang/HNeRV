@@ -47,6 +47,7 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     args.dec_strds = [5, 2, 2]
     args.conv_type = ['convnext', 'pshuffel']
     args.clip_dim = 512
+    args.out_bias = 'tanh'
     
     # Initialize model
     model = DualHeadHNeRV(args)
