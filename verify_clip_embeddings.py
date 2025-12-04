@@ -42,7 +42,7 @@ def compute_embedding_statistics(embeddings):
     }
 
 
-def test_ground_truth_similarity(model, dataset, clip_manager, device, max_samples=None):
+def test_ground_truth_similarity(model, dataset, clip_manager, device, args, max_samples=None):
     """
     Test 1: Compare generated CLIP embeddings with ground truth CLIP embeddings.
     High similarity (>0.9) indicates embeddings are meaningful.
@@ -57,9 +57,9 @@ def test_ground_truth_similarity(model, dataset, clip_manager, device, max_sampl
     val_similarities = []
     
     # Determine data split
-    total_frames = len(dataset) // dataset.patch_grid[0] // dataset.patch_grid[1]
-    if hasattr(dataset, 'data_split') and dataset.data_split:
-        split_parts = [int(x) for x in dataset.data_split.split('_')]
+    total_frames = len(dataset) // dataset.num_patches
+    if args.data_split:
+        split_parts = [int(x) for x in args.data_split.split('_')]
         valid_train = split_parts[0]
         total_data_length = split_parts[2]
     else:
@@ -189,13 +189,13 @@ def test_temporal_consistency(model, dataset, device):
     model.eval()
     
     # Get embeddings for consecutive frames (first patch of each frame)
-    num_frames = len(dataset) // (dataset.patch_grid[0] * dataset.patch_grid[1])
+    num_frames = len(dataset) // dataset.num_patches
     frame_embeddings = []
     
     with torch.no_grad():
         for frame_idx in tqdm(range(min(num_frames, 100)), desc="Processing frames"):
             # Get first patch of each frame
-            patch_idx = frame_idx * dataset.patch_grid[0] * dataset.patch_grid[1]
+            patch_idx = frame_idx * dataset.num_patches
             data = dataset[patch_idx]
             
             coords = data['input_coords'].unsqueeze(0).to(device)
@@ -234,7 +234,7 @@ def test_temporal_consistency(model, dataset, device):
     return results
 
 
-def test_train_val_difference(model, dataset, device, max_samples=None):
+def test_train_val_difference(model, dataset, device, args, max_samples=None):
     """
     Test 4: Compare train vs val embedding quality.
     Large difference suggests overfitting to training data.
@@ -246,8 +246,8 @@ def test_train_val_difference(model, dataset, device, max_samples=None):
     model.eval()
     
     # Determine data split
-    if hasattr(dataset, 'data_split') and dataset.data_split:
-        split_parts = [int(x) for x in dataset.data_split.split('_')]
+    if args.data_split:
+        split_parts = [int(x) for x in args.data_split.split('_')]
         valid_train = split_parts[0]
         total_data_length = split_parts[2]
     else:
@@ -388,7 +388,7 @@ def main():
     
     # Test 1: Ground truth similarity
     test1_results, similarities = test_ground_truth_similarity(
-        model, dataset, clip_manager, device, args.max_samples
+        model, dataset, clip_manager, device, args, args.max_samples
     )
     all_results['ground_truth_similarity'] = test1_results
     
@@ -403,7 +403,7 @@ def main():
     all_results['temporal_consistency'] = test3_results
     
     # Test 4: Train vs val
-    test4_results = test_train_val_difference(model, dataset, device, args.max_samples)
+    test4_results = test_train_val_difference(model, dataset, device, args, args.max_samples)
     all_results['train_val_comparison'] = test4_results
     
     # Overall assessment
