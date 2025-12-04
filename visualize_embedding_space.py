@@ -21,6 +21,7 @@ import sys
 
 # Import model components
 from model_patch_dual import DualHeadHNeRV, PatchVideoDataSet, CLIPManager
+from hnerv_utils import data_split as split_frames
 
 
 def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frames=192):
@@ -55,23 +56,33 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     model.load_state_dict(checkpoint['state_dict'], strict=False)
     model.eval()
     
-    # Initialize dataset
-    dataset = PatchVideoDataSet(
-        data_path=data_path,
-        crop_list=crop_list,
-        data_split=data_split
-    )
+    # Create args for dataset
+    dataset_args = Args()
+    dataset_args.data_path = data_path
+    dataset_args.crop_list = f'{crop_list[0]}_{crop_list[1]}'
+    dataset_args.resize_list = '-1'
     
-    # Initialize CLIP manager for ground truth
-    clip_manager = CLIPManager()
+    # Initialize dataset
+    dataset = PatchVideoDataSet(dataset_args)
+    
+    # Handle train/val split (frame-based)
+    num_frames = len(dataset.video)
+    split_num_list = [int(x) for x in data_split.split('_')]
+    frame_indices = list(range(num_frames))
+    train_frame_list, val_frame_list = split_frames(frame_indices, split_num_list, False, 0)
+    
+    # Create train/val indicator for each patch
+    num_patches_per_frame = dataset.num_patches
+    train_frames_set = set(train_frame_list)
     
     model_embeddings = []
     gt_embeddings = []
-    frame_indices = []
-    patch_indices = []
+    frame_indices_list = []
+    patch_indices_list = []
     is_train_list = []
     
     print(f"Processing {len(dataset)} patches...")
+    print(f"Train frames: {len(train_frame_list)}, Val frames: {len(val_frame_list)}")
     
     with torch.no_grad():
         for idx in range(len(dataset)):
@@ -79,28 +90,32 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
                 print(f"Processing patch {idx}/{len(dataset)}")
             
             # Get data
-            img, embed_input, _, frame_idx, patch_idx, is_train = dataset[idx]
+            sample = dataset[idx]
+            img = sample['img']
+            input_coords = sample['input_coords']
+            frame_idx = sample['frame_idx']
+            patch_idx = sample['patch_idx']
+            is_train = frame_idx in train_frames_set
             
             # Model embedding
-            img = img.unsqueeze(0)
-            embed_input = embed_input.unsqueeze(0)
-            _, clip_out = model(embed_input, img)
+            img_batch = img.unsqueeze(0)
+            coords_batch = input_coords.unsqueeze(0)
+            _, clip_out = model(coords_batch, None)
             model_emb = clip_out.squeeze(0).cpu().numpy()
             
-            # Ground truth embedding
-            img_pil = dataset.to_pil(img.squeeze(0))
-            gt_emb = clip_manager.encode_image(img_pil).squeeze(0).cpu().numpy()
+            # Ground truth embedding (from dataset cache)
+            gt_emb = sample['clip_embed'].cpu().numpy()
             
             model_embeddings.append(model_emb)
             gt_embeddings.append(gt_emb)
-            frame_indices.append(frame_idx)
-            patch_indices.append(patch_idx)
+            frame_indices_list.append(frame_idx)
+            patch_indices_list.append(patch_idx)
             is_train_list.append(is_train)
     
     model_embeddings = np.array(model_embeddings)
     gt_embeddings = np.array(gt_embeddings)
-    frame_indices = np.array(frame_indices)
-    patch_indices = np.array(patch_indices)
+    frame_indices_list = np.array(frame_indices_list)
+    patch_indices_list = np.array(patch_indices_list)
     is_train_list = np.array(is_train_list)
     
     print(f"Loaded {len(model_embeddings)} embeddings")
@@ -109,8 +124,8 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
     return {
         'model': model_embeddings,
         'gt': gt_embeddings,
-        'frames': frame_indices,
-        'patches': patch_indices,
+        'frames': frame_indices_list,
+        'patches': patch_indices_list,
         'is_train': is_train_list
     }
 
