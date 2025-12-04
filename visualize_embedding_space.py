@@ -100,7 +100,7 @@ def load_embeddings(checkpoint_path, data_path, crop_list, data_split, num_frame
             # Model embedding
             img_batch = img.unsqueeze(0)
             coords_batch = input_coords.unsqueeze(0)
-            _, clip_out = model(coords_batch, None)
+            rgb_out, clip_out, embed_list, dec_time = model(coords_batch, None)
             model_emb = clip_out.squeeze(0).cpu().numpy()
             
             # Ground truth embedding (from dataset cache)
