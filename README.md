@@ -1,515 +1,370 @@
 # HNeRV with CLIP Embedding Prediction
 
-**Implicit Neural Representation for Video with Semantic CLIP Embeddings**
+**Patch-Based Dual-Head Neural Representation for Video with Semantic Understanding**
+
+This project implements a dual-head patch-based HNeRV architecture that simultaneously learns RGB reconstruction and CLIP embeddings from spatial-temporal coordinates, enabling semantic video search and analysis.
+
+---
 
 ## Overview
 
-This project extends the HNeRV (Hybrid Neural Representation for Videos) architecture to jointly learn both visual reconstruction and semantic CLIP embeddings from spatial-temporal coordinates. The model learns to encode both pixel-level appearance and high-level semantic meaning into a continuous implicit neural representation.
+The model takes patch coordinates `(frame_idx, patch_x, patch_y)` as input and outputs:
+1. RGB patch reconstruction (3×320×320)
+2. CLIP semantic embedding (512-dim)
 
-## Architecture
+This enables both high-quality video compression and semantic understanding for applications like text-based video search.
 
-### Input → Output
-```
-Coordinates (x, y, t) OR RGB Images → RGB Reconstruction + Multi-Patch CLIP Embeddings
-```
-
-### Two Training Modes
-
-#### 1. NeRV (Coordinate-Based INR) - Recommended for Research
-```
-Time Coordinate t (1 scalar) 
-    ↓
-Positional Encoding (160 dims: sin/cos of multiple frequencies)
-    ↓
-Encoder (Identity - no processing)
-    ↓
-Decoder Network (generates frame from time code)
-    ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
-    └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
-```
-**To use:** Add `--embed pe_1.25_80` to training command
-
-**Advantages:**
-- True implicit neural representation (continuous function: time → image)
-- Can interpolate between frames (e.g., t=0.5 generates intermediate frame)
-- Learns temporal structure and smooth transitions
-- Smaller input (1 number vs 2.4M pixels)
-
-#### 2. HNeRV (Image-Based) - Recommended for Faster Convergence
-```
-RGB Image (640 × 1280 × 3)
-    ↓
-Encoder (ConvNeXt - compresses image)
-    ↓
-Decoder Network (reconstructs from compressed features)
-    ├──→ RGB Head → Reconstructed Frame (640 × 1280 × 3)
-    └──→ CLIP Head → Per-Patch CLIP Embeddings (512 × H × W)
-```
-**To use:** Don't specify `--embed` flag (default)
-
-**Advantages:**
-- Faster training and convergence
-- Higher PSNR (better image quality)
-- More reliable CLIP learning
-- Like a video autoencoder with semantic prediction
-
-### Per-Patch CLIP Prediction
-
-**Both modes** predict multiple CLIP embeddings per frame, one for each spatial patch:
-
-- **Patch Size**: 448×448 pixels with stride 224 (50% overlap)
-- **Patches per Frame**: ~8 patches (2 rows × 4 columns for 640×1280 images)
-- **Prediction Method**: 1×1 convolutions on decoder features → [batch, 512, H, W]
-- **Supervision**: Each spatial location supervised by its corresponding patch's CLIP embedding
-
-### CLIP Prediction Head
-```python
-# Per-patch prediction using spatial convolutions
-# Works for BOTH NeRV and HNeRV modes
-nn.Sequential(
-    nn.Conv2d(ngf, ngf * 2, 1, 1, 0),    # 1×1 conv to expand features
-    nn.ReLU(inplace=True),
-    nn.Conv2d(ngf * 2, 512, 1, 1, 0),    # Output: [batch, 512, H, W]
-    nn.Normalize(dim=1)                   # L2 normalize each embedding
-)
-```
-
-**Why Per-Patch?**
-- ✅ **Spatial Correspondence**: Each image region gets its own semantic embedding
-- ✅ **Better Coverage**: Overlapping patches ensure full frame coverage
-- ✅ **Independent Supervision**: Each patch embedding is directly supervised
-- ✅ **Preserves Spatial Structure**: Feature map maintains spatial relationships
-
-**Input vs Output:**
-- ❌ **NOT using CLIP as input** - We don't concatenate CLIP to coordinates/images
-- ✅ **Predicting CLIP as output** - Model learns to generate CLIP embeddings
-- ✅ **Pure architecture**: Clean input (coordinates OR images), dual output (RGB + CLIP)
-
-## Key Features
-
-✨ **Dual-Output Architecture**: Predicts both RGB pixels and CLIP embeddings from coordinates  
-🎯 **Hybrid Loss Function**: Combines pixel reconstruction loss with semantic similarity loss  
-📊 **Multi-Metric Evaluation**: Tracks PSNR, SSIM, and CLIP similarity (train/val/overall)  
-🚀 **Efficient Inference**: Direct CLIP prediction without re-encoding (30-100+ FPS)  
-📈 **TensorBoard Integration**: Real-time monitoring of all losses and metrics  
-🔍 **Verification Tools**: Statistical tests to validate CLIP learning quality  
-
-## Training Strategy
-
-### Two-Phase Training
-
-**Phase 1: Pixel Warmup** (Epochs 0-50)
-- Loss: `L_pixel` only
-- Goal: Learn basic visual reconstruction
-- Establishes stable feature representations
-
-**Phase 2: Hybrid Learning** (Epochs 50+)
-- Loss: `L_total = L_pixel + λ * L_CLIP`
-- Goal: Preserve both visual fidelity and semantic meaning
-- Default λ = 0.2
-
-### Loss Functions
-
-**Pixel Loss** (Fusion6):
-```python
-L_pixel = MSE(predicted_rgb, ground_truth_rgb)
-# Compares every pixel in the reconstructed frame
-```
-
-**CLIP Loss** (Per-Patch Cosine Similarity):
-```python
-# For each patch:
-#   1. Map patch coordinates to feature map position
-#   2. Extract predicted embedding at that position
-#   3. Compute similarity with ground truth patch embedding
-
-L_CLIP = mean([1 - cosine_similarity(pred_patch[i], gt_patch[i]) 
-               for i in all_patches])
-# Averages loss across ~8 patches per frame
-```
-
-**Total Loss**:
-```python
-L_total = L_pixel + λ * L_CLIP
-# λ = clip_loss_weight (default 0.5)
-```
-
-## Why Both Outputs?
-
-| Aspect | RGB Output | CLIP Output |
-|--------|-----------|-------------|
-| **Measures** | Pixel-level accuracy | Semantic preservation |
-| **Captures** | Colors, textures, edges | Objects, scenes, concepts |
-| **Metrics** | PSNR, SSIM | Cosine similarity |
-| **Ensures** | Visual fidelity | Semantic understanding |
-
-**Together**: The model learns a complete representation that maintains both appearance and meaning.
-
-## Installation
-
-```bash
-# Clone repository
-git clone https://github.com/AlanjyHuang/HNeRV.git
-cd HNeRV
-
-# Install dependencies
-pip install -r requirements.txt
-pip install git+https://github.com/openai/CLIP.git
-```
-
-## Usage
-
-### Quick Start: Two Training Modes Side-by-Side
-
-Run both modes in parallel to compare (uses 8 GPUs total):
-
-**Mode 1: HNeRV (Image-Based) - GPUs 0-3:**
-```bash
-CUDA_VISIBLE_DEVICES=0,1,2,3 python train_nerv_clip.py \
-  --data_path data/Kitchen \
-  --data_split 4_5_5 \
-  --enc_strds 5 4 4 2 2 \
-  --dec_strds 5 4 4 2 2 \
-  --conv_type convnext pshuffel \
-  --fc_hw 9_16 \
-  --enc_dim 64_16 \
-  --ks 0_1_5 \
-  --reduce 1.2 \
-  --lower_width 12 \
-  --num_blks 1_1 \
-  --modelsize 1.5 \
-  --act gelu \
-  --epochs 300 \
-  -b 2 \
-  --lr 0.001 \
-  --quant_model_bit 8 \
-  --quant_embed_bit 6 \
-  --outf output/hnerv_image_based \
-  --predict_clip \
-  --clip_loss_weight 0.5 \
-  --pixel_loss_warmup_epochs 50 \
-  --distributed
-```
-
-**Mode 2: NeRV (Coordinate-Based INR) - GPUs 4-7:**
-```bash
-CUDA_VISIBLE_DEVICES=4,5,6,7 python train_nerv_clip.py \
-  --data_path data/Kitchen \
-  --data_split 4_5_5 \
-  --embed pe_1.25_80 \
-  --fc_hw 9_16 \
-  --ks 0_3_3 \
-  --reduce 1.5 \
-  --lower_width 12 \
-  --num_blks 1_1 \
-  --modelsize 1.5 \
-  --act gelu \
-  --epochs 300 \
-  -b 2 \
-  --lr 0.001 \
-  --quant_model_bit 8 \
-  --quant_embed_bit 6 \
-  --outf output/nerv_coordinate_based \
-  --predict_clip \
-  --clip_loss_weight 0.5 \
-  --pixel_loss_warmup_epochs 50 \
-  --distributed
-```
-
-**Key Differences:**
-- **HNeRV**: Uses ConvNeXt encoder, processes RGB images
-- **NeRV**: Uses `--embed pe_1.25_80`, processes time coordinates only
-- **Both**: Predict per-patch CLIP embeddings, 80/20 train/val split
-
-### Single GPU Training
-
-**HNeRV (Faster, More Stable):**
-```bash
-CUDA_VISIBLE_DEVICES=0 python train_nerv_clip.py \
-  --data_path data/Kitchen \
-  --data_split 4_5_5 \
-  --enc_strds 5 4 4 2 2 \
-  --dec_strds 5 4 4 2 2 \
-  --conv_type convnext pshuffel \
-  --fc_hw 9_16 \
-  --enc_dim 64_16 \
-  --ks 0_1_5 \
-  --reduce 1.2 \
-  --lower_width 12 \
-  --num_blks 1_1 \
-  --modelsize 1.5 \
-  --act gelu \
-  --epochs 300 \
-  -b 2 \
-  --lr 0.001 \
-  --outf output/hnerv \
-  --predict_clip \
-  --clip_loss_weight 0.5 \
-  --pixel_loss_warmup_epochs 50
-```
-
-**NeRV (True INR):**
-```bash
-CUDA_VISIBLE_DEVICES=0 python train_nerv_clip.py \
-  --data_path data/Kitchen \
-  --data_split 4_5_5 \
-  --embed pe_1.25_80 \
-  --fc_hw 9_16 \
-  --ks 0_3_3 \
-  --reduce 1.5 \
-  --lower_width 12 \
-  --num_blks 1_1 \
-  --modelsize 1.5 \
-  --act gelu \
-  --epochs 300 \
-  -b 2 \
-  --lr 0.001 \
-  --outf output/nerv \
-  --predict_clip \
-  --clip_loss_weight 0.5 \
-  --pixel_loss_warmup_epochs 50
-```
-
-### Key Arguments
-
-| Argument | Description | Default | Recommended |
-|----------|-------------|---------|-------------|
-| `--embed` | Positional encoding for NeRV mode | '' (HNeRV) | 'pe_1.25_80' (NeRV) |
-| `--predict_clip` | Enable per-patch CLIP prediction | False | True |
-| `--clip_dim` | CLIP embedding dimension | 512 | 512 |
-| `--clip_loss_weight` | Weight for CLIP loss (λ) | 0.1 | 0.5 |
-| `--pixel_loss_warmup_epochs` | Epochs before adding CLIP loss | 50 | 50 |
-| `--data_split` | Train/val split (X_Y_Z format) | 1_1_1 | 4_5_5 (80/20) |
-| `--enc_strds` | Encoder strides (HNeRV only) | - | 5 4 4 2 2 |
-| `--dec_strds` | Decoder strides | - | 5 4 4 2 2 (HNeRV), 5 3 2 2 2 (NeRV) |
-
-**Data Split Format:** `X_Y_Z`
-- For every Z frames: first X used for training, frames X to Y-1 skipped, frames Y+ used for validation
-- Example `4_5_5`: Every 5 frames → first 4 train, last 1 validation = 80/20 split
-
-**Mode Selection:**
-- **No `--embed`**: HNeRV mode (image-based)
-- **`--embed pe_1.25_80`**: NeRV mode (coordinate-based INR)
-
-### Training Baseline (No CLIP)
-
-```bash
-python train_nerv_clip.py \
-  --data_path ./data/Kitchen \
-  --vid Kitchen \
-  # ... other args (without --predict_clip)
-```
-
-## Monitoring Training
-
-### TensorBoard
-
-```bash
-# Local
-tensorboard --logdir output/clip_experiment
-
-# Remote server
-# On server:
-tensorboard --logdir output/clip_experiment --port 6006
-
-# On local machine:
-ssh -L 6006:localhost:6006 user@server
-
-# Open browser:
-http://localhost:6006
-```
-
-**Metrics Tracked:**
-- `train/pixel_loss` - Pixel reconstruction loss
-- `train/clip_loss` - CLIP semantic loss
-- `train/total_loss` - Combined loss
-- `eval/clip_similarity_all` - Overall CLIP similarity
-- `eval/clip_similarity_train` - Training frames CLIP similarity
-- `eval/clip_similarity_val` - Validation frames CLIP similarity
-- `eval/clip_similarity_distribution` - Per-frame similarity histogram
-
-### Output Files
-
-```
-output/experiment_name/
-├── model_best.pth              # Best PSNR checkpoint
-├── model_latest.pth            # Latest checkpoint
-├── rank0.txt                   # Training logs
-├── clip_similarity_per_frame.csv  # Detailed per-frame results
-└── Encoder_X.XXM_Decoder_X.XXM_Total_X.XXM/
-    └── tensorboard/            # TensorBoard logs
-```
-
-## Evaluation
-
-### Automatic Evaluation (During Training)
-
-Runs every `eval_freq` epochs. Reports:
-- **Pixel Metrics**: PSNR, MS-SSIM (seen/unseen frames)
-- **CLIP Metrics**: Cosine similarity (all/train/validation)
-
-### Standalone Evaluation
-
-```bash
-python train_nerv_clip.py \
-  --eval_only \
-  --predict_clip \
-  --resume output/experiment/model_best.pth \
-  --data_path ./data/Kitchen \
-  # ... other args
-```
-
-### Verify CLIP Learning
-
-Test if the model truly learned semantic features vs. random:
-
-```bash
-python test_clip_learning.py \
-  --checkpoint output/experiment/model_best.pth \
-  --data_path ./data/Kitchen \
-  --embed pe_1.25_80 \
-  --fc_hw 9_16 \
-  --enc_strds 5 2 2 \
-  --dec_strds 5 2 2 \
-  --num_blks 1_1 \
-  --outf clip_verification_results
-```
-
-**Output:**
-```
-=====================================================================
-CLIP LEARNING VERIFICATION RESULTS
-=====================================================================
-
-Condition                       Mean         Std
----------------------------------------------------------------------
-Learned (Your Model)           0.8532      0.0421
-Random Embeddings              0.0123      0.0234
-Shuffled Pairing               0.2341      0.0512
-Temporal Shuffle               0.3456      0.0623
----------------------------------------------------------------------
-
-IMPROVEMENT ANALYSIS
-Improvement over random:         0.8409  ✓ Significant
-Improvement over shuffled:       0.6191  ✓ Significant
-
-Overall Quality: EXCELLENT
-Model has learned very strong semantic representations!
-```
-
-## Expected Results
-
-### CLIP Similarity Interpretation
-
-| Score | Quality | Meaning |
-|-------|---------|---------|
-| > 0.9 | Excellent | Strong semantic preservation |
-| 0.7-0.9 | Good | Captures most semantic features |
-| 0.4-0.7 | Moderate | Some semantic information preserved |
-| < 0.4 | Poor | Limited semantic learning |
-
-### Train vs. Validation Gap
-
-- **Small gap** (< 0.05): Good generalization
-- **Medium gap** (0.05-0.15): Acceptable, some overfitting
-- **Large gap** (> 0.15): Model overfitting to training frames
-
-## Experiment Design
-
-### Research Questions
-
-1. **Can an INR learn semantic embeddings from coordinates?**
-   - Hypothesis: Yes, with proper supervision
-   - Test: CLIP similarity > random baseline
-
-2. **Does dual supervision improve representation quality?**
-   - Hypothesis: Pixel + CLIP loss preserves both appearance and meaning
-   - Test: Compare PSNR and CLIP similarity jointly
-
-3. **What's the trade-off between pixel and semantic quality?**
-   - Hypothesis: Balancing λ optimizes both metrics
-   - Test: Sweep clip_loss_weight ∈ [0, 0.1, 0.2, 0.5, 1.0]
-
-### Ablation Studies
-
-```bash
-# Baseline: Pixel only
-python train_nerv_clip.py --outf output/baseline
-
-# CLIP prediction enabled
-python train_nerv_clip.py --predict_clip --clip_loss_weight 0.0 --outf output/clip_no_loss
-
-# Different loss weights
-python train_nerv_clip.py --predict_clip --clip_loss_weight 0.1 --outf output/clip_0.1
-python train_nerv_clip.py --predict_clip --clip_loss_weight 0.2 --outf output/clip_0.2
-python train_nerv_clip.py --predict_clip --clip_loss_weight 0.5 --outf output/clip_0.5
-
-# Different warmup periods
-python train_nerv_clip.py --predict_clip --pixel_loss_warmup_epochs 0 --outf output/no_warmup
-python train_nerv_clip.py --predict_clip --pixel_loss_warmup_epochs 100 --outf output/warmup_100
-```
-
-## Technical Details
-
-### Model Size
-
-With `--modelsize 1.5`:
-- Encoder: ~0.31M parameters
-- Decoder: ~1.19M parameters  
-- CLIP Head: ~0.01M parameters (additional)
-- **Total**: ~1.51M parameters
-
-### Memory Requirements
-
-- **Training**: ~8-12 GB GPU memory (batch size 1, 640×1280 resolution)
-- **Inference**: ~4-6 GB GPU memory
-
-### Speed
-
-| Mode | FPS | Notes |
-|------|-----|-------|
-| Training | 5-10 | Depends on resolution |
-| Inference (with CLIP) | 30-100 | Direct prediction |
-| Inference (RGB only) | 100-500 | No CLIP head |
+---
 
 ## Project Structure
 
 ```
 HNeRV/
-├── train_nerv_clip.py          # Main training script
-├── model_all.py                # Model architectures (HNeRV with CLIP head)
-├── test_clip_learning.py       # CLIP learning verification
-├── hnerv_utils.py              # Utility functions
-├── efficient_nvloader.py       # Data loading
-├── CLIP_ARCHITECTURE.md        # Detailed architecture docs
-├── data/                       # Video datasets
-│   └── Kitchen/
-└── output/                     # Experiment outputs
+├── core/                                # Core Implementation
+│   ├── model_patch_dual.py              # DualHeadHNeRV architecture
+│   ├── train_patch_dual.py              # Training script
+│   ├── hnerv_utils.py                   # Utility functions
+│   ├── search_patches_by_text.py        # Text-to-patch semantic search
+│   ├── verify_clip_embeddings.py        # CLIP quality verification
+│   ├── visualize_embedding_space.py     # t-SNE/UMAP visualization
+│   ├── eval_all_patches.py              # Comprehensive evaluation
+│   └── efficient_nvloader.py            # Optimized data loader
+│
+├── scripts/                             # Shell scripts
+│   ├── train_patch_comparable.sh        # Main training (recommended)
+│   ├── train_patch_fast.sh              # Quick experiments
+│   ├── eval_all_patches.sh              # Evaluation
+│   ├── search_patches.sh                # Interactive search
+│   ├── verify_clip.sh                   # CLIP verification
+│   └── visualize_embeddings.sh          # Embedding visualization
+│
+├── analysis/                            # Analysis tools
+│   ├── plot_evaluation_results.py       # PSNR/SSIM/CLIP plots
+│   ├── plot_training_logs.py            # Training curves
+│   └── plot_clip_distribution.py        # Distribution analysis
+│
+├── tests/                               # Testing scripts
+│   ├── test_patch_dual.py               # Dual-head tests
+│   ├── test_clip_learning.py            # CLIP learning tests
+│   └── verify_warmup.py                 # Warmup verification
+│
+├── legacy/                              # Legacy implementations
+│   ├── model_all.py                     # Original HNeRV model
+│   ├── train_nerv_all.py                # Original training
+│   └── train_nerv_clip.py               # CLIP training v1
+│
+├── results/                             # Generated outputs
+│   ├── embedding_space_comparison.png   # t-SNE visualization
+│   └── *.csv                            # Evaluation data
+│
+├── docs/                                # Documentation
+│   ├── PATCH_DUAL_HEAD_README.md        # Architecture details
+│   ├── CLIP_ARCHITECTURE.md             # CLIP integration
+│   ├── TENSORBOARD_QUICKSTART.md        # Monitoring guide
+│   └── *.md                             # Other guides
+│
+├── data/                                # Video datasets
+├── output/                              # Training checkpoints
+└── checkpoints/                         # Pre-trained models
 ```
+
+---
+
+## Quick Start
+
+### Installation
+
+```bash
+git clone https://github.com/AlanjyHuang/HNeRV.git
+cd HNeRV
+
+# Install dependencies
+pip install torch torchvision torchaudio
+pip install git+https://github.com/openai/CLIP.git
+pip install decord tensorboard scikit-learn umap-learn matplotlib pandas
+```
+
+### Prepare Data
+
+```bash
+# Place video frames in data/YourVideo/
+# Format: 00000.png, 00001.png, 00002.png, ...
+```
+
+### Train
+
+```bash
+# Recommended: Comparable to baseline
+bash scripts/train_patch_comparable.sh
+
+# Alternatives:
+# bash scripts/train_patch_fast.sh    (100 epochs, faster)
+# bash scripts/train_patch_hq.sh      (larger model, best quality)
+```
+
+### Monitor
+
+```bash
+tensorboard --logdir output/
+# Open http://localhost:6006
+```
+
+### Evaluate
+
+```bash
+# Comprehensive evaluation
+bash scripts/eval_all_patches.sh output/.../epoch300.pth
+
+# Text-based search
+bash scripts/search_patches.sh
+
+# Verify CLIP quality
+bash scripts/verify_clip.sh
+
+# Visualize embedding space
+bash scripts/visualize_embeddings.sh
+```
+
+---
+
+## Architecture
+
+### Model Flow
+
+```
+Frame (640×1280) → 8 Patches (2×4 grid, each 320×320)
+                   ↓
+Input: (frame_idx, patch_x, patch_y) normalized [0,1]
+                   ↓
+         Positional Encoding
+                   ↓
+          Shared Decoder
+                   ↓
+        ┌──────────┴──────────┐
+        ↓                     ↓
+    RGB Head            CLIP Head
+  (3×320×320)          (512-dim)
+```
+
+### Loss Function
+
+```
+Total Loss = Pixel Loss + λ × CLIP Loss
+
+Where:
+- Pixel Loss: Fusion6 (0.7×L1 + 0.3×SSIM)
+- CLIP Loss: 1 - cosine_similarity(pred, gt)
+- λ: 0.1-0.2 (activated after warmup)
+```
+
+### Training Strategy
+
+**Phase 1 (Epochs 0-50)**: RGB reconstruction only (warmup)  
+**Phase 2 (Epochs 50-300)**: Joint RGB + CLIP training  
+**Data Split**: Frame-based (90% train, 10% validation)
+
+---
+
+## Results
+
+### Performance Metrics (Kitchen Video, 192 frames)
+
+| Data Split | Train PSNR | Val PSNR | Train CLIP | Val CLIP |
+|------------|------------|----------|------------|----------|
+| 9_10_10    | 31.61 dB   | -        | 0.9898     | -        |
+| 6_6_10     | 32.61 dB   | 17.72 dB | 0.9897     | 0.9476   |
+
+### CLIP Embedding Quality
+
+**Verified Semantic Learning:**
+- Ground truth similarity: 92.7% (embeddings are real, not random)
+- Variance ratio: 69% (preserves semantic diversity)
+- Temporal consistency: Smooth frame-to-frame transitions
+
+**Known Issues:**
+- RGB overfitting: 15 dB PSNR drop (train → val)
+- CLIP overfitting: 4% similarity drop (train → val)
+- Text search: Low similarity (~0.33, needs improvement)
+
+### Visualization
+
+![Embedding Space Comparison](results/embedding_space_comparison.png)
+
+*t-SNE visualization showing model embeddings (compressed) vs ground truth (diverse)*
+
+---
+
+## Text-to-Patch Search
+
+```bash
+# Interactive search mode
+bash scripts/search_patches.sh
+
+# Example queries:
+> a silver refrigerator
+> coffee machine
+> green plant on the counter
+> kitchen sink
+```
+
+The search works for prominent objects with similarity scores around 0.33.
+
+---
+
+## Monitoring & Analysis
+
+### TensorBoard Metrics
+
+```bash
+tensorboard --logdir output/
+```
+
+**Key metrics:**
+- `Train/PSNR` - RGB reconstruction quality
+- `Train/Loss/clip_loss` - CLIP alignment (0 during warmup)
+- `Train/clip_loss_active` - Warmup indicator (0→1 at epoch 50)
+- `Eval/CLIP_Similarity` - Validation performance
+
+### Analysis Scripts
+
+```bash
+# Plot evaluation results
+python analysis/plot_evaluation_results.py results/output.csv
+
+# Plot training curves
+python analysis/plot_training_logs.py output/.../rank0.txt
+
+# CLIP similarity distribution
+python analysis/plot_clip_distribution.py
+```
+
+---
+
+## Advanced Usage
+
+### Custom Training
+
+```bash
+python train_patch_dual.py \
+    --data_path data/Kitchen \
+    --vid Kitchen \
+    --fc_dim 96 \
+    --dec_strds 5 2 2 \
+    --clip_loss_weight 0.2 \
+    --pixel_loss_warmup_epochs 50 \
+    --epochs 300 \
+    --data_split 9_10_10
+```
+
+### Model Size Options
+
+| Config | fc_dim | Params | PSNR | Speed |
+|--------|--------|--------|------|-------|
+| Small  | 64     | ~0.5M  | ~28  | Fast |
+| Medium | 96     | ~1.5M  | ~31  | Balanced |
+| Large  | 256    | ~30M   | ~33  | Slow |
+| XL     | 384    | ~65M   | ~35  | Very Slow |
+
+### Data Split Options
+
+```
+9_10_10 - 90% train, 10% val (recommended)
+6_6_10  - 60% train, 40% val
+8_8_10  - 80% train, 20% val
+```
+
+---
+
+## Documentation
+
+Comprehensive guides available in `docs/`:
+
+- **PATCH_DUAL_HEAD_README.md** - Architecture overview
+- **CLIP_ARCHITECTURE.md** - CLIP integration details
+- **PATCH_EXTRACTION_EXPLAINED.md** - How patches work
+- **LOSS_FUNCTION_GUIDE.md** - Loss function comparison
+- **TENSORBOARD_QUICKSTART.md** - Monitoring guide
+- **SPEED_OPTIMIZATION_GUIDE.md** - Training speedup tips
+- **EXPERIMENT_EVOLUTION.md** - Design decisions and evolution
+
+---
+
+## Testing
+
+### Run Tests
+
+```bash
+# Architecture tests
+bash scripts/run_tests.sh
+
+# CLIP verification (4 comprehensive tests)
+bash scripts/verify_clip.sh
+```
+
+### Verification Tests
+
+1. **Ground Truth Similarity** - Compare model vs real CLIP embeddings
+2. **Embedding Diversity** - Check variance and pairwise distances
+3. **Temporal Consistency** - Measure frame-to-frame changes
+4. **Train/Val Difference** - Detect overfitting patterns
+
+**Current Score:** 4/8 (embeddings are semantically meaningful but show overfitting)
+
+---
 
 ## Citation
 
-If you use this code in your research, please cite:
+If you use this code, please cite:
 
 ```bibtex
-@misc{hnerv_clip2025,
-  title={HNeRV with CLIP Embedding Prediction: Learning Semantic Video Representations},
-  author={Your Name},
-  year={2025},
-  url={https://github.com/AlanjyHuang/HNeRV}
+@article{hnerv2023,
+  title={HNeRV: A Hybrid Neural Representation for Videos},
+  author={Chen, Hao and others},
+  journal={CVPR},
+  year={2023}
 }
 ```
 
+---
+
 ## License
 
-[Specify your license here]
+This project is for research purposes. See original HNeRV license.
 
-## Acknowledgments
+---
 
-- Original HNeRV architecture
-- OpenAI CLIP for semantic embeddings
-- PyTorch team
+## Contributing
+
+Contributions are welcome! Please:
+- Open issues for bugs or questions
+- Submit pull requests for improvements
+- Share your experimental results
+
+---
+
+## Related Work
+
+- [HNeRV](https://github.com/haochen-rye/HNeRV) - Original implementation
+- [CLIP](https://github.com/openai/CLIP) - OpenAI's CLIP model
+- [NeRF](https://www.matthewtancik.com/nerf) - Neural Radiance Fields
+
+---
 
 ## Contact
 
-For questions or issues, please open a GitHub issue or contact [your email].
+**Author:** Alan Huang  
+**Email:** ah212@rice.edu  
+**GitHub:** [@AlanjyHuang](https://github.com/AlanjyHuang)
+
+---
+
+## Acknowledgments
+
+- Chen et al. for the HNeRV architecture
+- OpenAI for CLIP embeddings
+- PyTorch team for the framework
+
+---
+
+**Status:** Active Research Project  
+**Last Updated:** December 2025
