@@ -2,3 +2,4 @@ checkpoints/
 data/
 output/
 .DS_Store
+*.png
