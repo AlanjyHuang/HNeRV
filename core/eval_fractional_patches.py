@@ -128,8 +128,10 @@ def evaluate_fractional_positions(model, dataset, device, frame_indices, fractio
     patch_h = dataset.patch_h
     patch_w = dataset.patch_w
     
-    print(f"\nEvaluating {len(frame_indices)} frames at {len(fractional_positions)} positions each")
-    print(f"Patch size: {patch_h}x{patch_w}")
+    num_frames = len(frame_indices)
+    num_positions = len(fractional_positions)
+    print("\nEvaluating {} frames at {} positions each".format(num_frames, num_positions))
+    print("Patch size: {}x{}".format(patch_h, patch_w))
     
     with torch.no_grad():
         for frame_idx in tqdm(frame_indices, desc="Evaluating frames"):
@@ -202,16 +204,16 @@ def generate_test_positions(dataset):
     
     # 1. Regular patch centers (what the model was trained on)
     print("\nGenerating test positions:")
-    print(f"  Grid: {num_patches_h}x{num_patches_w}")
+    print("  Grid: {}x{}".format(num_patches_h, num_patches_w))
     for row in range(num_patches_h):
         for col in range(num_patches_w):
             y_start = row * patch_h
             x_start = col * patch_w
             norm_x = (x_start + patch_w / 2) / frame_width
             norm_y = (y_start + patch_h / 2) / frame_height
-            positions.append((norm_x, norm_y, f'center_{row}_{col}'))
+            positions.append((norm_x, norm_y, 'center_{}_{}'.format(row, col)))
     
-    print(f"  - {len(positions)} patch centers (trained)")
+    print("  - {} patch centers (trained)".format(len(positions)))
     
     # 2. Middle positions between horizontally adjacent patches
     mid_positions_start = len(positions)
@@ -222,7 +224,7 @@ def generate_test_positions(dataset):
             x_start = col * patch_w
             norm_x = (x_start + patch_w) / frame_width  # Right edge = left edge of next patch
             norm_y = (y_start + patch_h / 2) / frame_height
-            positions.append((norm_x, norm_y, f'mid_h_{row}_{col}'))
+            positions.append((norm_x, norm_y, 'mid_h_{}_{}'.format(row, col)))
     
     # 3. Middle positions between vertically adjacent patches
     for row in range(num_patches_h - 1):
@@ -232,9 +234,9 @@ def generate_test_positions(dataset):
             x_start = col * patch_w
             norm_x = (x_start + patch_w / 2) / frame_width
             norm_y = (y_start + patch_h) / frame_height  # Bottom edge = top edge of next patch
-            positions.append((norm_x, norm_y, f'mid_v_{row}_{col}'))
+            positions.append((norm_x, norm_y, 'mid_v_{}_{}'.format(row, col)))
     
-    print(f"  - {len(positions) - mid_positions_start} middle positions (untrained)")
+    print("  - {} middle positions (untrained)".format(len(positions) - mid_positions_start))
     
     # 4. Corner positions (between 4 patches)
     corner_positions_start = len(positions)
@@ -244,10 +246,10 @@ def generate_test_positions(dataset):
             x_start = col * patch_w
             norm_x = (x_start + patch_w) / frame_width
             norm_y = (y_start + patch_h) / frame_height
-            positions.append((norm_x, norm_y, f'corner_{row}_{col}'))
+            positions.append((norm_x, norm_y, 'corner_{}_{}'.format(row, col)))
     
-    print(f"  - {len(positions) - corner_positions_start} corner positions (untrained)")
-    print(f"  Total: {len(positions)} positions")
+    print("  - {} corner positions (untrained)".format(len(positions) - corner_positions_start))
+    print("  Total: {} positions".format(len(positions)))
     
     return positions
 
@@ -293,9 +295,9 @@ def main():
     print("="*80)
     print("FRACTIONAL PATCH POSITION EVALUATION")
     print("="*80)
-    print(f"Device: {device}")
-    print(f"Model: {args.weight}")
-    print(f"Data: {args.data_path}")
+    print("Device: {}".format(device))
+    print("Model: {}".format(args.weight))
+    print("Data: {}".format(args.data_path))
     
     # Create output directory
     os.makedirs(args.out, exist_ok=True)
@@ -309,10 +311,10 @@ def main():
     args.data_split = None
     dataset = PatchVideoDataSet(args)
     
-    print(f"Video: {len(dataset.video)} frames")
-    print(f"Frame size: {dataset.frame_height}x{dataset.frame_width}")
-    print(f"Patch grid: {dataset.num_patches_h}x{dataset.num_patches_w}")
-    print(f"Patch size: {dataset.patch_h}x{dataset.patch_w}")
+    print("Video: {} frames".format(len(dataset.video)))
+    print("Frame size: {}x{}".format(dataset.frame_height, dataset.frame_width))
+    print("Patch grid: {}x{}".format(dataset.num_patches_h, dataset.num_patches_w))
+    print("Patch size: {}x{}".format(dataset.patch_h, dataset.patch_w))
     
     # Load model
     print("\n" + "="*80)
@@ -328,7 +330,7 @@ def main():
         model.load_state_dict(checkpoint)
     
     model.eval()
-    print(f"Model loaded from: {args.weight}")
+    print("Model loaded from: {}".format(args.weight))
     
     # Generate test positions
     print("\n" + "="*80)
@@ -341,7 +343,7 @@ def main():
     total_frames = len(dataset.video)
     frame_indices = list(range(0, total_frames, args.frame_stride))[:args.num_frames]
     
-    print(f"\nTesting {len(frame_indices)} frames: {frame_indices}")
+    print("\nTesting {} frames: {}".format(len(frame_indices), frame_indices))
     
     # Evaluate
     print("\n" + "="*80)
@@ -356,7 +358,7 @@ def main():
     # Save detailed results
     csv_path = os.path.join(args.out, 'fractional_positions_detailed.csv')
     df.to_csv(csv_path, index=False)
-    print(f"\nDetailed results saved to: {csv_path}")
+    print("\nDetailed results saved to: {}".format(csv_path))
     
     # Analyze results by position type
     print("\n" + "="*80)
@@ -398,7 +400,7 @@ def main():
     # Save category summary
     summary_path = os.path.join(args.out, 'fractional_positions_summary.csv')
     category_summary.to_csv(summary_path)
-    print(f"\nSummary saved to: {summary_path}")
+    print("\nSummary saved to: {}".format(summary_path))
     
     # Calculate degradation from trained centers
     trained_psnr = df[df['category'] == 'trained_center']['psnr'].mean()
@@ -407,9 +409,9 @@ def main():
     print("\n" + "="*80)
     print("GENERALIZATION ANALYSIS")
     print("="*80)
-    print(f"\nBaseline (Trained Centers):")
-    print(f"  PSNR: {trained_psnr:.4f} dB")
-    print(f"  SSIM: {trained_ssim:.4f}")
+    print("\nBaseline (Trained Centers):")
+    print("  PSNR: {:.4f} dB".format(trained_psnr))
+    print("  SSIM: {:.4f}".format(trained_ssim))
     
     for category in ['untrained_middle_h', 'untrained_middle_v', 'untrained_corner']:
         if category in df['category'].values:
@@ -419,9 +421,9 @@ def main():
             psnr_drop = trained_psnr - cat_psnr
             ssim_drop = trained_ssim - cat_ssim
             
-            print(f"\n{category.replace('untrained_', '').replace('_', ' ').title()}:")
-            print(f"  PSNR: {cat_psnr:.4f} dB (Δ {psnr_drop:+.4f} dB)")
-            print(f"  SSIM: {cat_ssim:.4f} (Δ {ssim_drop:+.4f})")
+            print("\n{}:".format(category.replace('untrained_', '').replace('_', ' ').title()))
+            print("  PSNR: {:.4f} dB (Δ {:+.4f} dB)".format(cat_psnr, psnr_drop))
+            print("  SSIM: {:.4f} (Δ {:+.4f})".format(cat_ssim, ssim_drop))
     
     print("\n" + "="*80)
     print("Evaluation complete!")
